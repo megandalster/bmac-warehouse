@@ -1,24 +1,19 @@
 <?PHP
 /*
- * Copyright 2012 by Hartley Brody, Richardo Hopkins, Nicholas Wetzel, and 
- * Allen Tucker. This program is part of Homerestore, which is free software.
+ * Copyright 2014 by Allen Tucker. 
+ * This program is part of Homerestore, which is free software.
  * It comes with absolutely no warranty.  You can redistribute and/or
  * modify it under the terms of the GNU Public License as published
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
 */
 /*
- *	volunteerForm.inc
- *  a form for a volunteer to be added or edited in the database
+ *	personForm.inc
+ *  a form for a person to be added or edited in the database
  *	@author Allen Tucker
- *	@version 4/1/2012
+ *	@version 12/29/2014
  */
-
-if ($_SESSION['access_level']==0) {
-    echo('<p><strong>New Volunteer Application Form</strong><br />');
-	echo('Please provide some basic information about yourself and your interests in Second Helpings.' .
-		 ' When you are finished, hit <b>Submit</b> at the bottom of this page.');
-}
-else if($_SESSION['access_level']==1)
+echo "session access level = ".$_SESSION['access_level'];
+if($_SESSION['access_level']<3)
     if ($_SESSION['_id']!=$person->get_id()){
 		echo("<p id=\"error\">You do not have sufficient permissions to edit this user.</p>");
 		include('footer.inc');
@@ -26,18 +21,18 @@ else if($_SESSION['access_level']==1)
 		die();
 	}
 	else {
-		echo('<p><strong>Volunteer Information Form</strong><br />');
+		echo('<p><strong>person Information Form</strong><br />');
 	    echo('Here you can edit your own information in the database.' .
 	    	 '<br>When you are finished, hit <b>Submit</b> at the bottom of this page.');
 	}
-else // $_SESSION['access_level']>=2
+else // $_SESSION['access_level']==3
 	if ($id=='new') {
-	  echo('<p><strong>Volunteer Input Form</strong><br />');
-	  echo('Here you can add a new volunteer to the database. </p>');
+	  echo('<p><strong>person Input Form</strong><br />');
+	  echo('Here you can add a new person to the database. </p>');
     }
     else {
-	   echo('<p><strong>Volunteer Information Form</strong><br />');
-	   echo('Here you can edit, delete, or reset the password for a volunteer.</p><p>');
+	   echo('<p><strong>person Information Form</strong><br />');
+	   echo('Here you can edit, delete, or reset the password for a person.</p><p>');
     }
 
 ?>
@@ -70,7 +65,7 @@ else // $_SESSION['access_level']>=2
 			foreach ($states as $st) {
 				echo "<option value='" . $st . "' ";
                 if($person->get_state() == $st ) echo("SELECTED");
-                else if ($id == "new" && $st =="SC") echo("SELECTED");
+                else if ($id == "new" && $st =="WA") echo("SELECTED");
                 echo ">" . $st . "</option>";
 			}
 		?>
@@ -86,90 +81,32 @@ else // $_SESSION['access_level']>=2
 		<td>Secondary Phone:</td><td><input type="text" name="phone2" MAXLENGTH=12 tabindex=8 value="<?PHP echo $person->get_phone2()?>"></td></tr>
 		<tr><td>Email:</td><td><input type="text" name="email" size="40" tabindex=9 value="<?PHP echo($person->get_email())?>"></td></tr>
 
-
-       <tr><td>Birthday:</td><td>
-            <?PHP 
-            	$mm = substr($person->get_birthday(),3,2);
-            	$dd = substr($person->get_birthday(),6,2);
-            	$yy = substr($person->get_birthday(),0,2);
-            	select_date($mm,$dd,$yy, "birthday_Month", "birthday_Day", "birthday_Year");
-            ?>
-        </td><td>Start Date:</td><td>
-		<?PHP 
-            	$mm = substr($person->get_start_date(),3,2);
-            	$dd = substr($person->get_start_date(),6,2);
-            	$yy = substr($person->get_start_date(),0,2);
-            	select_date($mm,$dd,$yy, "startdate_Month", "startdate_Day", "startdate_Year"); 
-        ?>
-		</td></tr>
 </table>
 </fieldset>
 <?PHP
     
 	echo ('<br>&nbsp;&nbsp;Status: ');
     echo('<select name="status">');
- //   echo ('<option value=""></option>');
-    echo ('<option value="applicant"');if ($person->get_status()=='applicant') echo (' SELECTED'); echo('>applicant</option>');
-    if ($_SESSION['access_level'] > 1) {
-      echo ('<option value="active"');if ($person->get_status()=='active') echo (' SELECTED'); echo('>active</option>');
-	  echo ('<option value="on-leave"');if ($person->get_status()=='on-leave') echo (' SELECTED'); echo('>on leave</option>');
-	  echo ('<option value="former"');if ($person->get_status()=='former') echo (' SELECTED'); echo('>former</option>');
-    }
+    echo ('<option value=""></option>');
+    echo ('<option value="active"');if ($person->get_status()=='active') echo (' SELECTED'); echo('>active</option>');
+	echo ('<option value="on-leave"');if ($person->get_status()=='on-leave') echo (' SELECTED'); echo('>on leave</option>');
+	echo ('<option value="former"');if ($person->get_status()=='former') echo (' SELECTED'); echo('>former</option>');
 	echo('</select>');
 	
-	$st = implode(',',$person->get_type());
-    $types = array('driver'=>'Driver', 'floater'=>'Floater', 'warehouse'=>'Warehouse', 'pricer' => "Pricer",
-                   'register'=>'Register', 'manager'=>"Manager");
-	echo('<p>Role(s)');
+	$st = $person->get_type();
+    $types = array('staff' => "Warehouse Staff", 'office'=>'Office Staff', 'manager'=>"Foodbank Direcxtor");
+	echo('<p>Type');
 	echo('<span style="font-size:x-small;color:FF0000">*</span>: ');
 
     foreach ($types as $key=>$value) {
-    	echo ('<input type="checkbox" name="type[]" value=' . $key);
+    	echo ('<input type="radio" name="type" value=' . $key);
     	if (strpos($st,$key)!==false) echo(' CHECKED');
     	echo ('>' . $value . '&nbsp;&nbsp;');
     }
 
 
-    echo "</p><fieldset id='availability'><legend>Availability (Schedule):</strong> </legend><table>".
-		"<tr><td> &nbsp;&nbsp;</td><td>Mon&nbsp;&nbsp;</td><td>Tue&nbsp;&nbsp;</td><td>Wed&nbsp;&nbsp;</td>".
-		"<td>Thu&nbsp;&nbsp;</td><td>Fri&nbsp;&nbsp;</td><td>Sat&nbsp;&nbsp;</td><td>Sun</td></tr>";
-    $weeks = array('1'=>'1st' , '2'=>'2nd', '3'=>'3rd', '4'=>'4th', '5'=>'5th' );
-    $days = array('Mon', 'Tue', 'Wed' , 'Thu', 'Fri', 'Sat', 'Sun');
-    $person_availability = implode(',',$person->get_availability());
-
-    	foreach ($weeks as $weekno => $weekvalue) {
-       		echo ('<tr><td>'. $weekvalue . '</td>');
-       		foreach ($days as $day) {
-       	  		$realkey = $day . ":". $weekno;
-       	  		echo ('<td><input type="checkbox" name="availability[]" value=' . $realkey);
-    	  		if (in_array($day.":".$weekno, $person->get_availability())) echo(' CHECKED');
-    	  		echo ('></td>');
-       		}
-       		echo ('</tr>');
-    	}
-    
-    echo "</table></fieldset><p>";
-
-    
-		  echo('<p>License no (drivers only): ');
-	      echo('<input type="text" name="license_no" value="'.$person->get_license_no().'">');
-	   
-	      echo('<br>License state: <select name="license_state" tabindex=5>');
-	      foreach ($states as $st) {
-				echo "<option value='" . $st . "' ";
-                if($person->get_license_state() == $st ) echo("SELECTED");
-                else if ($id == "new" && $st =="SC") echo("SELECTED");
-                echo ">" . $st . "</option>";
-			}
-	      echo('</select>');
-	   
-	      echo('&nbsp;&nbsp;License Expiration: ');
-	      		$mm = substr($person->get_license_expdate(),3,2);
-            	$dd = substr($person->get_license_expdate(),6,2);
-            	$yy = substr($person->get_license_expdate(),0,2);
-          select_date($mm,$dd,$yy, "license_expdate_Month", "license_expdate_Day", "license_expdate_Year");
-	     
-		  echo('<p>Notes:<br />');
+    echo "</p>";
+	echo('<p>Notes:<br />');
 	      echo('<textarea name="notes" rows="2" cols="60">');
 	      echo($_POST['notes']);
 	      echo('</textarea>');
@@ -179,18 +116,16 @@ else // $_SESSION['access_level']>=2
 		  if ($_SESSION['access_level']==0)
 		  	 echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete this application.<br /><br />');
 		  else if ($id=="new")
-		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to add this new volunteer.<br /><br />');
+		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to add this new person.<br /><br />');
 		  else
 		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete these changes.<br /><br />');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
 			echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
-				'<input type="submit" value="Delete" name="Delete Entry"> to delete this volunteer from the database. <br />' .
+				'<input type="submit" value="Delete" name="Delete Entry"> to delete this person from the database. <br />' .
 				'<input type="checkbox" name="reset_pass" value="RESET"> Check this box and then hit ' .
-				'<input type="submit" value="Reset Password" name="Reset Password"> to reset this volunteer\'s password.</p>');
-		}
-		?>
+				'<input type="submit" value="Reset Password" name="Reset Password"> to reset this person\'s password.</p>');
+	}
 
-<?PHP
 function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
 		$months = array('','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
         echo('<select name='.$month_name.'><option value=""></option>');

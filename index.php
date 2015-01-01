@@ -24,12 +24,12 @@
 			<?PHP include('header.php');?>
 			<div id="content">
 				<?PHP
-					include_once('database/dbVolunteers.php');
-     				include_once('domain/Volunteer.php');
+					include_once('database/dbPersons.php');
+     				include_once('domain/Person.php');
 						
      				// include_once('database/dbLog.php');
      				if($_SESSION['_id']!="guest"){
-     				    $person = retrieve_dbVolunteers($_SESSION['_id']);
+     				    $person = retrieve_dbPersons($_SESSION['_id']);
      					$first_name = $person->get_first_name();
      					echo "<p>Welcome, ".$first_name.", to <i>Homerestore</i>! ";
      				}
@@ -42,7 +42,7 @@
 					/*
 					 * Check type of person, and display home page based on that.
 					 * level 0: General public, view and edit on-line application
-					 * level 1: Volunteers, helpers, and subs: view today's route, upcoming driver schedule
+					 * level 1: Persons, helpers, and subs: view today's route, upcoming driver schedule
 					 * level 2: Day Captains: view this week's route data
 					 * level 3: Coordinators: view weekly and monthly reports, export data
 					*/
@@ -72,7 +72,7 @@
 						 	else if((md5($_POST['_rp_old'])==$person->get_password()) && ($_POST['_rp_newa']==$_POST['_rp_newb'])){
 						 		$newPass = md5($_POST['_rp_newa']);
 						 		$person->set_password($newPass); 
-						 		update_dbVolunteers($person);
+						 		update_dbPersons($person);
 						 	}
 						 }
 					}

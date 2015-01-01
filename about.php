@@ -23,27 +23,26 @@
 			<div id="content">
 				<p><strong>Background</strong><br /><br />
 				  
-	      		<i>Homerestore</i> is a web-based truck and volunteer scheduling system developed for the <a href="http://habitathhi.org/restore.htm" target="_blank">Habitat for Humanity Resale Store in Bluffton, South Carolina</a>. It is
-				based on software developed in 2013 by four Bowdoin College students and an instructor.  That software was originally implemented in 2012 for the Second Helpings food rescue organization. More information about the original 
-				project can be found in an article published in 
-				<a href="http://www.islandpacket.com/2013/06/14/2541912/second-helpings-volunteers-get.html" TARGET="_BLANK">The Island Packet</a>.  
+	      		<i>BMAC-Warehouse</i> is a web-based warehouse inventory management system developed by Whitman College students and an instructor 
+	      		for the <a href="http://bmacww.org" target="_blank">Blue Mountain Action Council in Walla Walla, WA</a>. It is
+				based on software developed for other non-profits by other student teams during the period 2008-2013.    
  
 				<p>This project is supported by <a href="http://npfi.org" target="_blank">
-				NPFI</a> and is inspired by the <a href="http://www.hfoss.org" target="_blank">Humanitarian Free and Open Source (HFOSS) Project</a>, which aims to "build a community of academic computing departments,
+				NPFI</a> and is inspired by the <a href="http://www.hfoss.org" target="_blank">Humanitarian Free and Open Source (HFOSS) Project</a>, 
+				which aims to "build a community of academic computing departments,
 				IT corporations, and local and global humanitarian and community organizations dedicated to
 				building and using Free and Open Source Software to benefit humanity."
 				<p>
 				
  				<p><b>System Access and Reuse</b><br /><br />
-				Because <i>Homerestore</i> must protect the privacy of individual volunteers and donors, access to the system by non-volunteers is
-				limited.  If you are a volunteer and have forgotten your Username or Password, please contact the <a href="mailto:aliciwelch@habitathhi.org">Store Manager</a>.
+				Because <i>BMAC-Warehouse</i> must protect the privacy of individual food donors and customers, access to the system by non-BMAC staff members is
+				prohibited.  If you are a BMAC staff member and have forgotten your Username or Password, please contact the <a href="mailto:jeffm@bmacww.org">Foodbank Director</a>.
                 </p>
-				<p> <i>Homerestore</i> is free and open source software (see <a href="http://code.google.com/p/hab-homerestore/" target="_blank">http://code.google.com/p/hab-homerestore/</a>).  
+				<p> <i>BMAC-Warehouse</i> is free and open source software (see <a href="http://code.google.com/p/bmac-warehouse/" target="_blank">http://code.google.com/p/bmac-warehouse/</a>).  
 				From this site, its source code can be freely downloaded and adapted
-				 to fit the truck and volunteer scheduling needs of other non-profits.  For more information about the capabilities or adaptability of Homerestore to other settings, please contact
+				 to fit the warehouse inventory managemenet needs of other non-profits.  For more information about the capabilities or adaptability of <i>BMAC-Warehouse</i></i> to other settings, please contact
 either <a href="mailto:allen@npfi.org">Allen Tucker</a> or visit the website <a href="http://npfi.org" target="_blank">http://npfi.org</a>.
 				</p>
-				<!-- below is the footer that we're using currently-->
 				
 			</div>
 		<?PHP include('footer.inc');?>

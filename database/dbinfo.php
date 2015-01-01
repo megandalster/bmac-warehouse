@@ -15,8 +15,8 @@
 
 function connect() {
 	$host = "localhost";
-	$database = "bmacwhdb";
-	$user = "bmacwhdb";
+	$database = "bmacwarehousedb";
+	$user = "bmacwarehousedb";
 	$password = "math204";
 
 	$connected = mysql_connect($host,$user,$password);

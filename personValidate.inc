@@ -1,7 +1,7 @@
 <?PHP
 /*
- * Copyright 2012 by Hartley Brody, Richardo Hopkins, Nicholas Wetzel, and 
- * Allen Tucker. This program is part of Homerestore, which is free software.
+ * Copyright 2014 by Allen Tucker. 
+ * This program is part of Homerestore, which is free software.
  * It comes with absolutely no warranty.  You can redistribute and/or
  * modify it under the terms of the GNU Public License as published
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
@@ -15,20 +15,11 @@ function validate_form($id){
 	if($_POST['address']==null) $errors[] = 'Please enter an address';
 	if($_POST['state']==null) $errors[] = 'Please enter a state';
 	if(($_POST['zip'] != strval(intval($_POST['zip']))) || ($_POST['zip']==null) || (strlen($_POST['zip'])!=5)) $errors[] = 'Please enter a valid zip code';
-	if ($_SESSION['access_level']==0 && ($_POST['type']==null || !in_array('applicant',$_POST['type'])))
-		$_POST['type'][] = 'applicant';
-	if($_POST['type']==null && $_SESSION['access_level']>=1) $errors[] = 'Please select a Role';
-	if ($_POST['type']!=null && $_SESSION['access_level']<=1 && (in_array('teamcaptain',$_POST['type']) || in_array('boardmember',$_POST['type']) || in_array('coordinator',$_POST['type'])))
-		$errors[] = "Sorry, you can't promote yourself to a higher role.";
+	if($_POST['type']==null && $_SESSION['access_level']>=1) $errors[] = 'Please select a Type';
+	if ($_SESSION['access_level']<3 && $_POST['type']=='manager')
+		$errors[] = "Sorry, you can't promote yourself to a mamager.";
 	if($_POST['phone2']!=null && !valid_phone($_POST['phone2'])) $errors[] = 'Please enter a valid secondary phone number (10 digits: ###-###-####)';
 	if(!valid_email($_POST['email']) && $_POST['email']!=null) $errors[] = "Please enter a valid email";
-	if(($_POST['DateOfBirth_Month']!=="" || $_POST['DateOfBirth_Day']!=="") && $_POST['DateOfBirth_Year']==="")
-		$birthday = "XX-".$_POST['DateOfBirth_Month'].'-'.$_POST['DateOfBirth_Day'];
-	else
-		$birthday = $_POST['DateOfBirth_Year'].'-'.$_POST['DateOfBirth_Month'].'-'.$_POST['DateOfBirth_Day'];
-	if (strlen($birthday)>2 && strlen($birthday)<8) $errors[] = 'Please select a valid birthday';
-	$start_date = $_POST['DateOfStart_Year'].'-'.$_POST['DateOfStart_Month'].'-'.$_POST['DateOfStart_Day'];
-	if (strlen($start_date)>2 && strlen($start_date)<8) $errors[] = 'Please select a valid start date';
 	return $errors;
 }
 
