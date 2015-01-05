@@ -28,10 +28,10 @@
 				based on software developed for other non-profits by other student teams during the period 2008-2013.    
  
 				<p>This project is supported by <a href="http://npfi.org" target="_blank">
-				NPFI</a> and is inspired by the <a href="http://www.hfoss.org" target="_blank">Humanitarian Free and Open Source (HFOSS) Project</a>, 
-				which aims to "build a community of academic computing departments,
-				IT corporations, and local and global humanitarian and community organizations dedicated to
-				building and using Free and Open Source Software to benefit humanity."
+				The Non-Profit FOSS Institute (NPFI)</a>, which "aims to build communities that develop and support customized 
+				free and open source software (FOSS) applications that directly benefit the missions of humanitarian 
+				non-profit organizations."  NPFI is inspired by the <a href="http://www.hfoss.org" target="_blank">Humanitarian 
+				Free and Open Source (HFOSS) Project</a>, which has more global humanitarian goals.
 				<p>
 				
  				<p><b>System Access and Reuse</b><br /><br />
@@ -40,8 +40,10 @@
                 </p>
 				<p> <i>BMAC-Warehouse</i> is free and open source software (see <a href="http://code.google.com/p/bmac-warehouse/" target="_blank">http://code.google.com/p/bmac-warehouse/</a>).  
 				From this site, its source code can be freely downloaded and adapted
-				 to fit the warehouse inventory managemenet needs of other non-profits.  For more information about the capabilities or adaptability of <i>BMAC-Warehouse</i></i> to other settings, please contact
-either <a href="mailto:allen@npfi.org">Allen Tucker</a> or visit the website <a href="http://npfi.org" target="_blank">http://npfi.org</a>.
+				 to fit the warehouse inventory managemenet needs of other non-profits.  
+				 For more information about the capabilities or adaptability of <i>BMAC-Warehouse</i></i> to other settings, please 
+				 contact either <a href="mailto:allen@npfi.org">Allen Tucker</a> or visit the website 
+				 <a href="http://npfi.org" target="_blank">http://npfi.org</a>.
 				</p>
 				
 			</div>

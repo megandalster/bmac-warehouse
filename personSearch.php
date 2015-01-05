@@ -70,21 +70,23 @@
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
                             $allEmails = array(); // for printing all emails
-                            foreach ($result as $vol) {
-								echo "<tr><td><a href=personEdit.php?id=".$vol->get_id().">" . 
-									$vol->get_last_name() .  ", " . $vol->get_first_name() . "</td><td>" . 
-									$vol->get_nice_phone1() . "</td><td>" . 
-									$vol->get_email() . "</td><td>"; $allEmails[] = $vol->get_email();
+                            foreach ($result as $person) {
+								echo "<tr><td><a href=personEdit.php?id=".$person->get_id().">" . 
+									$person->get_last_name() .  ", " . $person->get_first_name() . "</td><td>" . 
+									$person->get_nice_phone1() . "</td><td>" . 
+									$person->get_email() . "</td><td>"; 
+									$allEmails[] = $person->get_email();
 								echo "</td></a></tr>";
 							}
+							echo '</table>';
+							echo "<br/><strong>Email these people:</strong> <br/>";
+	                        foreach($allEmails as $email)
+	                            if ($email!="")
+	                              echo $email . ", ";
 						}
-						echo '</table>';
+						
                         
-                        echo "<br/><strong>email these people:</strong> <br/>";
-                        if ($allEmails)
-                          foreach($allEmails as $email)
-                            if ($email!="")
-                              echo $email . ", ";
+                        
 						
 					}
 				?>

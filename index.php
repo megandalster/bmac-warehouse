@@ -41,10 +41,9 @@
 				if ($person){
 					/*
 					 * Check type of person, and display home page based on that.
-					 * level 0: General public, view and edit on-line application
-					 * level 1: Persons, helpers, and subs: view today's route, upcoming driver schedule
-					 * level 2: Day Captains: view this week's route data
-					 * level 3: Coordinators: view weekly and monthly reports, export data
+					 * level 1: Office staff
+					 * level 2: Warehouse staff
+					 * level 3: Foodbank Director
 					*/
                     //DEFAULT PASSWORD CHECK
 					if (md5($person->get_id())==$person->get_password()){
@@ -76,7 +75,7 @@
 						 	}
 						 }
 					}
-					echo "<p>Please select an item from the menu above to begin a scheduling activity.";
+					echo "<p>Last week's warehouse activity: shipments and receipts.";
 				}
 				?>
 				
