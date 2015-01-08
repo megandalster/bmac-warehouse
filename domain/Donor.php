@@ -47,37 +47,9 @@ class Donor {
         $this->phone1 		= $phone1;
         $this->email		= $email;
         $this->notes 		= $notes;
-        $coords = $this->getLatLong($address.", ".$city.", ".$state);
- 		if (count($coords)>0) {		
- 			$this->lat = $coords['lat'];
- 			$this->lng = $coords['lng'];
- 		}
- 		else {
- 			$this->lat = 0.0;
- 			$this->lng = 0.0;
- 		}
+        $this->lat = 0.0;
+ 		$this->lng = 0.0;
     }
-// ------------------------------------------
-// converts a string with a stret address
-// into a couple of lat, long coordinates.
-// ------------------------------------------
-function getLatLong($address){
-	$address = str_replace(' ','+',$address);
-	$url='https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&sensor=false';
-	$source = file_get_contents($url);
-	$jsondata = json_decode($source,true);
-	$lat = $jsondata["results"][0]["geometry"]["location"]["lat"];
-	$lng = $jsondata["results"][0]["geometry"]["location"]["lng"];
-	
-//	echo "we are here".$lat.$lng;
-	$LatLng = array(
-        'lat' => $lat,
-        'lng' => $lng,
-    );
-
-    return $LatLng;
-}
-
     //getter functions
     function get_id() {
         return $this->id;

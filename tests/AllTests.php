@@ -14,17 +14,9 @@
 class AllTests extends GroupTest{
 	
  	  function AllTests() {
-        $this->addTestFile(dirname(__FILE__).'/testDonor.php');
-		$this->addTestFile(dirname(__FILE__).'/testDonationLog.php');
-        $this->addTestFile(dirname(__FILE__).'/testDonation.php');
-        $this->addTestFile(dirname(__FILE__).'/testVolunteer.php');
-        //$this->addTestFile(dirname(__FILE__).'/testDonationReport.php');
-     //   $this->addTestFile(dirname(__FILE__).'/testdbDonors.php');
-		$this->addTestFile(dirname(__FILE__).'/testdbDonationLogs.php');
-        $this->addTestFile(dirname(__FILE__).'/testdbDonations.php');
-        $this->addTestFile(dirname(__FILE__).'/testdbVolunteers.php');
-        //$this->addTestFile(dirname(__FILE__).'/testdbDonationReports.php');
-        
+        $this->addTestFile(dirname(__FILE__).'/testPerson.php');
+        $this->addTestFile(dirname(__FILE__).'/testdbPersons.php');
+         
         echo ("All tests complete");
  	  }
  }

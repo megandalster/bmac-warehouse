@@ -42,6 +42,12 @@ class Donation {
 	function get_id(){
 		return $this->id;
 	}
+	function get_id() {
+		return $this->id;
+	}
+	function get_date() {
+		return $this->date;
+	}
 	// return id in readable form
 	function get_pretty_id() {
 		$i = $this->id;

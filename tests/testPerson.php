@@ -1,7 +1,7 @@
 <?php
 /*
- * Copyright 2013 by Sawyer Bowman, Jim Garvey, Kevin Tabb, Nick Wetzel, and Allen
- * Tucker.  This program is part of Homeplate, which is free software.  It comes
+ * Copyright 2015 by ... and Allen
+ * Tucker.  This program is part of BMAC-Warehouse, which is free software.  It comes
  * with absolutely no warranty.  You can redistribute and/or modify it under the
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
@@ -15,7 +15,7 @@ class testPerson extends UnitTestCase {
         $person = new Person("Smith", "John", "1 Scarborough Head Rd","Walula", "WA", "99123", "8431112345", "", 
     				"jsmith@aol.com", "staff", "active", "", "");
                  
-        //testing getter functions
+        // testing getter functions
         $this->assertTrue($person->get_first_name() == "John");
         $this->assertTrue($person->get_last_name() == "Smith");
         $this->assertTrue($person->get_address() == "1 Scarborough Head Rd");
@@ -25,8 +25,6 @@ class testPerson extends UnitTestCase {
         $this->assertTrue($person->get_phone1() == "8431112345");
         $this->assertTrue($person->get_phone2() == "");
         $this->assertTrue($person->get_email() == "jsmith@aol.com");
-                 
-        // tests if the person is a warehouse staff member
         $this->assertTrue($person->is_type("staff"));
                   
         echo ("testPerson complete\n");

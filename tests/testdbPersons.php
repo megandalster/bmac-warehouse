@@ -1,7 +1,7 @@
 <?php
 /*
- * Copyright 2014 by Allen Tucker.  
- * This program is part of Homeplate, which is free software.  It comes
+ * Copyright 2015 by ... and Allen Tucker.  
+ * This program is part of BMAC-Warehouse, which is free software.  It comes
  * with absolutely no warranty.  You can redistribute and/or modify it under the
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
@@ -38,7 +38,7 @@ class testdbPersons extends UnitTestCase {
 		$this->assertEqual(retrieve_dbPersons($per1->get_id())->get_email(), "Hartley.Brody@gmail.com");
 		
 		//Test Update with a change of address
-		$per2 = new Person("Hopkins", "Richardo", "444 Park","Hilton Head", "SC", "29928", "1112345678", "", 
+		$per2 = new Person("Hopkins", "Richardo", "444 Park","Hilton Head", "SC", "29928", "1112345679", "", 
     				"milkywayw@gmail.com", "office", "active", "", "");
 		$this->assertTrue(update_dbPersons($per2));
 		$this->assertEqual(retrieve_dbPersons($per2->get_id())->get_address(), "444 Park");
