@@ -19,10 +19,6 @@
 session_start();
 session_cache_expire(30);
 
-include_once('database/dbDonationLogs.php');
-include_once('domain/DonationLog.php');
-include_once('database/dbDonations.php');
-include_once('domain/Donation.php');
 include_once('database/dbDonors.php');
 include_once('domain/Donor.php');
 

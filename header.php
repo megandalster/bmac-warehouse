@@ -32,7 +32,7 @@ h1 {padding-left: 0px; padding-right:165px;}
 		 */
 		//pages guests can view
 		$permission_array['index.php']=0;
-		$permission_array[' ersonEdit.php']=0;
+		$permission_array['personEdit.php']=0;
 		$permission_array['about.php']=0;
 		$permission_array['donationLogView.php']=1;
 		$permission_array['viewDonation1.php']=1;
@@ -48,14 +48,6 @@ h1 {padding-left: 0px; padding-right:165px;}
 		//check if they're at a valid page for their access level.
 		$current_page = substr($_SERVER['PHP_SELF'],1);
 		
-		//grab file name for associative tutorial linking
-		$current_file = basename($_SERVER['PHP_SELF']);
-		// donor edit PHP file has multiple help links so we must distinguish them via query variables
-		if($current_file == 'donorEdit.php'){
-			$query = $_SERVER['QUERY_STRING'];
-			$query == 'id=new' ? $current_file = 'donorForm.php' : $current_file = $current_file;
-		}
-
 		if($permission_array[$current_page]>$_SESSION['access_level']){
 			//in this case, the user doesn't have permission to view this page.
 			//we redirect them to the index page.
@@ -74,22 +66,22 @@ h1 {padding-left: 0px; padding-right:165px;}
 		echo('<a href="'.$path.'index.php">home</a>');
 		echo(' | <a href="about.php'.'">about</a>');
 		if ($_SESSION['access_level']==1) { // office staff
-			echo(' | <a href="'.$path.'donorSearch.php'.'">providers</a>');
-	    	echo(' | <a href="'.$path.'donorSearch.php'.'">customers</a>');
+			echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
+	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
 			echo(' | <a href="'.$path.'viewReports.php">reports</a>');		}
 		if($_SESSION['access_level']==2) {  // warehouse staff
 			echo(' | <a href="about.php'.'">about</a>');
-			echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">shipments</a>'); 
-			echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">receipts</a>'); 
-			echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">products</a>'); 
+			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
+			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
+			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
 		}
 	    if($_SESSION['access_level']==3) { // manager
-	        echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">shipments</a>'); 
-			echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">receipts</a>'); 
-			echo(' | <a href="' . $path . 'donationLogView.php?date='.$today.'">products</a>'); 
+	        echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
+			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
+			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
 			echo(' <br><a href="'.$path.'personSearch.php?area='.$_SESSION['_area'].'">staff</a>');
-	        echo(' | <a href="'.$path.'donorSearch.php'.'">providers</a>');
-	    	echo(' | <a href="'.$path.'donorSearch.php'.'">customers</a>');
+	        echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
+	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
 			echo(' | <a href="'.$path.'viewReports.php">reports</a>');	
 	    }
 	    echo(' | <a href="'.$path.'help.php?helpPage='.$current_file.'" target="_BLANK"><b>help</b></a>');

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2013 by Allen Tucker. 
+ * Copyright 2013 by ... and Allen Tucker. 
  * This program is part of BMAC-Warehouse, which is free software.  It comes with 
  * absolutely no warranty. You can redistribute and/or modify it under the terms 
  * of the GNU General Public License as published by the Free Software Foundation
