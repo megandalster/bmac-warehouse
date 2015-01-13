@@ -18,7 +18,7 @@ class testdbPersons extends UnitTestCase {
 		$per1 = new Person("Brody", "Hartley", "1 Scarborough Head Rd","Walla Walla", "WA", "99362", "1112345678", "", 
     				"Hartley.Brody@gmail.com", "staff", "active", "", "");
         $per2 = new Person("Hopkins", "Richardo", "2 Scarborough Head Rd","Walla Walla", "WA", "99362", "1112345679", "", 
-    				"milkywayw@gmail.com", "office", "active", "");
+    				"milkywayw@gmail.com", "office", "active", "", "");
         $per3 = new Person("Wetzel", "Nick", "3 Scarborough Head Rd","Walla Walla", "WA", "99362", "1112345680", "", 
     				"nwetzel41@gmail.com", "manager", "active", "", "");
         //Test inserts
