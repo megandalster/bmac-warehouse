@@ -32,7 +32,6 @@ h1 {padding-left: 0px; padding-right:165px;}
 		 */
 		//pages guests can view
 		$permission_array['index.php']=0;
-		$permission_array['personEdit.php']=0;
 		$permission_array['about.php']=0;
 		$permission_array['donationLogView.php']=1;
 		$permission_array['viewDonation1.php']=1;
@@ -42,7 +41,8 @@ h1 {padding-left: 0px; padding-right:165px;}
 		$permission_array['donorSearch.php']=2;
 		$permission_array['donorEdit.php']=2;
 		$permission_array['personSearch.php']=2;
-		// $permission_array['personEdit.php']=2;
+		$permission_array['personSearch.php']=2;
+		$permission_array['personEdit.php']=2;
 		$permission_array['viewReports.php']=2;
 		
 		//check if they're at a valid page for their access level.
@@ -68,7 +68,7 @@ h1 {padding-left: 0px; padding-right:165px;}
 		if ($_SESSION['access_level']==1) { // office staff
 			echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
 	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
-			echo(' | <a href="'.$path.'viewReports.php">reports</a>');		}
+			echo(' | <a href="'.$path.'personSearch.php">reports</a>');		}
 		if($_SESSION['access_level']==2) {  // warehouse staff
 			echo(' | <a href="about.php'.'">about</a>');
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
@@ -79,12 +79,12 @@ h1 {padding-left: 0px; padding-right:165px;}
 	        echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
-			echo(' <br><a href="'.$path.'personSearch.php?area='.$_SESSION['_area'].'">staff</a>');
+			echo(' <br><a href="'.$path.'personSearch.php?date='.$today.'">staff</a>');
 	        echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
 	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
-			echo(' | <a href="'.$path.'viewReports.php">reports</a>');	
+			echo(' | <a href="'.$path.'personSearch.php">reports</a>');	
 	    }
-	    echo(' | <a href="'.$path.'help.php?helpPage='.$current_file.'" target="_BLANK"><b>help</b></a>');
+	    echo(' | <a href="'.$path.'help.php?helpPage='.$current_page.'" target="_BLANK"><b>help</b></a>');
 	    echo(' | <a href="'.$path.'logout.php"> logout</a>');
 		echo "<br>";
 	}
