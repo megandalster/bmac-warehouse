@@ -1,8 +1,8 @@
 <?php
 class Shipment {
     private $customer_id;	  // id of customer receiving the shipment
-	private $funds_source; // id of funds source for this shipment
-	private $ship_date;     // date shipped yy-mm-dd
+	private $funds_source;  // id of funds source for this shipment
+	private $ship_date;     // date and time recorded yy-mm-dd:hh:mm
     private $ship_via;       // ÒBMACÓ, ÒCustomerÓ, ÒOtherÓ
     private $ship_items;     // array of product_id:units:weight triples
 	private $ship_rate;      // rate per pound for this shipment
