@@ -1,14 +1,13 @@
 <?php
 /*
- * Copyright 2013 by Sawyer Bowman, Jim Garvey, Kevin Tabb, Nick Wetzel, and Allen
- * Tucker.  This program is part of Homeplate, which is free software.  It comes
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker.  This program is part of BMAC-Warehouse, which is free software. It comes
  * with absolutely no warranty.  You can redistribute and/or modify it under the
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
  */
-
 /*
- * Run all the RMH Homeroom unit tests
+ * Run all the BMAC-Warehouse unit tests
  */
 
 class AllTests extends GroupTest{
@@ -19,7 +18,7 @@ class AllTests extends GroupTest{
         $this->addTestFile(dirname(__FILE__).'/testdbPersons.php');
         $this->addTestFile(dirname(__FILE__).'/testProvider.php');
         $this->addTestFile(dirname(__FILE__).'/testShipment.php');
-    //    $this->addTestFile(dirname(__FILE__).'/testContribution.php');
+        $this->addTestFile(dirname(__FILE__).'/testContribution.php');
         $this->addTestFile(dirname(__FILE__).'/testCustomer.php');        
          
         echo ("All tests complete");
