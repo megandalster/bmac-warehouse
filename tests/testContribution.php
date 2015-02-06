@@ -20,7 +20,7 @@ class testContribution extends UnitTestCase {
 		$this->assertTrue($contribution->get_receive_items() == "Cranapple Juice:100");
 		$this->assertTrue($contribution->get_notes() = "THIS IS A TEST");
                   
-        echo ("testproduct complete\n");
+        echo ("testContribution complete\n");
     }
 }
 
