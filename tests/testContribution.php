@@ -15,7 +15,7 @@ class testContribution extends UnitTestCase {
         $contribution = new Contribution("John Jones", "2015-2-5", "Cranapple Juice:100", "THIS IS A TEST");
                  
         // testing getter functions
-        $this->assertTrue($contribution->get_provder_id() == "John Jones");
+        $this->assertTrue($contribution->get_provider_id() == "John Jones");
 		$this->assertTrue($contribution->get_receive_date() == "2015-2-5");
 		$this->assertTrue($contribution->get_receive_items() == "Cranapple Juice:100");
 		$this->assertTrue($contribution->get_notes() = "THIS IS A TEST");
