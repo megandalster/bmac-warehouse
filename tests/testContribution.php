@@ -12,13 +12,14 @@ class testContribution extends UnitTestCase {
     function testContributionModule() {
              
     	//fake contribution to test
-        $contribution = new Contribution("John Jones", "15-02-05", array("Cranapple Juice:100"), "THIS IS A TEST");
+        $contribution = new Contribution("John Jones", "15-02-05", "cranberry sauce:40,peas:10", "THIS IS A TEST");
                  
         // testing getter functions
         $this->assertTrue($contribution->get_provider_id() == "John Jones");
 		$this->assertTrue($contribution->get_receive_date() == "15-02-05");
-		$this->assertTrue($contribution->get_receive_items() == array("Cranapple Juice:100"));
-		$this->assertTrue($contribution->get_notes() == "THIS IS A TEST");
+		// receive_items stored as an array, so make it into a string for comparison
+        $this->assertEqual(implode(',',$contribution->get_receive_items()), "cranberry sauce:40,peas:10");
+        $this->assertTrue($contribution->get_notes() == "THIS IS A TEST");
                   
         echo ("testContribution complete\n");
     }

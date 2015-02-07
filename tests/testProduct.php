@@ -13,7 +13,7 @@ class testProduct extends UnitTestCase {
              
     	//fake product to test
         $product = new product("Beverages: Apple Juice", "321", "donation","41", "0.08", "15-02-02", "1000", "100", 
-    				"15-02:1000:41", "1000:41", "active", "15-02", ",");
+    				"15-02:1000:41,15-01:500:19", "1000:41", "active", "15-02", ",");
                  
         // testing getter functions
         $this->assertTrue($product->get_product_id() == "Beverages: Apple Juice");
@@ -24,7 +24,8 @@ class testProduct extends UnitTestCase {
         $this->assertTrue($product->get_initial_date() == "15-02-02");
         $this->assertTrue($product->get_initial_stock() == "1000");
         $this->assertTrue($product->get_minimum_stock() == "100");
-        $this->assertTrue($product->get_history() == "15-02:1000:41");
+        // history stored as an array, so make it into a string for comparison
+        $this->assertEqual(implode(',',$product->get_history()), "15-02:1000:41,15-01:500:19");
         $this->assertTrue($product->get_current_stock() == "1000:41");
         $this->assertTrue($product->get_status() == "active");
         $this->assertTrue($product->get_inventory_date() == "15-02");

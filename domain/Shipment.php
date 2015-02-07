@@ -36,7 +36,9 @@ class Shipment {
 		$this->funds_source = $funds_source;
 		$this->ship_date = $ship_date;
 		$this->ship_via = $ship_via;
-		$this->ship_items = $ship_items;
+		$this->ship_items = array();
+		if ($ship_items!="")
+			$this->ship_items = explode(',',$ship_items);
 		$this->ship_rate = $ship_rate;
 		$this->total_weight = $total_weight;
 		$this->total_price = $total_price;

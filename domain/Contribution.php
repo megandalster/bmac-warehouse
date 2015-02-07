@@ -24,7 +24,9 @@ class Contribution {
 	function __construct($id, $receive_date, $receive_items, $notes){                
         $this->provider_id = $id;
         $this->receive_date = $receive_date;
-        $this->receive_items = $receive_items;
+        $this->receive_items = array();
+		if ($receive_items!="")
+			$this->receive_items = explode(',',$receive_items);
 		$this->notes = $notes;   
  
     }

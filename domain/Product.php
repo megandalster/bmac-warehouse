@@ -45,7 +45,9 @@ class Product {
         $this->initial_date = $initial_date;
         $this->initial_stock = $initial_stock;
         $this->minimum_stock = $minimum_stock;
-        $this->history = $history;
+        $this->history = array();
+		if ($history!="")
+			$this->history = explode(',',$history);
         $this->current_stock = $current_stock;
         $this->inventory_date = $inventory_date;
         $this->status = $status;    
