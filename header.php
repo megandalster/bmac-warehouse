@@ -66,22 +66,22 @@ h1 {padding-left: 0px; padding-right:165px;}
 		echo('<a href="'.$path.'index.php">home</a>');
 		echo(' | <a href="about.php'.'">about</a>');
 		if ($_SESSION['access_level']==1) { // office staff
-			echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
-	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
+			echo(' | <a href="'.$path.'providerSearch.php'.'">providers</a>');
+	    	echo(' | <a href="'.$path.'customerSearch.php'.'">customers</a>');
 			echo(' | <a href="'.$path.'personSearch.php">reports</a>');		}
 		if($_SESSION['access_level']==2) {  // warehouse staff
 			echo(' | <a href="about.php'.'">about</a>');
-			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
-			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
-			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
+			echo(' | <a href="' . $path . 'shipmentSearch.php?date='.$today.'">shipments</a>'); 
+			echo(' | <a href="' . $path . 'contributionSearch.php?date='.$today.'">receipts</a>'); 
+			echo(' | <a href="' . $path . 'productSearch.php?date='.$today.'">products</a>'); 
 		}
 	    if($_SESSION['access_level']==3) { // manager
-	        echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
-			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
-			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
+	        echo(' | <a href="' . $path . 'shipmentSearch.php?date='.$today.'">shipments</a>'); 
+			echo(' | <a href="' . $path . 'contributionSearch.php?date='.$today.'">receipts</a>'); 
+			echo(' | <a href="' . $path . 'productSearch.php?date='.$today.'">products</a>'); 
 			echo(' <br><a href="'.$path.'personSearch.php?date='.$today.'">staff</a>');
-	        echo(' | <a href="'.$path.'personSearch.php'.'">providers</a>');
-	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
+	        echo(' | <a href="'.$path.'providerSearch.php'.'">providers</a>');
+	    	echo(' | <a href="'.$path.'customerSearch.php'.'">customers</a>');
 			echo(' | <a href="'.$path.'personSearch.php">reports</a>');	
 	    }
 	    echo(' | <a href="'.$path.'help.php?helpPage='.$current_page.'" target="_BLANK"><b>help</b></a>');

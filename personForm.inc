@@ -21,18 +21,18 @@ if($_SESSION['access_level']<3)
 		die();
 	}
 	else {
-		echo('<p><strong>person Information Form</strong><br />');
+		echo('<p><strong>Staff Information Form</strong><br />');
 	    echo('Here you can edit your own information in the database.' .
 	    	 '<br>When you are finished, hit <b>Submit</b> at the bottom of this page.');
 	}
 else // $_SESSION['access_level']==3
 	if ($id=='new') {
-	  echo('<p><strong>person Input Form</strong><br />');
-	  echo('Here you can add a new person to the database. </p>');
+	  echo('<p><strong>Staff Input Form</strong><br />');
+	  echo('Here you can add a new staff member to the database. </p>');
     }
     else {
-	   echo('<p><strong>person Information Form</strong><br />');
-	   echo('Here you can edit, delete, or reset the password for a person.</p><p>');
+	   echo('<p><strong>Staff Information Form</strong><br />');
+	   echo('Here you can edit, delete, or reset the password for a staff member.</p><p>');
     }
 
 ?>
