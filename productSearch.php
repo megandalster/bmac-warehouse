@@ -9,8 +9,8 @@
  */
 /**
  * 
- * personSearch module for BMAC warehouse
- * @author Allen Tucker
+ * Product search module BMAC warehouse
+ * @author Noah Jensen
  * @version February 4, 2015
  */
 	session_start();
@@ -19,7 +19,7 @@
 <html>
 	<head>
 		<title>
-			Search for People
+			Search for Products
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -29,9 +29,9 @@
 			<div id="content">
 				<?PHP
 				// display the search form
-					echo('<p><a href="'.$path.'personEdit.php?id=new">Add new staff</a>');
+					echo('<p><a href="'.$path.'personEdit.php?id=new">Add new product</a>');
 					echo('<form method="post">');
-						echo('<p><strong>Search for staff:</strong>');
+						echo('<p><strong>Search for products:</strong>');
                         if( !array_key_exists('s_type', $_POST) ) $type = ""; else $type = $_POST['s_type'];
 						echo '<br><br>Type:<select name="s_type">';
 							echo '<option value=""'; if ($type=="") echo " SELECTED"; echo '>--all--</option>'; 
@@ -104,4 +104,5 @@
 		</div>
 	</body>
 </html>
+
 
