@@ -70,7 +70,6 @@ h1 {padding-left: 0px; padding-right:165px;}
 	    	echo(' | <a href="'.$path.'personSearch.php'.'">customers</a>');
 			echo(' | <a href="'.$path.'personSearch.php">reports</a>');		}
 		if($_SESSION['access_level']==2) {  // warehouse staff
-			echo(' | <a href="about.php'.'">about</a>');
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">shipments</a>'); 
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">receipts</a>'); 
 			echo(' | <a href="' . $path . 'personSearch.php?date='.$today.'">products</a>'); 
