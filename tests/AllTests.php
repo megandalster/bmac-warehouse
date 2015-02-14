@@ -10,6 +10,7 @@
  * Run all the BMAC-Warehouse unit tests
  */
 
+//require_once dirname(__FILE__).'/simpletest/autorun.php';
 class AllTests extends GroupTest{
 	
  	  function AllTests() {
@@ -18,6 +19,7 @@ class AllTests extends GroupTest{
         $this->addTestFile(dirname(__FILE__).'/testdbPersons.php');
 
         $this->addTestFile(dirname(__FILE__).'/testProvider.php');
+        $this->addTestFile(dirname(__FILE__).'/testdbProviders.php');
         $this->addTestFile(dirname(__FILE__).'/testShipment.php');
         $this->addTestFile(dirname(__FILE__).'/testContribution.php');
         $this->addTestFile(dirname(__FILE__).'/testCustomer.php');

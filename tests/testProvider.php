@@ -18,7 +18,7 @@ class testProvider extends UnitTestCase {
 
         
         // testing getter functions
-        $this->assertTrue($provider->get_id() == "FEMA");
+        $this->assertTrue($provider->get_provider_id() == "FEMA");
         $this->assertTrue($provider->get_type() == "food");
         $this->assertTrue($provider->get_address() == "1 Lincoln Rd.");
         $this->assertTrue($provider->get_city() == "Walla Walla");

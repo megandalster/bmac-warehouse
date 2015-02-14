@@ -47,7 +47,7 @@ class Provider {
 		$this->notes = $notes;
     }
     //getter functions
-    function get_id() {
+    function get_provider_id() {
     	return $this->provider_id;
     }
     function get_type() {
