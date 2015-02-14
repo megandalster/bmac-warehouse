@@ -33,16 +33,17 @@ function create_dbShipments(){
 
 function retrieve_dbShipments($customer_id){
 	connect();
-	$result=mysql_query("SELECT * FROM dbShipments WHERE id  = '".$customer_id."'");
+	$result=mysql_query("SELECT * FROM dbShipments WHERE customer_id  = '".$customer_id."'");
 	if(mysql_num_rows($result) !== 1){
 		mysql_close();
 		return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
-	$theVol = new Shipment($result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
 	mysql_close();
-	return $theVol;
+	return $theShipment;
+	
 }
 
 
@@ -51,7 +52,7 @@ function getall_dbShipments(){
 	$result = mysql_query("SELECT * FROM dbShipments ORDER BY funds_source");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theVol = new Shipment($result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+		$theVol = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);	
 		$theVols[] = $theVol;
 	}
@@ -70,7 +71,7 @@ function getonlythose_dbShipments($funds_source, $ship_via, $total_weight) {
 	$theShipments = array();
 
 	while($result_row = mysql_fetch_assoc($result)){
-		$theShipment = new Shipment($result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);	
 		$theShipments[] = $theShipment;
 	}
@@ -94,7 +95,7 @@ function insert_dbShipments($Shipment){
 				$Shipment->get_funds_source()."','".
 				$Shipment->get_ship_date()."','".
 				$Shipment->get_ship_via()."','".
-				$Shipment->get_ship_items(). "','".
+				implode(',',$Shipment->get_ship_items()). "','".
 				$Shipment->get_ship_rate()."','".
 				$Shipment->get_total_weight()."','".
 				$Shipment->get_total_price()."','".
@@ -128,7 +129,7 @@ function update_dbShipments($Shipment){
 
 function delete_dbShipments($customer_id){
 	connect();
-	$result = mysql_query("DELETE FROM dbShipments WHERE id =\"".$customer_id."\"");
+	$result = mysql_query("DELETE FROM dbShipments WHERE customer_id =\"".$customer_id."\"");
 	mysql_close();
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbShipments: ".$customer_id);
