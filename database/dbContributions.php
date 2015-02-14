@@ -89,8 +89,9 @@ function insert_dbContributions($Contribution){
 	$query = "INSERT INTO dbContributions VALUES ('".
 				$Contribution->get_provider_id()."','" .
 				$Contribution->get_receive_date()."','".
-				$Contribution->get_receive_items()."','".
-				$Contribution->get_notes()."','".
+				implode(',',$Contribution->get_receive_items())."','".
+				$Contribution->get_notes().
+	            "');";
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbContributions: " . $Contribution->get_provider_id(). "\n");

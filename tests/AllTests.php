@@ -15,15 +15,17 @@ class AllTests extends GroupTest{
  	  function AllTests() {
         $this->addTestFile(dirname(__FILE__).'/testPerson.php');
         $this->addTestFile(dirname(__FILE__).'/testProduct.php');
-        $this->addTestFile(dirname(__FILE__).'/testdbPersons.php');
-
         $this->addTestFile(dirname(__FILE__).'/testProvider.php');
         $this->addTestFile(dirname(__FILE__).'/testShipment.php');
         $this->addTestFile(dirname(__FILE__).'/testContribution.php');
         $this->addTestFile(dirname(__FILE__).'/testCustomer.php');
+        
+        $this->addTestFile(dirname(__FILE__).'/testdbPersons.php');
         $this->addTestFile(dirname(__FILE__).'/testdbProducts.php');
         $this->addTestFile(dirname(__FILE__).'/testdbCustomers.php');         
-         
+        $this->addTestFile(dirname(__FILE__).'/testdbContributions.php'); 
+        $this->addTestFile(dirname(__FILE__).'/testdbShipments.php');
+        
         echo ("All tests complete");
  	  }
  }
