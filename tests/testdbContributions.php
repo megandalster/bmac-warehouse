@@ -32,7 +32,7 @@ class testdbContributions extends UnitTestCase {
 		//Test Update with a change of items received
 		$con2 = new Contribution("Costco", "14-02-01-00:00:00", "Cranapple Juice:1000:100,Cranberry Juice:1000:100,Mystery Meat:1000:100", "Test2");
 		$this->assertTrue(update_dbContributions($con2));
-		$this->assertEqual(retrieve_dbContributions($con2->get_provider_id())->get_receive_items(), "Cranapple Juice:1000:100,Cranberry Juice:1000:100,Mystery Meat:1000:100");
+		$this->assertEqual(retrieve_dbContributions($con2->get_provider_id())->get_receive_items(), explode(',',"Cranapple Juice:1000:100,Cranberry Juice:1000:100,Mystery Meat:1000:100"));
 		
 		//Test Delete
 		$this->assertTrue(delete_dbContributions($con1->get_provider_id()));
