@@ -12,7 +12,7 @@ include_once(dirname(__FILE__).'/../database/dbShipments.php');
 class testdbShipments extends UnitTestCase {
 	function testdbShipmentsModule() {
 		//Test table creation
-		$this->assertTrue(create_dbShipments());
+		// $this->assertTrue(create_dbShipments()); // no need to test this any more -- the database will be live and will need to be preserved
 	
 		//Test shipments
 		$ship1 = new Shipment("Dylan3033251787", "Parentals", "1993-05-03:11:45", "BMAC", "", 

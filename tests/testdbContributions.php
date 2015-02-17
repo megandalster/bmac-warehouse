@@ -13,7 +13,7 @@ include_once(dirname(__FILE__).'/../database/dbContributions.php');
 class testdbContributions extends UnitTestCase {
 	function testdbContributionsModule() {
 		//Test table creation
-		$this->assertTrue(create_dbContributions());
+		// $this->assertTrue(create_dbContributions()); // no need to test this any more -- the database will be live and will need to be preserved
 		//Test Contributions
 		$con1 = new Contribution("Walmart", "14-01-01-00:00:00", "Cranapple Juice:1000:100,Cranberry Juice:1000:100", "Test1");
 		$con2 = new Contribution("Costco", "14-02-01-00:00:00", "Cranapple Juice:1000:100,Cranberry Juice:1000:100", "Test2");

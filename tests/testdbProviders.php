@@ -12,7 +12,7 @@ include_once(dirname(__FILE__).'/../database/dbProviders.php');
 class testdbProviders extends UnitTestCase {
 	function testdbPersonsModule() {
 		//Test table creation
-		$this->assertTrue(create_dbProviders());
+		// $this->assertTrue(create_dbProviders()); // no need to test this any more -- the database will be live and will need to be preserved
 	
 		
 		//Test providers

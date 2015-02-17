@@ -12,7 +12,7 @@ include_once(dirname(__FILE__).'/../database/dbProducts.php');
 class testdbProducts extends UnitTestCase {
 	function testdbProductsModule() {
 		//Test table creation
-		$this->assertTrue(create_dbProducts());
+		// $this->assertTrue(create_dbProducts());  // no need to test this any more -- the database will be live and will need to be preserved
 	
 		//Test Products
 		$prod1 = new product("Beverages: Apple Juice", "321", "donation","41", "0.08", "15-02-02", "1000", "100", 
