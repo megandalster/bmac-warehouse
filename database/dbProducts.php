@@ -40,7 +40,7 @@ function retrieve_dbProducts($product_id){
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
-							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['status'], $result_row['inventory_date'],
+							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
 	mysql_close();
 	return $theProd;

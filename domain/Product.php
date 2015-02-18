@@ -36,7 +36,7 @@ class Product {
          * constructor for a Product
          */
     function __construct($product_id, $product_code, $funding_source, $unit_weight, $unit_price, $initial_date, $initial_stock, $minimum_stock, $history, $current_stock,
-                         $status, $inventory_date, $notes){                
+                         $inventory_date, $status, $notes){                
         $this->product_id = $product_id; 
         $this->product_code = $product_code;
         $this->funding_source = $funding_source;
