@@ -16,6 +16,7 @@
  */
 class Provider {
 	private $provider_id;   // name of provider e.g. ÒFEMAÓ or "Second Harvest"
+	private $code;			// unique code identifying the provider
 	private $type;		    // ÒfundsÓ or ÒfoodÓ
 	private $address;       // street address 
 	private $city;			// city
@@ -31,9 +32,10 @@ class Provider {
 		 /**
          * constructor for a Provider
          */
-    function __construct($provider_id, $type, $address, $city, $state, $zip, $county, $contact, $phone, $email,
+    function __construct($provider_id, $code, $type, $address, $city, $state, $zip, $county, $contact, $phone, $email,
                          $status, $notes){                
 		$this->provider_id = $provider_id;
+		$this->code = $code;
 		$this->type = $type;
 		$this->address = $address;
 		$this->city = $city;
@@ -49,6 +51,9 @@ class Provider {
     //getter functions
     function get_provider_id() {
     	return $this->provider_id;
+    }
+    function get_code() {
+    	return $this->code;
     }
     function get_type() {
     	return $this->type;
