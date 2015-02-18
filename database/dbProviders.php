@@ -20,7 +20,7 @@ include_once(dirname(__FILE__).'/dbinfo.php');
 function create_dbProviders(){
 	connect();
 	mysql_query("DROP TABLE IF EXISTS dbProviders");
-	$result = mysql_query("CREATE TABLE dbProviders (provider_id TEXT NOT NULL, type TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, 
+	$result = mysql_query("CREATE TABLE dbProviders (provider_id TEXT NOT NULL, code TEXT, type TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, 
 							contact TEXT, phone VARCHAR(12) NOT NULL, email TEXT, status TEXT, notes TEXT)");
 	mysql_close();
 	if(!$result){
@@ -38,7 +38,7 @@ function retrieve_dbProviders($provider_id){
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
-	$theProvider = new Provider($result_row['provider_id'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
+	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 	mysql_close();
 	return $theProvider;
@@ -49,7 +49,7 @@ function getall_dbProviders(){
 	$result = mysql_query("SELECT * FROM dbProviders ORDER BY provider_id");
 	$theProviders = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theVol = new Provider($result_row['provider_id'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
+		$theVol = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 							   $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theProviders[] = $theVol;
 	}
@@ -92,6 +92,7 @@ function insert_dbProviders($Provider){
 	}
 	$query = "INSERT INTO dbProviders VALUES ('".
 				$Provider->get_provider_id()."','" .
+				$Provider->get_code()."','".
 				$Provider->get_type()."','".
 				$Provider->get_address()."','".
 				$Provider->get_city()."','".
