@@ -19,7 +19,7 @@ include_once(dirname(__FILE__).'/dbinfo.php');
 function create_dbCustomers(){
 	connect();
 	mysql_query("DROP TABLE IF EXISTS dbCustomers");
-	$result = mysql_query("CREATE TABLE dbCustomers (customer_id TEXT NOT NULL, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, contact TEXT, 
+	$result = mysql_query("CREATE TABLE dbCustomers (customer_id TEXT NOT NULL, code text, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, contact TEXT, 
 							phone VARCHAR(12) NOT NULL, email TEXT, status TEXT, notes TEXT)");
 	mysql_close();
 	if(!$result){
@@ -37,7 +37,7 @@ function retrieve_dbCustomers($customer_id){
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
-	$theVol = new Customer($result_row['customer_id'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+	$theVol = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 	mysql_close();
 	return $theVol;
@@ -48,7 +48,7 @@ function getall_dbCustomers(){
 	$result = mysql_query("SELECT * FROM dbCustomers ORDER BY city");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theVol = new Customer($result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+		$theVol = new Customer($result_row['address'], $result_row['code'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theVols[] = $theVol;
 	}
@@ -88,6 +88,7 @@ function insert_dbCustomers($Customer){
 	}
 	$query = "INSERT INTO dbCustomers VALUES ('".
 				$Customer->get_customer_id()."','" .
+				$Customer->get_code()."','".
 				$Customer->get_address()."','".
 				$Customer->get_city()."','".
 				$Customer->get_state()."','".

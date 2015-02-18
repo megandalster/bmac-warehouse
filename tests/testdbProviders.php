@@ -16,11 +16,11 @@ class testdbProviders extends UnitTestCase {
 	
 		
 		//Test providers
-		$prov1 = new Provider("FEMA", "food", "111 Pennsylvania Dr.", "Portland", "MA", "95432", "Arlington", "John",
+		$prov1 = new Provider("FEMA", 1, "food", "111 Pennsylvania Dr.", "Portland", "MA", "95432", "Arlington", "John",
 							  "1234567891", "femafood@fema.gov", "active", "3 months");
-		$prov2 = new Provider("Plentiful Harvest", "food", "487 Thunder Ave.", "Stormshire", "WA", "96543", "Central Valley", "Jaime",
+		$prov2 = new Provider("Plentiful Harvest", 2, "food", "487 Thunder Ave.", "Stormshire", "WA", "96543", "Central Valley", "Jaime",
 							  "9876545321", "plentifulfood@comcast.net", "inactive", "lots of grains");
-		$prov3 = new Provider("Will Gates Foundation", "funds", "994 Greenview Dr.", "Seattle", "WA", "95424", "Olympia", "Billinda",
+		$prov3 = new Provider("Will Gates Foundation", 3, "funds", "994 Greenview Dr.", "Seattle", "WA", "95424", "Olympia", "Billinda",
 							  "9999999999", "cashmoney@aol.com", "active", "stacks on stacks");
 		
         //Test inserts
@@ -44,7 +44,7 @@ class testdbProviders extends UnitTestCase {
 		
 		
 		//Test Update with a change of address
-		$prov3 = new Provider("Will Gates Foundation", "funds", "994 Greenestview Dr.", "Seattle", "WA", "95424", "Olympia", "Billinda",
+		$prov3 = new Provider("Will Gates Foundation", 3, "funds", "994 Greenestview Dr.", "Seattle", "WA", "95424", "Olympia", "Billinda",
 							  "9999999999", "cashmoney@aol.com", "active", "stacks on stacks");
 		$this->assertTrue(update_dbProviders($prov3));
 		$this->assertEqual(retrieve_dbProviders($prov3->get_provider_id())->get_address(), "994 Greenestview Dr.");

@@ -12,6 +12,7 @@
 
 class Customer {
         private $customer_id;   // uniquely identifies customer  e.g. "Campfire"
+        private $code;			// a unique code that identifies the customer
         private $address;       // street/shipping address 
         private $city;          // city
         private $state;         // 2-letter abbrev - usually WA
@@ -24,8 +25,9 @@ class Customer {
         private $notes;         // notes about this customer
   
     // constructor for a Customer
-        function __construct($customer_id, $address, $city, $state, $zip, $county, $contact, $phone, $email, $status, $notes) {
+        function __construct($customer_id, $code, $address, $city, $state, $zip, $county, $contact, $phone, $email, $status, $notes) {
             $this->customer_id = $customer_id;
+            $this->code = $code;
             $this->address = $address;
             $this->city = $city;
             $this->state = $state;
@@ -41,6 +43,9 @@ class Customer {
        function get_customer_id() {
           return $this->customer_id;
          }
+       function get_code() {
+       	  return $this->code;
+       }
        function get_address() {
           return $this->address;
          }

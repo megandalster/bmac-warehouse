@@ -16,11 +16,11 @@ class testdbCustomers extends UnitTestCase {
 		//$this->assertTrue(create_dbCustomers());
 	
 		//Test Customers
-		 $cus1 = new Customer("Campfire", "1 Scarborough Head Rd", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_1", 
+		 $cus1 = new Customer("Campfire", 1, "1 Scarborough Head Rd", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_1", 
     				"5026319874", "Customer1@hotmail.com", "active", "");
-		$cus2 = new Customer("Customer_id_2", "1 Issac street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_2", 
+		$cus2 = new Customer("Customer_id_2", 2, "1 Issac street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_2", 
     				"5026319000", "Customer2@hotmail.com", "active", "");
-		$cus3 = new Customer("Customer_id_3", "3 Rose street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_3", 
+		$cus3 = new Customer("Customer_id_3", 3, "3 Rose street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_3", 
     				"5026550000", "Customer3@hotmail.com", "active", "no_notes");
         //Test inserts
 		$this->assertTrue(insert_dbCustomers($cus1));
@@ -40,7 +40,7 @@ class testdbCustomers extends UnitTestCase {
 		$this->assertEqual(retrieve_dbCustomers($cus1->get_customer_id())->get_notes(), "");
 		
 		//Test Update with a change of address
-		$cus2 = new Customer("Customer_id_2", "55 not Issac street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_2", 
+		$cus2 = new Customer("Customer_id_2", 2, "55 not Issac street", "Walla Walla", "WA", "99362", "walla walla county", "contact_number_2", 
     				"5026319000", "Customer2@hotmail.com", "active", "no_notes");
 		$this->assertTrue(update_dbCustomers($cus2));
 		$this->assertEqual(retrieve_dbCustomers($cus2->get_customer_id())->get_address(), "55 not Issac street");

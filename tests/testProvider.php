@@ -13,7 +13,7 @@ class testProvider extends UnitTestCase {
     function testProviderModule() {
              
     	//fake provider to test
-        $provider = new Provider("FEMA", "food", "1 Lincoln Rd.", "Walla Walla", "WA", "99362", "Columbia", "Seamus",
+        $provider = new Provider("FEMA", 1, "food", "1 Lincoln Rd.", "Walla Walla", "WA", "99362", "Columbia", "Seamus",
         						 "1234567899", "hey@aol.com", "active", "shay-mus");
 
         
