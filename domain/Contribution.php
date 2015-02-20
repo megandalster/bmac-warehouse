@@ -17,18 +17,21 @@ class Contribution {
 	private $provider_id;   // id of person/organization contributing
 	private $receive_date;  // date and time recorded yy-mm-dd:hh:mm
 	private $receive_items; // array of product_id:units:weight triples
+	private $payment_source;// TEFAP, EFAP, EFAP-FB, CSFP, United Way, Donation
+	private $billed_amt;    // amount of money billed, if any
 	private $notes;		  // notes about this contribution	
 	/**
 	 *Constructor for Contribution
 	 */
-	function __construct($id, $receive_date, $receive_items, $notes){                
+	function __construct($id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes){                
         $this->provider_id = $id;
         $this->receive_date = $receive_date;
         $this->receive_items = array();
 		if ($receive_items!="")
 			$this->receive_items = explode(',',$receive_items);
-		$this->notes = $notes;   
- 
+		$this->payment_source = $payment_source; 
+		$this->billed_amt = $billed_amt;     
+        $this->notes = $notes;   
     }
     //getter functions
     function get_provider_id() { 
@@ -39,6 +42,12 @@ class Contribution {
     }
     function get_receive_items() {
     	return $this->receive_items;
+    }
+    function get_payment_source() {
+    	return $this->notes;
+    }
+    function get_billed_amt() {
+    	return $this->billed_amt;
     }
     function get_notes() {
     	return $this->notes;

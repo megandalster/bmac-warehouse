@@ -21,7 +21,8 @@ include_once(dirname(__FILE__).'/dbinfo.php');
 function create_dbContributions(){
 	connect();
 	mysql_query("DROP TABLE IF EXISTS dbContributions");
-	$result = mysql_query("CREATE TABLE dbContributions (provider_id TEXT NOT NULL, receive_date TEXT, receive_items TEXT, notes TEXT)");
+	$result = mysql_query("CREATE TABLE dbContributions (provider_id TEXT NOT NULL, receive_date TEXT, 
+	                       receive_items TEXT, payment_source TEXT, billed_amt TEXT, notes TEXT)");
 	mysql_close();
 	if(!$result){
 			echo (mysql_error()."Error creating database dbContributions. \n");
@@ -37,7 +38,8 @@ function retrieve_dbContributions($provider_id){
 		return false;
 		}
 		$result_row = mysql_fetch_assoc($result);
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], $result_row['notes']);
+		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
+		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
 		mysql_close();
 		return $theCon;
 }
@@ -48,7 +50,8 @@ function getall_dbContributions(){
 	$result = mysql_query("SELECT * FROM dbContributions ORDER BY provider_id");
 	$theCons = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], $result_row['notes']);
+		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
+		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
 		$theCons[] = $theCon;
 	}
 	mysql_close();
@@ -68,7 +71,8 @@ function getonlythose_dbContributions($provider_id, $receive_date1, $receive_dat
 	$theCons = array();
 		
 	while($result_row = mysql_fetch_assoc($result)){
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], $result_row['notes']);
+		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
+		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
 		$theCons[] = $theCon;
 	}
 	mysql_close();
@@ -90,6 +94,8 @@ function insert_dbContributions($Contribution){
 				$Contribution->get_provider_id()."','" .
 				$Contribution->get_receive_date()."','".
 				implode(',',$Contribution->get_receive_items())."','".
+				$Contribution->get_payment_source()."','".
+				$Contribution->get_billed_amt()."','".
 				$Contribution->get_notes().
 	            "');";
 	$result = mysql_query($query);

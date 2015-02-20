@@ -12,7 +12,7 @@ class testContribution extends UnitTestCase {
     function testContributionModule() {
              
     	//fake contribution to test
-        $contribution = new Contribution("John Jones", "15-02-05", "cranberry sauce:40,peas:10", "THIS IS A TEST");
+        $contribution = new Contribution("John Jones", "15-02-05", "cranberry sauce:40,peas:10", "", "", "THIS IS A TEST");
                  
         // testing getter functions
         $this->assertTrue($contribution->get_provider_id() == "John Jones");
