@@ -43,6 +43,19 @@ function retrieve_dbProviders($provider_id){
 	mysql_close();
 	return $theProvider;
 }
+function retrieveByCode_dbProviders($code){
+	connect();
+	$result=mysql_query("SELECT * FROM dbProviders WHERE code  = '".$code."'");
+	if(mysql_num_rows($result) !== 1){
+			mysql_close();
+			return false;
+	}
+	$result_row = mysql_fetch_assoc($result);
+	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
+						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
+	mysql_close();
+	return $theProvider;
+}
 
 function getall_dbProviders(){
 	connect();

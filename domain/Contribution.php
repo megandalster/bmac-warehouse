@@ -44,7 +44,7 @@ class Contribution {
     	return $this->receive_items;
     }
     function get_payment_source() {
-    	return $this->notes;
+    	return $this->payment_source;
     }
     function get_billed_amt() {
     	return $this->billed_amt;

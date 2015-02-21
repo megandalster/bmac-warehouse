@@ -84,12 +84,6 @@ function insert_dbContributions($Contribution){
 		return false;
 	}
 	connect();
-	$query = "SELECT * FROM dbContributions WHERE provider_id = '" . $Contribution->get_provider_id() . "'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) != 0) {
-		delete_dbContributions ($Contribution->get_provider_id());
-		connect();
-	}
 	$query = "INSERT INTO dbContributions VALUES ('".
 				$Contribution->get_provider_id()."','" .
 				$Contribution->get_receive_date()."','".
