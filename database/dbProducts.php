@@ -45,6 +45,21 @@ function retrieve_dbProducts($product_id){
 	mysql_close();
 	return $theProd;
 }
+function retrieveByCode_dbProducts($product_code){
+	connect();
+	$result=mysql_query("SELECT * FROM dbProducts WHERE product_code  = '".$product_code."'");
+	if(mysql_num_rows($result) !== 1){
+			mysql_close();
+			return false;
+	}
+	$result_row = mysql_fetch_assoc($result);
+	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
+							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
+							$result_row['notes']);
+	mysql_close();
+	return $theProd;
+}
+
 
 function getall_dbProducts(){
 	connect();

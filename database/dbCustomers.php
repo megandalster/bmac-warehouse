@@ -42,6 +42,19 @@ function retrieve_dbCustomers($customer_id){
 	mysql_close();
 	return $theVol;
 }
+function retrieveByCode_dbCustomers($code){
+	connect();
+	$result=mysql_query("SELECT * FROM dbCustomers WHERE code  = '".$code."'");
+	if(mysql_num_rows($result) !== 1){
+			mysql_close();
+			return false;
+	}
+	$result_row = mysql_fetch_assoc($result);
+	$theVol = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
+	mysql_close();
+	return $theVol;
+}
 
 function getall_dbCustomers(){
 	connect();

@@ -84,12 +84,6 @@ function insert_dbShipments($Shipment){
 		return false;
 	}
 	connect();
-	$query = "SELECT * FROM dbShipments WHERE customer_id = '" . $Shipment->get_customer_id() . "'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) != 0) {
-		delete_dbShipments ($Shipment->get_customer_id());
-		connect();
-	}
 	$query = "INSERT INTO dbShipments VALUES ('".
 				$Shipment->get_customer_id()."','" .
 				$Shipment->get_funds_source()."','".
