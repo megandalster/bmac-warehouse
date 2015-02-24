@@ -75,6 +75,17 @@ function getall_dbProducts(){
 	return $theProds;
 }
 
+function getall_dbProduct_ids(){
+	connect();
+	$result = mysql_query("SELECT product_id FROM dbProducts ORDER BY product_id");
+	$the_ids = array();
+	while($result_row = mysql_fetch_assoc($result)){
+		$the_ids[] = $result_row['product_id'];
+	}
+	mysql_close();
+	return $the_ids;
+}
+
 // retrieve only those Products that match the criteria given in the arguments
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	connect();
