@@ -70,12 +70,12 @@ function getall_dbCustomers(){
 }
 
 // retrieve only those Customers that match the criteria given in the arguments
-function getonlythose_dbCustomers($phone, $status, $city) {
+function getonlythose_dbCustomers($status, $name) {
 	connect();
-	$query = "SELECT * FROM dbCustomers WHERE type LIKE '%".$type."%'" . 
-			 " AND status LIKE '%".$status."%'" . 
-			 " AND (phone LIKE '%".$phone."%' OR contact LIKE '%".$contact."%')" ;
-    $query .= " ORDER BY city";
+	$query = "SELECT * FROM dbCustomers WHERE " . 
+			 " status LIKE '%".$status."%'" . 
+			 " AND customer_id LIKE '%".$name."')" ;
+    $query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
 	$theCustomers = array();
 		
