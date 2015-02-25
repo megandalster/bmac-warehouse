@@ -89,21 +89,21 @@ function getall_dbProduct_ids(){
 // retrieve only those Products that match the criteria given in the arguments
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	connect();
-	$query = "SELECT * FROM dbProducts WHERE type LIKE '%".$product_id."%'" . 
-			 " AND status LIKE '%".$funding_source."%'" . 
+	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'" . 
+			 " AND funding_source LIKE '%".$funding_source."%'" . 
 			 "  AND status LIKE '%".$status."%'" ;
-    $query .= " ORDER BY last_name";
+    $query .= " ORDER BY status";
 	$result = mysql_query($query);
-	$theProducts = array();
+	$theProds = array();
 		
-	while($result_row = mysql_fetch_assoc($result)){
-		$theProduct = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
+		while($result_row = mysql_fetch_assoc($result)){
+		$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
 							$result_row['notes']);
-		$theProducts[] = $theProduct;
+		$theProds[] = $theProd;
 	}
 	mysql_close();
-	return $theProducts;
+	return $theProds;
 }
 
 function insert_dbProducts($Product){
