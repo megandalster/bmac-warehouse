@@ -35,13 +35,12 @@ class testdbProducts extends UnitTestCase {
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_initial_stock(), "1000");
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_minimum_stock (), "100");
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_history (), explode(",","15-02:1000:41,15-01:500:19"));
-		//check how to test history. STOPPED HERE
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_current_stock (), "1000:41");
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_status (), "active");
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_inventory_date (), "15-02");
 		$this->assertEqual(retrieve_dbProducts($prod1->get_product_id())->get_notes (), "");
 		
-		//Test Update with a change of address
+		//Test Update with a change of current stock.
 		$prod2 = new product("Soup: Canned", "321", "donation","41", "0.08", "15-02-02", "1000", "100", 
     				"15-02:1000:41,15-01:500:19", "900:41", "15-02", "active", "");
 		$this->assertTrue(update_dbProducts($prod2));
