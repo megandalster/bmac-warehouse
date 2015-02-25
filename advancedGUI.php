@@ -6,19 +6,20 @@
 <script src="lib/jquery-ui.js"></script>
 <script>
 $(function() {
-	$(document).on("keyup", "product-id", function() {
+	$(document).on("keyup", ".product-id", function() {
 		var str = $(this).val();
 		var target = $(this);
 		$.ajax({
-			type: 'get',
-			url: 'advanced_getProducts.php?q='+str,
-			success: function (response) {
-				var suggestions = $.parseJSON(response);
-				console.log(target);
-				target.autocomplete({
-					source: suggestions
-				});
-			}
+			type: 'GET',
+			url: 'advanced_getProducts.php?q='+str
+		})
+		 .done(function (response) {
+			//console.log(response)
+			var suggestions = $.parseJSON(response);
+			//console.log(suggestions);
+			target.autocomplete({
+				source: suggestions	
+			});
 		});
 	});
 
@@ -26,7 +27,7 @@ $(function() {
 		e.preventDefault();
 		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
 		$("#product-id-inputs").append(new_input);
-	})
+	});
 	$( "#from" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true});
 	$( "#to" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true});
 
