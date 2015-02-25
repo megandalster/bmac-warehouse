@@ -33,13 +33,11 @@
 					echo('<form method="post">');
 						echo('<p><strong>Search for customers:</strong><p>');
                         
-                        
                         if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>Active</option>';
-							echo '<option value="on-leave"';    if ($status=="on-leave")    echo " SELECTED"; echo '>On Leave</option>';
-                            echo '<option value="former"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
+							echo '<option value="on-leave"';    if ($status=="inactive")    echo " SELECTED"; echo '>On Leave</option>';
                         echo '</select>';
                         
                       //  if( !array_key_exists('s_customer_id', $_POST) ) $customer_id = ""; else $cutomer_id = $_POST['s_customer_id'];
@@ -72,16 +70,16 @@
                         $result = getonlythose_dbCustomers($status, $name);  
 
 						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
-                            
+                        if ($status!="") echo ' with status like "'.$status.'"';    
 						if ($name!="") echo ' with name like "'.$name.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
                             $allEmails = array(); // for printing all emails
                             foreach ($result as $customer) {
-								echo "<tr><td><a href=customerEdit.php?id=".$customer->get_customer_id().">" . 
-									$customer->get_phone() .  ", " . $customer->get_city() . "</td><td>" . 
-									$customer->get_state() . "</td><td>" . 
+								echo "<tr><td><a href=customerEdit.php?id=".$customer->get_customer_id().">" .
+								    $customer->get_customer_id() . "</a></td><td>" .
+									$customer->get_phone() . "</td><td>" . 	
 									$customer->get_email() . "</td><td>"; 
 									$allEmails[] = $customer->get_email();
 								echo "</td></a></tr>";

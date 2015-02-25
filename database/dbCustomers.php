@@ -61,7 +61,7 @@ function getall_dbCustomers(){
 	$result = mysql_query("SELECT * FROM dbCustomers ORDER BY city");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theVol = new Customer($result_row['address'], $result_row['code'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+		$theVol = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theVols[] = $theVol;
 	}
@@ -74,13 +74,13 @@ function getonlythose_dbCustomers($status, $name) {
 	connect();
 	$query = "SELECT * FROM dbCustomers WHERE " . 
 			 " status LIKE '%".$status."%'" . 
-			 " AND customer_id LIKE '%".$name."')" ;
+			 " AND customer_id LIKE '%".$name."%'" ;
     $query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
 	$theCustomers = array();
 		
 	while($result_row = mysql_fetch_assoc($result)){
-		$theCustomer = new Customer($result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+		$theCustomer = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theCustomers[] = $theCustomer;
 	}
