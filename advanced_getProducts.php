@@ -1,9 +1,8 @@
 <?php 
 include_once('database/dbProducts.php');
 include_once('domain/Product.php');
-echo "hello";
 $product_ids = getall_dbProduct_ids();
-var_dump($product_ids);
+//var_dump($product_ids);
 if (isset($_GET['q'])) {
 	show_hint($product_ids);
 }
