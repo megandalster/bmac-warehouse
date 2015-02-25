@@ -35,9 +35,8 @@
                         if( !array_key_exists('s_type', $_POST) ) $type = ""; else $type = $_POST['s_type'];
 						echo '<br><br>Type:<select name="s_type">';
 							echo '<option value=""'; if ($type=="") echo " SELECTED"; echo '>--all--</option>'; 
-							echo '<option value="staff"'; if ($type=="staff") echo " SELECTED"; echo '>Warehouse Staff</option>'; 
-							echo '<option value="office"'; if ($type=="office") echo " SELECTED"; echo '>Office Staff</option>';
-							echo '<option value="manager"'; if ($type=="manager") echo " SELECTED"; echo '>Foodbank Director</option>'; 
+							echo '<option value="funds"'; if ($type=="funds") echo " SELECTED"; echo '>Funds</option>'; 
+							echo '<option value="food"'; if ($type=="food") echo " SELECTED"; echo '>Food</option>';
                         echo '</select>';
                         
                         if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
@@ -45,12 +44,12 @@
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>Active</option>';
 							echo '<option value="on-leave"';    if ($status=="on-leave")    echo " SELECTED"; echo '>On Leave</option>';
-                            echo '<option value="former"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
+                            echo '<option value="inactive"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
                         echo '</select>';
                         
-						if( !array_key_exists('s_name', $_POST) ) $name = ""; else $name = $_POST['s_name'];
+						if( !array_key_exists('s_provider_id', $_POST) ) $provider_id = ""; else $provider_id = $_POST['s_provider_id'];
 						echo '&nbsp;&nbsp;Name: ' ;
-						echo '<input type="text" name="s_name" value="' . $name . '">';
+						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '">';
 						
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
@@ -61,28 +60,28 @@
 					if( array_key_exists('s_submitted', $_POST) ){
 						$type = $_POST['s_type'];
 						$status = $_POST['s_status'];
-                        $name = trim(str_replace('\'','&#39;',htmlentities($_POST['s_name'])));
+                        $provider_id = trim(str_replace('\'','&#39;',htmlentities($_POST['s_provider_id'])));
                         
                         // now go after the persons that fit the search criteria
-                        include_once('database/dbPersons.php');
-                        include_once('domain/Person.php');
+                        include_once('database/dbProviders.php');
+                        include_once('domain/Provider.php');
                         
-                        $result = getonlythose_dbPersons($type, $status, $name);  
+                        $result = getonlythose_dbProviders($provider_id, $type, $status);  
 
 						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
-                            if (!$type) echo "person(s)"; 
-                            else echo $type.'s';
-						if ($name!="") echo ' with name like "'.$name.'"';
+                            if (!$type) echo "providers(s)"; 
+                            else echo $type.' providers(s)';
+						if ($provider_id!="") echo ' with name like "'.$provider_id.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
                             $allEmails = array(); // for printing all emails
-                            foreach ($result as $person) {
-								echo "<tr><td><a href=personEdit.php?id=".$person->get_id().">" . 
-									$person->get_last_name() .  ", " . $person->get_first_name() . "</td><td>" . 
-									$person->get_nice_phone1() . "</td><td>" . 
-									$person->get_email() . "</td><td>"; 
-									$allEmails[] = $person->get_email();
+                            foreach ($result as $provider) {
+								echo "<tr><td><a href=providerEdit.php?id=".$provider->get_provider_id().">" . 
+									$provider->get_provider_id() . "</td><td>" . 
+									$provider->get_nice_phone() . "</td><td>" . 
+									$provider->get_email() . "</td><td>";
+									$allEmails[] = $provider->get_email();
 								echo "</td></a></tr>";
 							}
 							echo '</table>';

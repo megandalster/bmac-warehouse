@@ -62,35 +62,34 @@ function getall_dbProviders(){
 	$result = mysql_query("SELECT * FROM dbProviders ORDER BY provider_id");
 	$theProviders = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$theVol = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
+		$aProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 							   $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
-		$theProviders[] = $theVol;
+		$theProviders[] = $aProvider;
 	}
 	mysql_close();
 	return $theProviders;
 }
 
-/*
-// retrieve only those Persons that match the criteria given in the arguments
-function getonlythose_dbPersons($type, $status, $name) {
+
+// retrieve only those Providers that match the criteria given in the arguments
+function getonlythose_dbProviders($provider_id, $type, $status) {
 	connect();
-	$query = "SELECT * FROM dbPersons WHERE type LIKE '%".$type."%'" . 
-			 " AND status LIKE '%".$status."%'" . 
-			 " AND (first_name LIKE '%".$name."%' OR last_name LIKE '%".$name."%')" ;
-    $query .= " ORDER BY last_name";
+	$query = "SELECT * FROM dbProviders WHERE provider_id LIKE '%".$provider_id."%'" . 
+			 " AND type LIKE '%".$type."%'" . 
+			 " AND provider_id LIKE '%".$provider_id."%'" ;
+    $query .= " ORDER BY provider_id";
 	$result = mysql_query($query);
-	$thePersonss = array();
+	$theProviders = array();
 		
 	while($result_row = mysql_fetch_assoc($result)){
-		$thePerson = new Person($result_row['last_name'], $result_row['first_name'], $result_row['address'], $result_row['city'], $result_row['state'],
-							$result_row['zip'], $result_row['phone1'], $result_row['phone2'], $result_row['email'], $result_row['type'], $result_row['status'],
-							$result_row['notes'], $result_row['password']);
-		$thePersons[] = $thePerson;
+		$aProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
+							      $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
+		$theProviders[] = $aProvider;
 	}
 	mysql_close();
-	return $thePersons;
+	return $theProviders;
 }
-*/
+
 
 function insert_dbProviders($Provider){
 	if(! $Provider instanceof Provider){
