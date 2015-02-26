@@ -61,12 +61,12 @@ function getall_dbShipments(){
 }
 
 
-function getonlythose_dbShipments($funds_source, $ship_via, $total_weight) {
+function getonlythose_dbShipments($customer_id, $ship_date, $ship_items) {
 	connect();
-	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$funds_source."%'" .
-			 " AND ship_via LIKE '%".$ship_via."%'" . 
-			 " AND total_weight LIKE '%".$total_weight."%'" ;
-	$query .= " ORDER BY total_weight";
+	$query = "SELECT * FROM dbShipments WHERE customer_id LIKE '%".$customer_id."%'" .
+			 " AND ship_date LIKE '%".$ship_date."%'" . 
+			 " AND ship_items LIKE '%".$ship_items."%'" ;
+	$query .= " ORDER BY ship_items";
 	$result = mysql_query($query);
 	$theShipments = array();
 

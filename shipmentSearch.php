@@ -11,7 +11,7 @@
  * 
  * Shipment search module BMAC warehouse
  * @author Dylan Martin
- * @version February 4, 2015
+ * @version February 23, 2015
  */
 	session_start();
 	session_cache_expire(30);
@@ -29,9 +29,12 @@
 			<div id="content">
 				<?PHP
 				// display the search form
-					echo('<p><a href="'.$path.'personEdit.php?id=new">Add new shipment</a>');
+					echo('<p><a href="'.$path.'shipmentEdit.php?id=new">Add new shipment</a>');
 					echo('<form method="post">');
 						echo('<p><strong>Search for shipments:</strong>');
+                        
+						//None of this is relevant yet, since the shipmentEdit.php class isn't up and running
+                        /*
                         if( !array_key_exists('s_type', $_POST) ) $type = ""; else $type = $_POST['s_type'];
 						echo '<br><br>Type:<select name="s_type">';
 							echo '<option value=""'; if ($type=="") echo " SELECTED"; echo '>--all--</option>'; 
@@ -39,7 +42,8 @@
 							echo '<option value="office"'; if ($type=="office") echo " SELECTED"; echo '>Office Staff</option>';
 							echo '<option value="manager"'; if ($type=="manager") echo " SELECTED"; echo '>Foodbank Director</option>'; 
                         echo '</select>';
-                        
+                        */
+                        /*
                         if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
@@ -47,49 +51,70 @@
 							echo '<option value="on-leave"';    if ($status=="on-leave")    echo " SELECTED"; echo '>On Leave</option>';
                             echo '<option value="former"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
                         echo '</select>';
-                        
-						if( !array_key_exists('s_name', $_POST) ) $name = ""; else $name = $_POST['s_name'];
-						echo '&nbsp;&nbsp;Name: ' ;
-						echo '<input type="text" name="s_name" value="' . $name . '">';
+                        */
 						
+						if( !array_key_exists('s_customer_id', $_POST) ) $customer_id = ""; else $customer_id = $_POST['s_customer_id'];
+						echo '<br><br>';
+						echo '&nbsp;&nbsp;Customer Name: ' ;
+						echo '<br><br>';
+						//Change this to whatever I want displayed in text area
+						echo '<input type="text" name="s_name" value="' . $customer_id . '">';
+						echo '<br><br>';
+						if( !array_key_exists('s_ship_date', $_POST) ) $ship_date = ""; else $ship_date = $_POST['s_ship_date'];
+						echo '&nbsp;&nbsp;Date Range: ' ;
+						echo '<br><br>';
+						//Change this to whatever I want displayed in text area
+						echo '<input type="text" name="s_name" value="' . $ship_date . '">';
+						echo '<input type="text" name="s_name" value="' . $ship_date . '">';
+						
+						if( !array_key_exists('s_ship_items', $_POST) ) $ship_items = ""; else $ship_items = $_POST['s_ship_items'];
+						echo '<br><br>';
+						echo '&nbsp;&nbsp; Product: ' ;
+						echo '<br><br>';
+						//Change this to whatever I want displayed in text area
+						echo '<input type="text" name="s_name" value="' . $ship_items . '">';
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
-                        
+						
+					
                         //print_r( $_POST );
 					
 				// if user hit "Search"  button, query the database and display the results
 					if( array_key_exists('s_submitted', $_POST) ){
-						$type = $_POST['s_type'];
-						$status = $_POST['s_status'];
-                        $name = trim(str_replace('\'','&#39;',htmlentities($_POST['s_name'])));
-                        
+						$customer_id = $_POST['s_customer_id'];
+						$ship_date = $_POST['s_ship_date'];
+						$ship_items = $_POST['s_ship_items'];
+                       
                         // now go after the persons that fit the search criteria
-                        include_once('database/dbPersons.php');
-                        include_once('domain/Person.php');
+                        include_once('database/dbShipments.php');
+                        include_once('domain/Shipment.php');
                         
-                        $result = getonlythose_dbPersons($type, $status, $name);  
+                        $result = getonlythose_dbShipments($customer_id, $ship_date, $ship_items);  
 
 						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
-                            if (!$type) echo "person(s)"; 
-                            else echo $type.'s';
-						if ($name!="") echo ' with name like "'.$name.'"';
+							if (!$ship_items) echo "product(s)";
+							else echo $ship_items.'s';
+                        if ($customer_id!="") echo ' with Customer Name like "'.$customer_id.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
-                            $allEmails = array(); // for printing all emails
-                            foreach ($result as $person) {
-								echo "<tr><td><a href=personEdit.php?id=".$person->get_id().">" . 
-									$person->get_last_name() .  ", " . $person->get_first_name() . "</td><td>" . 
-									$person->get_nice_phone1() . "</td><td>" . 
-									$person->get_email() . "</td><td>"; 
-									$allEmails[] = $person->get_email();
+							echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Product</strong></td></tr>';
+                            
+                            foreach ($result as $shipment) {
+								echo "<tr><td><a href=shipmentEdit.php?id=".$shipment->get_customer_id().">" . 
+									$person->get_customer_id() . "</td><td>" . 
+									$person->get_ship_date() . "</td><td>" . 
+									$person->get_ship_items() . "</td><td>"; 
+									//$allEmails[] = $person->get_email();
 								echo "</td></a></tr>";
 							}
+							
 							echo '</table>';
+							/*
 							echo "<br/><strong>Email these people:</strong> <br/>";
 	                        foreach($allEmails as $email)
 	                            if ($email!="")
 	                              echo $email . ", ";
+	                              */
 						}
 						
                         
