@@ -89,11 +89,7 @@
 	                        foreach($allEmails as $email)
 	                            if ($email!="")
 	                              echo $email . ", ";
-						}
-						
-                        
-                        
-						
+						}	
 					}
 				?>
 				<!-- below is the footer that we're using currently-->
