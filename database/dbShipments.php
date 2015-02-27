@@ -66,7 +66,7 @@ function getonlythose_dbShipments($customer_id, $ship_date, $ship_items) {
 	$query = "SELECT * FROM dbShipments WHERE customer_id LIKE '%".$customer_id."%'" .
 			 " AND ship_date LIKE '%".$ship_date."%'" . 
 			 " AND ship_items LIKE '%".$ship_items."%'" ;
-	$query .= " ORDER BY ship_items";
+	$query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
 	$theShipments = array();
 
