@@ -62,10 +62,10 @@ function getall_dbContributions(){
 // retrieve only those Contributions that match the criteria given in the arguments
 function getonlythose_dbContributions($provider_id, $receive_date1, $receive_date2, $receive_items) { 
 	connect();
-	$query = "SELECT * FROM dbContributions WHERE provider_id LIKE '%".$provider_id."%'" . 
-			 " AND receive_date > '%".$receive_date1."%'" .
-			 " AND receive_date < '%".$receive_date2."%'" . 
-			 "  AND receive_items LIKE '%".$receive_items."%'" ;
+	$query = "SELECT * FROM dbContributions WHERE provider_id LIKE '%".$provider_id."%'";
+	if(empty($receive_date1)==false) $query.= " AND receive_date >= '%".$receive_date1."%'";
+	if(empty($receive_date2)==false) $query.=	" AND receive_date <= '%".$receive_date2."%'"; 
+	$query.= " AND receive_items LIKE '%".$receive_items."%'";
     $query .= " ORDER BY provider_id";
 	$result = mysql_query($query);
 	$theCons = array();
