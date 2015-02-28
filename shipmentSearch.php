@@ -38,22 +38,19 @@
 						echo '<br><br>';
 						echo '&nbsp;&nbsp;Customer Name: ' ;
 						echo '<br><br>';
-						//Change this to whatever I want displayed in text area
 						echo '<input type="text" name="s_customer_id" value="' . $customer_id . '">';
 						echo '<br><br>';
 						
-						if( !array_key_exists('s_ship_date', $_POST) ) $ship_date = ""; else $ship_date = $_POST['s_ship_date'];
+						if( !array_key_exists('s_ship_date1', $_POST) ) $ship_date1 = ""; else $ship_date1 = substr($_POST['s_ship_date1'],2).":00:00";
+						if( !array_key_exists('s_ship_date2', $_POST) ) $ship_date2 = ""; else $ship_date2 = substr($_POST['s_ship_date2'],2).":23:59";
 						echo '&nbsp;&nbsp;Date Range: ' ;
-						echo '<br><br>';
-						//Change this to whatever I want displayed in text area
-						echo '<input type="text" name="s_ship_date" value="' . $ship_date . '">';
-						//echo '<input type="text" name="s_name" value="' . $ship_date . '">';
+							echo '<input type="text" name="s_ship_date1" value="' . $ship_date1 . '">';
+							echo '<input type="text" name="s_ship_date2" value="' . $ship_date2 . '">';
 						
 						if( !array_key_exists('s_ship_items', $_POST) ) $ship_items = ""; else $ship_items = $_POST['s_ship_items'];
 						echo '<br><br>';
 						echo '&nbsp;&nbsp; Product: ';
 						echo '<br><br>';
-						//Change this to whatever I want displayed in text area
 						echo '<input type="text" name="s_ship_items" value="' . $ship_items . '">';
 						
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
@@ -65,14 +62,15 @@
 				// if user hit "Search"  button, query the database and display the results
 					if( array_key_exists('s_submitted', $_POST) ){
 						$customer_id = $_POST['s_customer_id'];
-						$ship_date = $_POST['s_ship_date'];
+						$ship_date1 = $_POST['s_ship_date1'];
+						$ship_date2 = $_POST['s_ship_date2'];
 						$ship_items = $_POST['s_ship_items'];
                        
                         // now go after the persons that fit the search criteria
                         include_once('database/dbShipments.php');
                         include_once('domain/Shipment.php');
                         
-                        $result = getonlythose_dbShipments($customer_id, $ship_date, $ship_items);  
+                        $result = getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_items);  
 
 						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
 							if (!ship_items) echo "shipment(s)";
