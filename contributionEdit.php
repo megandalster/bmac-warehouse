@@ -113,7 +113,7 @@ function process_form($id, $person)	{
 		$newperson = new Person($last_name, $first_name, $address, $city, $state, $zip, $clean_phone1, 
 						$clean_phone2, $email, $type, $status, $notes, $pass);
         
-	//step two: try to make the deletion, password change, addition, or change
+	//step two: try to make the deletion, addition, or change
 		if($_POST['deleteMe']=="DELETE"){
 			$result = retrieve_dbPersons($id);
 			if (!$result)
@@ -135,17 +135,6 @@ function process_form($id, $person)	{
 					echo("<p>You have successfully removed " .$first_name." ".$last_name. " from the database.</p>");		
 				}
 			}
-		}
-
-		// try to reset the person's password
-		else if($_POST['reset_pass']=="RESET"){
-				$id = $_POST['old_id'];
-				$result = delete_dbPersons($id);
-				$newperson->set_password (md5($first_name . $clean_phone1));
-                $result = insert_dbPersons($newperson);
-				if (!$result)
-                   echo ('<p class="error">Unable to reset ' .$first_name.' '.$last_name. "'s password.. <br>Please report this error to the Program manager.");
-				else echo("<p>You have successfully reset " .$first_name." ".$last_name. "'s password.</p>");
 		}
 
 		// try to add a new person to the database
