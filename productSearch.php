@@ -74,10 +74,10 @@
                         
                         $result = getonlythose_dbProducts($product_id, $funding_source, $status);  
 
-						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
-                            if (!$funding_source) echo "product(s)"; 
-                            else echo $funding_source.'s';
+						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' product(s)'; 
 						if ($product_id!="") echo ' with name like "'.$product_id.'"';
+						if ($funding_source!="") echo ' with funding source like "'.$funding_source.'"';
+						if ($status!="") echo ' with status "'.$status.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td><strong>Initial Date</strong></td></tr>';
@@ -86,22 +86,13 @@
 								echo "<tr><td><a href=productEdit.php?id=".$product->get_product_id().">" . 
 									$product->get_product_id() . "</td><td>" .
 									$product->get_funding_source() . "</td><td>" .  
-									$product->get_inventory_date() . "</td><td>" .  //change this to get_status() when status is put into the proper db column
+									$product->get_status() . "</td><td>" . 
 									$product->get_initial_date() . "</td><td>"; 
 									
 								echo "</td></a></tr>";
 							}
 							echo '</table>';
-							/*
-							echo "<br/><strong>Email these people:</strong> <br/>";
-	                        foreach($allEmails as $email)
-	                            if ($email!="")
-	                              echo $email . ", ";
-	                              */
 						}
-						
-                        
-                        
 						
 					}
 				?>

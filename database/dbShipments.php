@@ -60,12 +60,14 @@ function getall_dbShipments(){
 	return $theVols;
 }
 
-//Edited this function to make it specific to the search queries
+
 function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_items) {
 	connect();
 	$query = "SELECT * FROM dbShipments WHERE customer_id LIKE '%".$customer_id."%'";
-	if(empty($ship_date1)==false) $query .= " AND ship_date >= '%".$ship_date1."%'";		
-	if(empty($ship_date2)==false) $query .= " AND ship_date >= '%".$ship_date2."%'";
+	if($ship_date1) 
+		$query.= " AND ship_date >= '".substr($ship_date1,2).":00:00"."'";
+	if($ship_date2) 
+		$query.= " AND ship_date <= '".substr($ship_date2,2).":23:59"."'"; 
 	$query .= " AND ship_items LIKE '%".$ship_items."%'" ;
 	$query .= " ORDER BY customer_id";
 	$result = mysql_query($query);

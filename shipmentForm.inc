@@ -110,7 +110,6 @@ else // $_SESSION['access_level']==3
 	      echo($_POST['notes']);
 	      echo('</textarea>');
 
-		  echo('<input type="hidden" name="password" value="'.$person->get_password().'">');
 		  echo('<input type="hidden" name="_submit_check" value="1"><p>');
 		  if ($_SESSION['access_level']==0)
 		  	 echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete this application.<br /><br />');
@@ -120,9 +119,7 @@ else // $_SESSION['access_level']==3
 		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete these changes.<br /><br />');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
 			echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
-				'<input type="submit" value="Delete" name="Delete Entry"> to delete this person from the database. <br />' .
-				'<input type="checkbox" name="reset_pass" value="RESET"> Check this box and then hit ' .
-				'<input type="submit" value="Reset Password" name="Reset Password"> to reset this person\'s password.</p>');
+				'<input type="submit" value="Delete" name="Delete Entry"> to delete this person from the database. </p>');
 	}
 
 function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
