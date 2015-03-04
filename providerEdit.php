@@ -7,27 +7,27 @@
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
 */
 
-/*
- *	personEdit.php
- *  oversees the editing of a person to be added, changed, or deleted from the database
- *	@author Allen Tucker
- *	@version December 29, 2014
+/**
+ *	providerEdit.php
+ *  oversees the editing of a provider to be added, changed, or deleted from the database
+ *	@author David Quennoz
+ *	@version March 3, 2015
  */
 	session_start();
 	session_cache_expire(30);
-    include_once('database/dbPersons.php');
-    include_once('domain/Person.php'); 
+    include_once('database/dbProviders.php');
+    include_once('domain/Provider.php'); 
     
 //    include_once('database/dbLog.php');
 	$id = $_GET["id"];
 	if ($id=='new') {
-	 	$person = new Person(null,'new',null,null,null,null,null,null,null,null,null,
-	 	     	null,md5("new"));
+	 	$provider = new Provider('new', null, null, null, null, null, null, null, null, null,
+	 	     	null, null, null);
 	}
 	else {
-		$person = retrieve_dbPersons($id);
-		if (!$person) {
-	         echo('<p id="error">Error: there\'s no person with this id in the database</p>'. $id);
+		$provider = retrieve_dbProviders($id);
+		if (!$provider) {
+	         echo('<p id="error">Error: there\'s no provider with this id in the database</p>'. $id);
 		     die();
         }  
 	}
@@ -35,7 +35,7 @@
 <html>
 	<head>
 		<title>
-			Editing <?PHP echo($person->get_first_name()." ".$person->get_last_name());?>
+			Editing <?PHP echo($provider->get_provider_id());?>
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -46,36 +46,31 @@
 <?PHP
 	if($_POST['_form_submit']!=1){
 	//in this case, the form has not been submitted, so show it
-			include('personForm.inc');
+			include('providerForm.inc');
 	}
 	else {
 	//in this case, the form has been submitted, so validate it
-		if ($_POST['availability']==null)
-			   $avail = "";
-		else $avail = implode(',',$_POST['availability']);
 		if ($id=='new') {
-				$first_name = trim($_POST['first_name']);
-				$last_name = $_POST['last_name'];
-				$phone1 = $_POST['phone1'];
+				$provider_id = trim($_POST['provider_id']);
+				$code = trim($_POST['code']);
 		}
 		else {
-				$first_name = $person->get_first_name();
-				$last_name = $person->get_last_name();
-				$phone1 = $person->get_phone1();
+				$provider_id = $provider->get_provider_id();
+				$code = $provider->get_code();
 		}
-		$person = new Person($last_name, $first_name, $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
-								 $phone1, $_POST['phone2'], $_POST['email'], $_POST['type'],
-								 $_POST['status'], $_POST['notes'], $_POST['old_pass']);
+		$provider = new Provider($provider_id, $code, $_POST['type'], $_POST['address'], 
+								 $_POST['city'], $_POST['state'], $_POST['zip'], $_POST['county'],
+								 $_POST['contact'], $_POST['phone'], $_POST['email'], $_POST['status'], $_POST['notes']);
 		$errors = validate_form($id); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
 			show_errors($errors);
-			include('personForm.inc');
+			include('providerForm.inc');
 		}
 		// this was a successful form submission; update the database and exit
 		else
-			process_form($id, $person);
+			process_form($id, $provider);
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
@@ -84,107 +79,88 @@
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($id, $person)	{
+function process_form($id, $provider)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
 		if ($id=='new') {
-			    $first_name = trim(str_replace('\\\'','',htmlentities(trim($_POST['first_name']))));
-				$last_name = trim(str_replace('\\\'','\'',htmlentities($_POST['last_name'])));
-				$phone1 = trim(str_replace(' ','',htmlentities($_POST['phone1'])));
-				$clean_phone1 = preg_replace("/[^0-9]/", "", $phone1);
+			    $provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider_id']))));
+			    $code = trim(htmlentities($_POST['code']));
 		}
 		else {
-				$first_name = $person->get_first_name();
-				$last_name = $person->get_last_name();
-				$phone1 = $person->get_phone1();
-				$clean_phone1 = $phone1;
+				$provider_id = $provider->get_provider_id();
+				$code = $provider->get_code();
 		}
 		$address = trim(str_replace('\\\'','\'',htmlentities($_POST['address'])));
 		$city = trim(str_replace('\\\'','\'',htmlentities($_POST['city'])));
 		$state = trim(htmlentities($_POST['state']));
 		$zip = trim(htmlentities($_POST['zip']));
-		$phone2 = trim(str_replace(' ','',htmlentities($_POST['phone2'])));
-		$clean_phone2 = preg_replace("/[^0-9]/", "", $phone2);
+		$county = trim(str_replace('\\\'','\'',htmlentities($_POST['county'])));
+		$contact = trim(str_replace('\\\'','\'',htmlentities($_POST['contact'])));
+		$phone = trim(str_replace(' ','',htmlentities($_POST['phone'])));
+		$clean_phone = preg_replace("/[^0-9]/", "", $phone);
 		$email = $_POST['email'];
 		$type = $_POST['type'];			
         $status = $_POST['status'];
-        $notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
-		$pass = $_POST['password'];
+        $notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
 		
-		$newperson = new Person($last_name, $first_name, $address, $city, $state, $zip, $clean_phone1, 
-						$clean_phone2, $email, $type, $status, $notes, $pass);
+		$newprovider = new Provider($provider_id, $code, $type, $address, $city, $state, $zip, $county, $contact, 
+						$clean_phone, $email, $status, $notes);
         
 	//step two: try to make the deletion, addition, or change
-		if($_POST['deleteMe']=="DELETE"){
-			$result = retrieve_dbPersons($id);
+		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
+			$result = retrieve_dbProviders($provider_id);
 			if (!$result)
-				echo('<p>Unable to delete. ' .$first_name.' '.$last_name. ' is not in the database. <br>Please report this error to the House Manager.');
+				echo('<p>Unable to delete. ' . $provider_id . ' is not in the database.');
 			else {
-				//What if they're the last remaining manager account?
-				if($type=='manager'){
-				//They're another manager, we need to check that they can be deleted
-					$managers = getonlythose_dbPersons('manager','','');
-					if ($id==$_SESSION['_id'] || !$managers || sizeof($managers) <= 1)
-						echo('<p class="error">You cannot remove yourself or the last remaining manager from the database.</p>');
-					else {
-						$result = delete_dbPersons($id);
-						echo("<p>You have successfully removed " .$first_name." ".$last_name. " from the database.</p>");
-					}
-				}
-				else {
-					$result = delete_dbPersons($id);
-					echo("<p>You have successfully removed " .$first_name." ".$last_name. " from the database.</p>");		
-				}
+				$result = delete_dbProviders($provider_id);
+				echo("<p>You have successfully removed " .$provider_id. " from the database.</p>");		
 			}
 		}
 
-		// try to add a new person to the database
-		else if ($_POST['old_id']=='new') {
-			    $id = $first_name.$clean_phone1;
+		// try to add a new provider to the database
+		else if($_POST['submit']=='submit' && $_POST['old_id']=='new') {
 				//check if there's already an entry
-				$dup = retrieve_dbPersons($id);
+				$dup = retrieve_dbProviders($provider_id);
 				if ($dup)
-					echo('<p class="error">Unable to add ' .$first_name.' '.$last_name. ' to the database. <br>Another person with the same id is already there.');
+					echo('<p class="error">Unable to add ' .$provider_id. ' to the database. <br>Another provider with the same id is already there.');
 				else {
-					$newperson->set_password (md5($first_name.$clean_phone1));
-					$result = insert_dbPersons($newperson);
+					$result = insert_dbProviders($newprovider);
 					if (!$result)
-                        echo ('<p class="error">Unable to add "' .$first_name.' '.$last_name. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$first_name." ".$last_name. " to the database.</p>");
+                        echo ('<p class="error">Unable to add "' .$provider_id. '" to the database. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully added " .$provider_id. " to the database.</p>");
 				}
 		}
 
 		// try to replace an existing person in the database by removing and adding
-		else {
-				$id = $_POST['old_id'];
-				$result = delete_dbPersons($id);
+		else if($_POST['submit']=='submit') {
+				$result = delete_dbProviders($provider_id);
                 if (!$result)
-                   echo ('<p class="error">Unable to update ' .$first_name.' '.$last_name. '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Program manager.');
 				else {
-					$result = insert_dbPersons($newperson);
+					$result = insert_dbProviders($newprovider);
                 	if (!$result)
-                   		echo ('<p class="error">Unable to update ' .$first_name.' '.$last_name. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated " .$first_name." ".$last_name. " in the database.</p>");
-//					add_log_entry('<a href=\"viewPerson.php?id='.$id.'\">'.$first_name.' '.$last_name.'</a>\'s database entry has been updated.');
+                   		echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully updated " .$provider_id. " in the database.</p>");
+//					add_log_entry('<a href=\"viewProvider.php?id='.$provider_id.'\">'.$provider_id.'</a>\'s database entry has been updated.');
 				}
 		}
 }
-/*
- * 
- * 
- */
-function validate_form($id){
-	if($id=='new' && ($_POST['first_name']==null || $_POST['first_name']=='new')) $errors[] = 'Please enter a first name';
-	if($id=='new' && $_POST['last_name']==null) $errors[] = 'Please enter a last name';
-	if($id=='new' && !valid_phone($_POST['phone1'])) $errors[] = 'Please enter a valid primary phone number (10 digits: ###-###-####)';
-	if($_POST['city']==null) $errors[] = 'Please enter a city';
-	if($_POST['address']==null) $errors[] = 'Please enter an address';
-	if($_POST['state']==null) $errors[] = 'Please enter a state';
-	if(($_POST['zip'] != strval(intval($_POST['zip']))) || ($_POST['zip']==null) || (strlen($_POST['zip'])!=5)) $errors[] = 'Please enter a valid zip code';
-	if($_POST['type']==null && $_SESSION['access_level']>=1) $errors[] = 'Please select a Type';
-	if ($_SESSION['access_level']<3 && $_POST['type']=='manager')
-		$errors[] = "Sorry, you can't promote yourself to a mamager.";
-	if($_POST['phone2']!=null && !valid_phone($_POST['phone2'])) $errors[] = 'Please enter a valid secondary phone number (10 digits: ###-###-####)';
-	if(!valid_email($_POST['email']) && $_POST['email']!=null) $errors[] = "Please enter a valid email";
+
+
+
+function validate_form($id) {
+	//Check required fields
+	if($id=='new' && ($_POST['provider_id']==null || $_POST['provider_id']=='new')) $errors[] = 'Please enter a provider name';
+	if($id=='new' && ($_POST['code']==null || $_POST['code'] != strval(intval($_POST['code'])))) $errors[] = 'Please enter a provider code';
+	if($_POST['status'] != 'active' && $_POST['status'] != 'inactive') $errors[] = 'Please select a status';
+	if($_POST['type'] != 'funds' && $_POST['type'] != 'food') $errors[] = 'Please select a type';
+	
+	//Check validity of entered field where possible
+	if($_POST['phone']!=null && !valid_phone($_POST['phone'])) $errors[] = 'Please enter a valid phone number (10 digits: ###-###-####)';
+	if($_POST['email']!=null && !valid_email($_POST['email'])) $errors[] = "Please enter a valid email";
+	if($_POST['zip']!=null && ($_POST['zip'] != strval(intval($_POST['zip'])) || strlen($_POST['zip'])!=5))  $errors[] = 'Please enter a valid zip code';
+	
+	if($_POST['submit']=='delete' && $_POST['delete-check']!='delete') $errors[] = 'You must check the box to verify deletion';
+
 	return $errors;
 }
 /**

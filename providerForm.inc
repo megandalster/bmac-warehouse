@@ -6,55 +6,53 @@
  * modify it under the terms of the GNU Public License as published
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
 */
-/*
- *	personForm.inc
- *  a form for a person to be added or edited in the database
- *	@author Allen Tucker
- *	@version 12/29/2014
+
+/**
+ *	providerForm.inc
+ *  a form for a provider to be added or edited in the database
+ *	@author David Quennoz
+ *	@version 3/3/2015
  */
-if($_SESSION['access_level']<3)
-    if ($_SESSION['_id']!=$person->get_id()){
-		echo("<p id=\"error\">You do not have sufficient permissions to edit this user.</p>");
-		include('footer.inc');
-		echo('</div></div></body></html>');
-		die();
-	}
-	else {
-		echo('<p><strong>Staff Information Form</strong><br />');
-	    echo('Here you can edit your own information in the database.' .
-	    	 '<br>When you are finished, hit <b>Submit</b> at the bottom of this page.');
-	}
-else // $_SESSION['access_level']==3
+if($_SESSION['access_level']<3) {
+	echo("<p id=\"error\">You do not have sufficient permissions to edit providers.</p>");
+	include('footer.inc');
+	echo('</div></div></body></html>');
+	die();
+}
+else {// $_SESSION['access_level']==3
 	if ($id=='new') {
-	  echo('<p><strong>Staff Input Form</strong><br />');
-	  echo('Here you can add a new staff member to the database. </p>');
+	  echo('<p><strong>Provider Input Form</strong><br />');
+	  echo('Here you can add a new provider to the database. </p>');
     }
     else {
-	   echo('<p><strong>Staff Information Form</strong><br />');
-	   echo('Here you can edit, delete, or reset the password for a staff member.</p><p>');
+	   echo('<p><strong>Provider Information Form</strong><br />');
+	   echo('Here you can edit or delete the provider\'s information.</p><p>');
     }
-
+}
 ?>
 <form method="POST">
 	<input type="hidden" name="old_id" value=<?PHP echo("\"".$id."\"");?>>
-	<input type="hidden" name="old_pass" value=<?PHP echo("\"".$person->get_password()."\"");?>>
 	<input type="hidden" name="_form_submit" value="1">
 <p>(<span style="font-size:x-small;color:FF0000">*</span> indicates required information.)
 
 <p>	<?php 
 	if ($id=="new") {
-		echo 'First Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="first_name" tabindex=1 value="'.$person->get_first_name().'">';
-		echo 'Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="last_name" tabindex=2 value="'.$person->get_last_name().'">';
+		echo '<table>';
+		echo '<tr><td>Name<span style="font-size:x-small;color:FF0000">*</span>:</td><td><input type="text" name="provider_id" tabindex=1 value="'.$provider->get_provider_id().'"></td></tr>';
+		echo '<tr><td>Code<span style="font-size:x-small;color:FF0000">*</span>:</td><td><input type="text" name="code" tabindex=2 value="'.$provider->get_code().'"></td></tr>';
+		echo '</table>';
 	}
-	else 	
-		echo 'Name: '.$person->get_first_name().' '.$person->get_last_name();		
+	else {
+		echo 'Name: '.$provider->get_provider_id().'<br>';		
+		echo 'Code: '.$provider->get_code();
+	}
 ?>
 <fieldset>
 <legend>Contact Information</legend>
-	<table>		<tr><td>Address<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="address" tabindex=3 value="<?PHP echo($person->get_address())?>"></td></tr>
-		<tr><td>City<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="city" tabindex=4 value="<?PHP echo($person->get_city())?>"></td></tr>
-		<tr><td>State, Zip<span style="font-size:x-small;color:FF0000">*</span>:</td>
-		<td><select name="state" tabindex=5>
+	<table>		<tr><td>Address:</td><td> <input type="text" size="40" name="address" tabindex=3 value="<?PHP echo($provider->get_address())?>"></td></tr>
+		<tr><td>City:</td><td> <input type="text" name="city" tabindex=4 value="<?PHP echo($provider->get_city())?>"></td></tr>
+		<tr><td>State, Zip:</td>
+		<td><select name="state" tabindex=5><option value=''></option>
 		<?PHP
 
 			$states = array("AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA",
@@ -63,37 +61,29 @@ else // $_SESSION['access_level']==3
 					        "WV","WI","WY");
 			foreach ($states as $st) {
 				echo "<option value='" . $st . "' ";
-                if($person->get_state() == $st ) echo("SELECTED");
-                else if ($id == "new" && $st =="WA") echo("SELECTED");
+                if($provider->get_state() == $st ) echo("SELECTED");
                 echo ">" . $st . "</option>";
 			}
 		?>
 		</select>,
-		<input type="text" name="zip" size="5" tabindex=6 value="<?PHP echo($person->get_zip())?>"></td></tr>
-		<tr>
-		<?php 
-			if ($id=="new")
-				echo '<td>Primary Phone<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="phone1" MAXLENGTH=12 tabindex=7 value="'.$person->get_phone1().'"></td>';
-			else 
-				echo '<td>Primary Phone:</td><td>'.$person->get_phone1().'</td>';
-		?>
-		<td>Secondary Phone:</td><td><input type="text" name="phone2" MAXLENGTH=12 tabindex=8 value="<?PHP echo $person->get_phone2()?>"></td></tr>
-		<tr><td>Email:</td><td><input type="text" name="email" size="40" tabindex=9 value="<?PHP echo($person->get_email())?>"></td></tr>
+		<input type="text" name="zip" size="5" tabindex=6 value="<?PHP echo($provider->get_zip())?>"></td></tr>
+		<tr><td>County:</td><td><input type="text" name="county" size="40" tabindex=7 value="<?PHP echo($provider->get_county())?>"></td></tr>
+		<tr><td>Contact Name:</td><td><input type="text" name="contact" size="40" tabindex=8 value="<?PHP echo($provider->get_contact())?>"></td></tr>
+		<tr><td>Contact Phone:</td><td><input type="text" name="phone" MAXLENGTH=12 tabindex=9 value="<?PHP echo $provider->get_phone()?>"></td></tr>
+		<tr><td>Contact Email:</td><td><input type="text" name="email" size="40" tabindex=10 value="<?PHP echo($provider->get_email())?>"></td></tr>
 
 </table>
 </fieldset>
 <?PHP
     
-	echo ('<br>&nbsp;&nbsp;Status: ');
+	echo('<p>Status<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="status">');
-    echo ('<option value=""></option>');
-    echo ('<option value="active"');if ($person->get_status()=='active') echo (' SELECTED'); echo('>active</option>');
-	echo ('<option value="on-leave"');if ($person->get_status()=='on-leave') echo (' SELECTED'); echo('>on leave</option>');
-	echo ('<option value="former"');if ($person->get_status()=='former') echo (' SELECTED'); echo('>former</option>');
-	echo('</select>');
+    echo('<option value="active"');if ($provider->get_status()=='active' || $provider->get_status()=='') echo (' SELECTED'); echo('>active</option>');
+	echo('<option value="inactive"');if ($provider->get_status()=='inactive') echo (' SELECTED'); echo('>inactive</option>');
+	echo('</select></p>');
 	
-	$st = $person->get_type();
-    $types = array('staff' => "Warehouse Staff", 'office'=>'Office Staff', 'manager'=>"Foodbank Direcxtor");
+	$st = $provider->get_type();
+    $types = array('funds' => "Funds Provider", 'food'=>'Food Provider');
 	echo('<p>Type');
 	echo('<span style="font-size:x-small;color:FF0000">*</span>: ');
 
@@ -107,21 +97,22 @@ else // $_SESSION['access_level']==3
     echo "</p>";
 	echo('<p>Notes:<br />');
 	      echo('<textarea name="notes" rows="2" cols="60">');
-	      echo($_POST['notes']);
+	      echo($provider->get_notes());
 	      echo('</textarea>');
 
-		  echo('<input type="hidden" name="_submit_check" value="1"><p>');
+		  echo('<input type="hidden" name="_submit_type" value="submit"><p>');
 		  if ($_SESSION['access_level']==0)
-		  	 echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete this application.<br /><br />');
+		  	 echo('Hit <input type="submit" value="submit" name="submit"> to complete this application.<br /><br />');
 		  else if ($id=="new")
-		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to add this new person.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit"> to add this new provider.<br /><br />');
 		  else
-		     echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to complete these changes.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit"> to complete these changes.<br /><br />');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
-			echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
-				'<input type="submit" value="Delete" name="Delete Entry"> to delete this person from the database. </p>');
+			echo ('<input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
+				'<input type="submit" value="delete" name="submit"> to delete this provider from the database. </p>');
 	}
 
+/*
 function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
 		$months = array('','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
         echo('<select name='.$month_name.'><option value=""></option>');
@@ -153,6 +144,7 @@ function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
         }
 		echo "</select>";	
 }
+*/
 
 ?>
 </form>
