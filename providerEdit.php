@@ -11,7 +11,7 @@
  *	providerEdit.php
  *  oversees the editing of a provider to be added, changed, or deleted from the database
  *	@author David Quennoz
- *	@version March 3, 2015
+ *	@version 3/3/2015
  */
 	session_start();
 	session_cache_expire(30);
@@ -52,7 +52,7 @@
 	//in this case, the form has been submitted, so validate it
 		if ($id=='new') {
 				$provider_id = trim($_POST['provider_id']);
-				$code = trim($_POST['code']);
+				$code = null;
 		}
 		else {
 				$provider_id = $provider->get_provider_id();
@@ -83,7 +83,7 @@ function process_form($id, $provider)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
 		if ($id=='new') {
 			    $provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider_id']))));
-			    $code = trim(htmlentities($_POST['code']));
+			    $code = null;
 		}
 		else {
 				$provider_id = $provider->get_provider_id();
@@ -150,7 +150,6 @@ function process_form($id, $provider)	{
 function validate_form($id) {
 	//Check required fields
 	if($id=='new' && ($_POST['provider_id']==null || $_POST['provider_id']=='new')) $errors[] = 'Please enter a provider name';
-	if($id=='new' && ($_POST['code']==null || $_POST['code'] != strval(intval($_POST['code'])))) $errors[] = 'Please enter a provider code';
 	if($_POST['status'] != 'active' && $_POST['status'] != 'inactive') $errors[] = 'Please select a status';
 	if($_POST['type'] != 'funds' && $_POST['type'] != 'food') $errors[] = 'Please select a type';
 	

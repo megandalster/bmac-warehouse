@@ -37,14 +37,13 @@ else {// $_SESSION['access_level']==3
 
 <p>	<?php 
 	if ($id=="new") {
-		echo '<table>';
-		echo '<tr><td>Name<span style="font-size:x-small;color:FF0000">*</span>:</td><td><input type="text" name="provider_id" tabindex=1 value="'.$provider->get_provider_id().'"></td></tr>';
-		echo '<tr><td>Code<span style="font-size:x-small;color:FF0000">*</span>:</td><td><input type="text" name="code" tabindex=2 value="'.$provider->get_code().'"></td></tr>';
-		echo '</table>';
+		echo 'Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" tabindex=1 value="'.$provider->get_provider_id().'">';
 	}
 	else {
-		echo 'Name: '.$provider->get_provider_id().'<br>';		
-		echo 'Code: '.$provider->get_code();
+		echo 'Name: '.$provider->get_provider_id();		
+		if($provider->get_code()!=null) {
+			echo '<br>Code: '.$provider->get_code();
+		}
 	}
 ?>
 <fieldset>
@@ -89,7 +88,8 @@ else {// $_SESSION['access_level']==3
 
     foreach ($types as $key=>$value) {
     	echo ('<input type="radio" name="type" value=' . $key);
-    	if (strpos($st,$key)!==false) echo(' CHECKED');
+    	if(strpos($st,$key)!==false) echo(' CHECKED');
+    	if($id=='new' && $key=='food') echo(' CHECKED');
     	echo ('>' . $value . '&nbsp;&nbsp;');
     }
 
