@@ -63,8 +63,8 @@ function getall_dbContributions(){
 function getonlythose_dbContributions($provider_id, $receive_date1, $receive_date2, $receive_items) { 
 	connect();
 	$query = "SELECT * FROM dbContributions WHERE provider_id LIKE '%".$provider_id."%'";
-	if($receive_date1) $query.= " AND receive_date >= '".substr($receive_date1,2).":00:00"."'";
-	if($receive_date2) $query.=	" AND receive_date <= '".substr($receive_date2,2).":23:59"."'"; 
+	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
 	$query.= " AND receive_items LIKE '%".$receive_items."%'";
     $query .= " ORDER BY provider_id";
     $result = mysql_query($query);
