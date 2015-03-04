@@ -29,7 +29,7 @@
 			<div id="content">
 				<?PHP
 				// display the search form
-					echo('<p><a href="'.$path.'personEdit.php?id=new">Add new provider</a>');
+					echo('<p><a href="'.$path.'providerEdit.php?id=new">Add new provider</a>');
 					echo('<form method="post">');
 						echo('<p><strong>Search for providers:</strong>');
                         if( !array_key_exists('s_type', $_POST) ) $type = ""; else $type = $_POST['s_type'];
@@ -43,7 +43,6 @@
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>Active</option>';
-							echo '<option value="on-leave"';    if ($status=="on-leave")    echo " SELECTED"; echo '>On Leave</option>';
                             echo '<option value="inactive"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
                         echo '</select>';
                         
@@ -77,7 +76,7 @@
 							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
                             $allEmails = array(); // for printing all emails
                             foreach ($result as $provider) {
-								echo "<tr><td><a href=providerEdit.php?id=".$provider->get_provider_id().">" . 
+								echo "<tr><td><a href=providerEdit.php?id=".rawurlencode($provider->get_provider_id()).">" . 
 									$provider->get_provider_id() . "</td><td>" . 
 									$provider->get_nice_phone() . "</td><td>" . 
 									$provider->get_email() . "</td><td>";
