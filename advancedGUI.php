@@ -28,8 +28,8 @@ $(function() {
 		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
 		$("#product-id-inputs").append(new_input);
 	});
-	$( "#from" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true});
-	$( "#to" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true});
+	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 
 });
 </script>
