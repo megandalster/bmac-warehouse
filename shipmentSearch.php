@@ -79,7 +79,7 @@
 						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' shipment(s)';
                         if ($customer_id!="") echo ' with Customer Name like "'.$customer_id.'"';
                         if ($ship_date1!="" || $ship_date2!="") echo ' within the given date range ';
-						if ($ship_items!="") echo ' with shipped items like "'.$receive_items.'"';
+						if ($ship_items!="") echo ' with shipped items like "'.$ship_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Product</strong></td></tr>';
