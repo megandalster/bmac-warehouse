@@ -11,10 +11,17 @@
 <style type="text/css">
 h1 {padding-left: 0px; padding-right:165px;}
 </style>
-<div id="header"></div>
+<script src="lib/jquery-1.9.1.js"></script>
+<script src="lib/jquery-ui.js"></script>
 
+<div id="header"></div>
 <div align="center" id="navigationLinks">
 
+<div id="logo" style="visibility:hidden; position:absolute; top:0px; left:0px">
+<a href="#top"><img src="./images/bmaclogo,png.png" style="height:48px; width:auto"></a>
+</div>
+
+<div>
 <?PHP
 	//Log-in security
 	//If they aren't logged in, display our log-in form.
@@ -89,4 +96,54 @@ h1 {padding-left: 0px; padding-right:165px;}
 	}
 ?>
 </div>
+</div>
+<script>
+var normalTop = $('#navigationLinks').offset().top;
+var offset = $('#navigationLinks').outerHeight()
+$window = $(window);
+
+$("a[href='#top']").click(function() {
+	  $("html, body").animate({ scrollTop: 0 }, "slow");
+	  return false;
+});
+
+$window.scroll(function() {
+if($window.scrollTop() >= normalTop) {
+	$('#navigationLinks').css({          
+    	position: "fixed",
+    	width: "90%",
+    	top: 0,
+    	left: 0,
+    	right: 0,
+    	borderBottom: "2px solid #264576",
+       	borderLeft: "",
+       	borderRight: "",
+	})
+	
+	$('#logo').css({          
+		visibility: "visible"
+	})
+
+	$('#header').css({          
+		marginBottom: offset
+	})
+} else {
+	$('#navigationLinks').css({
+		position: "static",
+		width: "auto",
+    	borderBottom: "",
+       	borderLeft: "2px solid #264576",
+       	borderRight: "2px solid #264576",
+	})
+	
+	$('#logo').css({          
+		visibility: "hidden"
+	})
+	
+	$('#header').css({          
+		marginBottom: 0
+	})
+}
+});
+</script>
 <!-- End Header -->

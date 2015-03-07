@@ -153,18 +153,20 @@ p.error {color: #FF0000;}
 	border-top:2px solid #264576;
 	border-right:2px solid #264576;
 	padding: 0px;
-	background:url("images/Header3.gif") #ffffff;
-	background-repeat:no-repeat;
-	background-position:top left;
+	background: url("images/Header3.gif") #ffffff;
+	background-repeat: no-repeat;
+	background-position: top left;
 	overflow:hidden;
 }
 
 #navigationLinks{
+	padding: 5px 0px;
 	font-size:11pt;
 	border-left:2px solid #264576;
 	border-right:2px solid #264576;
-	padding-left : 25px;
 	background:#ffffff;
+	position: relative;
+	margin: 0 auto;
 }
 
 #content{

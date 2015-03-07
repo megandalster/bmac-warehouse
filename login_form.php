@@ -12,9 +12,10 @@
  * @author Oliver Radwan <oradwan@bowdoin.edu>
  */
 ?>
+</div>
+</div>
 <html>
   <body>
-  		</div>
   <div id="content">
 			<?PHP
 				include_once(dirname(__FILE__).'/database/dbPersons.php');
@@ -87,7 +88,7 @@
 				}
 				}
 			?>
-		</div></div>
+		</div>
 		<?PHP include('footer.inc');?>
 	</body>
 </html>
