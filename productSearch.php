@@ -80,7 +80,8 @@
 						if ($status!="") echo ' with status "'.$status.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td><strong>Initial Date</strong></td></tr>';
+							echo '<div id="target" style="overflow: scroll; width: 600px; height: 200px;">';
+				            echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td><strong>Initial Date</strong></td></tr>';
                             
                             foreach ($result as $product) {
 								echo "<tr><td><a href=productEdit.php?id=".$product->get_product_id().">" . 
@@ -92,6 +93,7 @@
 								echo "</td></a></tr>";
 							}
 							echo '</table>';
+							echo '</div>';
 						}
 						
 					}
