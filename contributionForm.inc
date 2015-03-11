@@ -34,11 +34,11 @@ if($_SESSION['access_level']<3) {
 
 <p>	<?php 
 	if ($id=="new") {
-		echo 'Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" tabindex=1 value="">';
+		echo 'Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" tabindex=1 value=""><br>';
 		echo 'Receive Date<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="last_name" tabindex=2 value="'.date('y-m-d:h:m').'">';
 	}
 	else {
-		echo 'Provider: '.$contribution->get_provider_id();		
+		echo 'Provider: '.$contribution->get_provider_id().'<br>';		
 		echo 'Receive Date: '.$contribution->get_receive_date();
 	}
 ?>
@@ -46,13 +46,17 @@ if($_SESSION['access_level']<3) {
 <legend>Receipt Contents</legend>
 	<table>
 		<?php 
+		echo('Items');
 		if($id=='new') {
-			echo('<tr><td>Items<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="address" tabindex=3 value="'.$contribution->get_receive_items()[0].'")"></td></tr>');
+			echo('<tr><td><span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="item0" tabindex=3 value="")"></td></tr>');
 		}
-		?>		
-		<tr><td>Items<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="address" tabindex=3 value="<?PHP echo($person->get_address())?>"></td></tr>
-		<tr><td>City<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="city" tabindex=4 value="<?PHP echo($person->get_city())?>"></td></tr>
-		<tr><td>State, Zip<span style="font-size:x-small;color:FF0000">*</span>:</td>
+		else {
+			$items = $contribution->get_receive_items();
+			for($i = 0; $i < count($items); $i++) {
+				echo('<tr><td><span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="item'.$i.'" tabindex='. 3+$i .' value="'.$items[$i].'")"></td></tr>');
+			}
+		}
+		?>
 </table>
 </fieldset>
 <?PHP
