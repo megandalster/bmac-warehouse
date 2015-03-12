@@ -27,6 +27,7 @@ class testdbShipments extends UnitTestCase {
 		$this->assertTrue(insert_dbShipments($ship2));
 		$this->assertTrue(insert_dbShipments($ship3));
 		//Test Retrieve
+		/*
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_customer_id (), "Dylan3033251787");
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_funds_source (), "Parentals");
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_ship_date (), "1993-05-03:11:45");
@@ -37,6 +38,18 @@ class testdbShipments extends UnitTestCase {
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_total_price (), "360");
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_invoice_date (), "2014-06-07");
 		$this->assertEqual(retrieve_dbShipments($ship1->get_customer_id())->get_invoice_no(), "1");
+		*/
+		//Test Retrieve Date
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_customer_id (), "Dylan3033251787");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_funds_source (), "Parentals");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_ship_date (), "1993-05-03:11:45");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_ship_via(), "BMAC");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_ship_items (), null);
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_ship_rate (), "13");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_total_weight(), "400");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_total_price (), "360");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_invoice_date (), "2014-06-07");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship1->get_ship_date())->get_invoice_no(), "1");
 		
 		//Test Update with a change of funds source
 		$ship2 = new Shipment ("Gilbert3036645136", "Pond", "2001-03-21:10:45", "BMAC", "", 
