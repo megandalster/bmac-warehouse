@@ -81,7 +81,7 @@ h1 {padding-left: 0px; padding-right:165px;}
 			echo(' <br><a href="'.$path.'personSearch.php?date='.$today.'">staff</a>');
 	        echo(' | <a href="'.$path.'providerSearch.php'.'">providers</a>');
 	    	echo(' | <a href="'.$path.'customerSearch.php'.'">customers</a>');
-			echo(' | <a href="'.$path.'personSearch.php">reports</a>');	
+			echo(' | <a href="'.$path.'reports.php">reports</a>');	
 	    }
 	    echo(' | <a href="'.$path.'help.php?helpPage='.$current_page.'" target="_BLANK"><b>help</b></a>');
 	    echo(' | <a href="'.$path.'logout.php"> logout</a>');
