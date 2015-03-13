@@ -38,6 +38,15 @@
 			Editing <?PHP echo($product->get_funding_source()." ".$product->get_product_id());?>
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<link rel="stylesheet" href="lib/jquery-ui.css" />
+		<script src="lib/jquery-1.9.1.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+		<script>
+		$(function() {
+			$( "#inventory_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+			$( "#initial_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+		});
+		</script>		
 	</head>
 <body>
   <div id="container">
@@ -59,7 +68,7 @@
 				$product_id = $product->get_product_id();
 				$unit_weight = $product->get_unit_weight();
 		}
-		$product = new Product($product_id, $_POST['product_code'], $funding_source, $unit_weight, $_POST['unit_price'], $_POST['initial_date'], $_POST['initial_stock'],
+		$product = new Product($product_id, $_POST['product_code'], $_POST['funding_source'], $_post['unit_weight'], $_POST['unit_price'], $_POST['initial_date'], $_POST['initial_stock'],
 								 $_POST['minimum_stock'], $_POST['history'], $_POST['current_stock'], $_POST['status'], $_POST['inventory_date'], $_POST['notes']);
 		$errors = validate_form($id); 	//step one is validation.
         // errors array lists problems on the form submitted

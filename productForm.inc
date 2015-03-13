@@ -108,7 +108,7 @@ else {// $_SESSION['access_level']==3
 				'<input type="submit" value="delete" name="submit"> to delete this product from the database. </p>');
 	}
 
-/*
+
 function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
 		$months = array('','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
         echo('<select name='.$month_name.'><option value=""></option>');
@@ -140,7 +140,7 @@ function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
         }
 		echo "</select>";	
 }
-*/
+
 
 ?>
 </form>
