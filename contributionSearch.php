@@ -19,7 +19,7 @@
 <html>
 	<head>
 		<title>
-			Search for Contributions
+			Search for receipts
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<link rel="stylesheet" href="lib/jquery-ui.css" />
@@ -42,16 +42,16 @@
 					echo('<form method="post">');
 					echo('<p><strong>Search for receipts:</strong>');
 					$provider_id = $_POST['s_provider_id'];
-					echo '<br><br>Provider name: ' ;
-						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '">';
+					echo '<br><br><p>Provider name: ' ;
+						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '"></p>';
 					$receive_date1 = $_POST['s_receive_date1'];	
 					$receive_date2 = $_POST['s_receive_date2'];
-                        echo '<br>Date Range from: ' ;
+                        echo '<p>Date Range from: ' ;
 						echo '<input type="text" name="s_receive_date1" value="' . $receive_date1 . '" id="from">';
-						echo '&nbsp;&nbsp;to: <input type="text" name="s_receive_date2" value="' . $receive_date2 . '" id="to">';
+						echo '&nbsp;&nbsp;to: <input type="text" name="s_receive_date2" value="' . $receive_date2 . '" id="to"></p>';
 					$receive_items = $_POST['s_receive_items'];  
-                        echo '<br>Items received: ' ;
-						echo '<input type="text" name="s_receive_items" value="' . $receive_items . '">';
+                        echo '<p>Items received: ' ;
+						echo '<input type="text" name="s_receive_items" value="' . $receive_items . '"></p>';
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
 					
@@ -74,12 +74,12 @@
 						if ($receive_items!="") echo ' with received items like "'.$receive_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Provider</strong></td><td><strong>Receive date</strong></td><td><strong>Items</strong></td><td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>'; #What info do i show
+							echo '<p><table> <tr><td><strong>Receive Date</strong></td><td><strong>Provider</strong></td><td><strong>Items</strong></td><td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>'; #What info do i show
                             $allIds = array(); // for printing all provider id's
                             foreach ($result as $contribution) {
 								echo "<tr><td><a href='contributionEdit.php?id=".$contribution->get_receive_date()."'>" .
-									$contribution->get_provider_id() . "</a></td><td>" . 
-									$contribution->get_receive_date() .  "</td><td>" .
+									$contribution->get_receive_date() . "</a></td><td>" . 
+									$contribution->get_provider_id().  "</td><td>" .
 									implode(',',$contribution->get_receive_items()) . "</td><td>" . 
 									$contribution->get_payment_source() . "</td><td>" . 
 									$contribution->get_billed_amt() . "</td><td>"; 
@@ -96,4 +96,3 @@
 		</div>
 	</body>
 </html>
-

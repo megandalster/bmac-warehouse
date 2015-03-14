@@ -23,12 +23,12 @@ class Contribution {
 	/**
 	 *Constructor for Contribution
 	 */
-	function __construct($id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes){                
-        $this->provider_id = $id;
+	function __construct($provider_id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes){                
+        $this->provider_id = $provider_id;
         $this->receive_date = $receive_date;
         $this->receive_items = array();
 		if ($receive_items!="")
-			$this->receive_items = explode(',',$receive_items);
+			$this->receive_items = explode(':',$receive_items);
 		$this->payment_source = $payment_source; 
 		$this->billed_amt = $billed_amt;     
         $this->notes = $notes;   

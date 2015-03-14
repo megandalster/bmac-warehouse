@@ -30,9 +30,9 @@ function create_dbContributions(){
 	}
 	return true;
 }
-function retrieve_dbContributions($provider_id){
+function retrieve_dbContributions($receive_date){
 	connect();
-	$result=mysql_query("SELECT * FROM dbContributions WHERE provider_id = '".$provider_id."'");
+	$result=mysql_query("SELECT * FROM dbContributions WHERE receive_date = '".$receive_date."'");
 	if(mysql_num_rows($result)!== 1){
 		mysql_close();
 		return false;
@@ -94,7 +94,7 @@ function insert_dbContributions($Contribution){
 	            "');";
 	$result = mysql_query($query);
 	if (!$result) {
-		echo (mysql_error(). " Unable to insert into dbContributions: " . $Contribution->get_provider_id(). "\n");
+		echo (mysql_error(). " Unable to insert into dbContributions: " . $Contribution->get_receive_date(). "\n");
 		mysql_close();
 		return false;
 	}
@@ -111,18 +111,18 @@ function update_dbContributions($Contribution){
 	if (delete_dbContributions($Contribution->get_provider_id()))
 	return insert_dbContributions($Contribution);
 	else {
-		echo (mysql_error()."unable to update dbContributions table: ".$Contribution->get_provider_id());
+		echo (mysql_error()."unable to update dbContributions table: ".$Contribution->get_receive_date());
 		return false;
 	}
 }
 
 
-function delete_dbContributions($provider_id){
+function delete_dbContributions($receive_date){
 	connect();
-	$result = mysql_query("DELETE FROM dbContributions WHERE provider_id =\"".$provider_id."\"");
+	$result = mysql_query("DELETE FROM dbContributions WHERE receive_date =\"".$receive_date."\"");
 	mysql_close();
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbContributions: ".$provider_id);
+		echo (mysql_error()." unable to delete from dbContributions: ".$receive_date);
 		return false;
 	}
 	return true;
