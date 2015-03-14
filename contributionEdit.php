@@ -32,9 +32,45 @@
 	}
 ?>
 <html>
+	<?PHP
+/*
+ * Copyright 2014 by Luis Martin Munguia Orta. 
+ * This program is part of BMAC-Warehouse, which is free software.
+ * It comes with absolutely no warranty.  You can redistribute and/or
+ * modify it under the terms of the GNU Public License as published
+ * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
+*/
+
+/**
+ *	ContributionEdit.php
+ *  oversees the editing of a person to be added, changed, or deleted from the database
+ *	@author Luis Martin Munguia Orta
+ *	@version March 10, 2015
+ */
+	session_start();
+	session_cache_expire(30);
+    include_once('database/dbContributions.php');
+    include_once('domain/Contribution.php'); 
+
+//    include_once('database/dbLog.php');
+	$id = $_GET["id"];
+	if ($id=='new') {
+	 	$contribution = new Contribution(null,'new',null,null,null,null);
+	}
+	else {
+		$contribution = retrieve_dbContributions($id);
+		if (!$contribution) {
+	         echo('<p id="error">Error: there\'s no unique receipt in the database with this timestamp</p>'. $id);
+		     die();
+        }  
+	}
+?>
+<html>
 	<head>
 		<title>
-			Editing <?PHP echo($contribution->get_provider_id());?>
+			<?PHP 
+			if($id=='new') echo('Add a new receipt');
+			else echo('Editing '.$contribution->get_receive_date());?>
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -50,14 +86,13 @@
 	else {
 	//in this case, the form has been submitted, so validate it
 			if ($id=='new') {
-				$provider_id = trim($_POST['provider_id']);
-				$code = null;
+				$receive_date = $_POST['receive_date'];
 		}
 		else {
-				$provider_id = $contribution->get_provider_id();
+				$receive_date = $contribution->get_receive_date();
 				
 		}
-		$contribution = new Contribution($provider_id, $_POST['receive_date'], $_POST['payment_source'], $_POST['billed_amt'], $_POST['notes']);
+		$contribution = new Contribution($_POST['provider_id'], $receive_date, $_POST['payment_source'], $_POST['billed_amt'], $_POST['notes']);
 		$errors = validate_form($id); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
@@ -78,38 +113,32 @@
 */
 function process_form($id, $contribution)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
-		if ($id=='new') {
-			    $provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider_id']))));
-				
-		}
-		else {
-				$provider_id = $contribution->get_provider_id();
-				
-		}
+		$provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider_id']))));
 		$receive_date = $_POST['receive_date'];
-		$receive_items = $_POST['receive_items'];     
+		$receive_items = trim(str_replace('\\\'','',htmlentities(trim($_POST['receive_items']))));     
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
+		$payment_source = $_POST['payment_source'];
 		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
 		
 		$contribution = new Contribution($provider_id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes);
         
 	//step two: try to make the deletion, addition, or change
 		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
-			$result = retrieve_dbContributions($provider_id);
+			$result = retrieve_dbContributions($receive_date);
 			if (!$result)
-				echo('<p>Unable to delete. ' . $provider_id . ' is not in the database.');
+				echo('<p>Unable to delete. Receipt with timestamp ' . $receive_date .' is not in the database.');
 			else {
-				$result = delete_dbContributions($provider_id);
-				echo("<p>You have successfully removed " .$provider_id. " from the database.</p>");	
+				$result = delete_dbContributions($receive_date);
+				echo("<p>You have successfully removed the receipt with timestamp" .$receive_date. " from the database.</p>");	
 			}
 		}
 
 		// try to add a new contribution (receipt) to the database
 		else if ($_POST['old_id']=='new') {
 			    //check if there's already an entry
-				$dup = retrieve_dbContributions($provider_id);
+				$dup = retrieve_dbContributions($receive_date);
 				if ($dup)
-					echo('<p class="error">Unable to add ' .$provider_id. ' to the database. <br>Another receipt with the same timestamp is already there.');
+					echo('<p class="error">Unable to add receipt with timestamp' .$receive_date. ' to the database. <br>Another receipt with the same timestamp is already there.');
 				else {
 					$result = insert_dbContributions($contribution);
 					if (!$result)
@@ -120,10 +149,10 @@ function process_form($id, $contribution)	{
 
 		// try to replace an existing receipt in the database by removing and adding
 		else {
-				$provider_id = $_POST['old_id'];
-				$result = delete_dbContributions($provider_id);
+				$receive_date = $_POST['old_id'];
+				$result = delete_dbContributions($receive_date);
                 if (!$result)
-                   echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update receipt with timestamp ' .$receive_date. '. <br>Please report this error to the Program manager.');
 				else {
 					$result = insert_dbContributions($contribution);
                 	if (!$result)
@@ -157,4 +186,3 @@ function show_errors($e){
   </div>
 </body>
 </html>
-
