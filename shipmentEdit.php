@@ -7,27 +7,30 @@
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
 */
 
-/*
- *	personEdit.php
+//Use St.Vincent/Clarkson from 14-12-03:13:51
+
+/**
+ *	shipmentEdit.php
  *  oversees the editing of a person to be added, changed, or deleted from the database
- *	@author Allen Tucker
- *	@version December 29, 2014
+ *	@author Dylan Martin
+ *	@version March 13, 2015
  */
 	session_start();
 	session_cache_expire(30);
-    include_once('database/dbPersons.php');
-    include_once('domain/Person.php'); 
+    include_once('database/dbShipments.php');
+    include_once('domain/Shipment.php'); 
     
 //    include_once('database/dbLog.php');
-	$id = $_GET["id"];
-	if ($id=='new') {
-	 	$person = new Person(null,'new',null,null,null,null,null,null,null,null,null,
-	 	     	null,md5("new"));
+	$ship_date = $_GET["id"];
+	if ($ship_date=='new') {
+	 	$shipment = new Shipment(null, null, 'new', null, null, 
+	 	null, null, null, null, null, null);
 	}
+	
 	else {
-		$person = retrieve_dbPersons($id);
-		if (!$person) {
-	         echo('<p id="error">Error: there\'s no person with this id in the database</p>'. $id);
+		$shipment = retrieve_dbShipmentsDate($ship_date);
+		if (!$shipment) {
+	         echo('<p id="error">Error: there\'s no shipment from this date in the database</p>'. $ship_date);
 		     die();
         }  
 	}
@@ -35,7 +38,7 @@
 <html>
 	<head>
 		<title>
-			Editing <?PHP echo($person->get_first_name()." ".$person->get_last_name());?>
+			Editing <?PHP echo($shipment->get_ship_date());?>
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -46,36 +49,32 @@
 <?PHP
 	if($_POST['_form_submit']!=1){
 	//in this case, the form has not been submitted, so show it
-			include('personForm.inc');
+			include('shipmentForm.inc');
 	}
 	else {
 	//in this case, the form has been submitted, so validate it
-		if ($_POST['availability']==null)
-			   $avail = "";
-		else $avail = implode(',',$_POST['availability']);
-		if ($id=='new') {
-				$first_name = trim($_POST['first_name']);
-				$last_name = $_POST['last_name'];
-				$phone1 = $_POST['phone1'];
+		if ($ship_date=='new') {
+				$ship_date = trim($_POST['ship_date']);
+				$customer_id = null;
 		}
 		else {
-				$first_name = $person->get_first_name();
-				$last_name = $person->get_last_name();
-				$phone1 = $person->get_phone1();
+				$ship_date = $shipment->get_ship_date();
+				$customer_id = $shipment->get_customer_id();
 		}
-		$person = new Person($last_name, $first_name, $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
-								 $phone1, $_POST['phone2'], $_POST['email'], $_POST['type'],
-								 $_POST['status'], $_POST['notes'], $_POST['old_pass']);
-		$errors = validate_form($id); 	//step one is validation.
+		$shipment = new Shipment($customer_id, $_POST['funds_source'], $ship_date, 
+								 $_POST['ship_via'], $_POST['ship_items'], $_POST['ship_rate'],
+								 $_POST['total_weight'], $_POST['total_price'], $_POST['invoice_date'], 
+								 $_POST['invoice_no'], $_POST['notes']);
+		$errors = validate_form($ship_date); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
 			show_errors($errors);
-			include('personForm.inc');
+			include('shipmentForm.inc');
 		}
 		// this was a successful form submission; update the database and exit
 		else
-			process_form($id, $person);
+			process_form($ship_date, $shipment);
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
@@ -84,86 +83,70 @@
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($id, $person)	{
+function process_form($ship_date, $shipment)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
-		if ($id=='new') {
-			    $first_name = trim(str_replace('\\\'','',htmlentities(trim($_POST['first_name']))));
-				$last_name = trim(str_replace('\\\'','\'',htmlentities($_POST['last_name'])));
-				$phone1 = trim(str_replace(' ','',htmlentities($_POST['phone1'])));
-				$clean_phone1 = preg_replace("/[^0-9]/", "", $phone1);
+		if ($ship_date=='new') {
+				$ship_date = trim($_POST['ship_date']);
 		}
 		else {
-				$first_name = $person->get_first_name();
-				$last_name = $person->get_last_name();
-				$phone1 = $person->get_phone1();
-				$clean_phone1 = $phone1;
+				$ship_date = $shipment->get_ship_date();
+				//$customer_id = $shipment->get_customer_id();
 		}
-		$address = trim(str_replace('\\\'','\'',htmlentities($_POST['address'])));
-		$city = trim(str_replace('\\\'','\'',htmlentities($_POST['city'])));
-		$state = trim(htmlentities($_POST['state']));
-		$zip = trim(htmlentities($_POST['zip']));
-		$phone2 = trim(str_replace(' ','',htmlentities($_POST['phone2'])));
-		$clean_phone2 = preg_replace("/[^0-9]/", "", $phone2);
-		$email = $_POST['email'];
-		$type = $_POST['type'];			
-        $status = $_POST['status'];
-        $notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
-		$pass = $_POST['password'];
 		
-		$newperson = new Person($last_name, $first_name, $address, $city, $state, $zip, $clean_phone1, 
-						$clean_phone2, $email, $type, $status, $notes, $pass);
+		
+	 	$customer_id = trim(htmlentities($_POST['customer_id']));
+		$funds_source = trim(htmlentities($_POST['funds_source']));
+		$ship_date = $_POST['ship_date'];
+		$ship_via = trim(htmlentities($_POST['ship_via']));
+		$ship_items = trim(htmlentities($_POST['ship_items']));
+		$ship_rate = trim(htmlentities($_POST['ship_rate']));
+		$total_weight = trim(htmlentities($_POST['total_weight']));
+		$total_price = trim(htmlentities($_POST['total_price']));			
+        $invoice_date = trim(htmlentities($_POST['invoice_date']));
+        $notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
+		$invoice_number = trim(htmlentities($_POST['invoice_number']));
+		
+		
+		$newshipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items, $ship_rate, 
+									$total_weight, $total_price, $invoice_date, $invoice_no, $notes);
         
 	//step two: try to make the deletion, addition, or change
-		if($_POST['deleteMe']=="DELETE"){
-			$result = retrieve_dbPersons($id);
+		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
+			$result = retrieve_dbShipmentsDate($ship_date);
 			if (!$result)
-				echo('<p>Unable to delete. ' .$first_name.' '.$last_name. ' is not in the database. <br>Please report this error to the House Manager.');
+				echo('<p>Unable to delete. ' .$customer_id. ' is not in the database. <br>Please report this error to the House Manager.');
 			else {
-				//What if they're the last remaining manager account?
-				if($type=='manager'){
-				//They're another manager, we need to check that they can be deleted
-					$managers = getonlythose_dbPersons('manager','','');
-					if ($id==$_SESSION['_id'] || !$managers || sizeof($managers) <= 1)
-						echo('<p class="error">You cannot remove yourself or the last remaining manager from the database.</p>');
-					else {
-						$result = delete_dbPersons($id);
-						echo("<p>You have successfully removed " .$first_name." ".$last_name. " from the database.</p>");
-					}
-				}
-				else {
-					$result = delete_dbPersons($id);
-					echo("<p>You have successfully removed " .$first_name." ".$last_name. " from the database.</p>");		
+					$result = delete_dbShipmentsDate($ship_date);
+					echo("<p>You have successfully removed " .$customer_id. " from the database.</p>");		
 				}
 			}
-		}
+		
 
-		// try to add a new person to the database
-		else if ($_POST['old_id']=='new') {
-			    $id = $first_name.$clean_phone1;
+		// try to add a new shipment to the database
+		else if($_POST['submit']=='submit' && $_POST['old_id']=='new') {
 				//check if there's already an entry
-				$dup = retrieve_dbPersons($id);
+				$dup = retrieve_dbShipmentsDate($ship_date);
 				if ($dup)
-					echo('<p class="error">Unable to add ' .$first_name.' '.$last_name. ' to the database. <br>Another person with the same id is already there.');
+					echo('<p class="error">Unable to add ' .$customer_id. ' to the database. <br>Another shipment with the same id is already there.');
 				else {
-					$newperson->set_password (md5($first_name.$clean_phone1));
-					$result = insert_dbPersons($newperson);
+					$result = insert_dbShipments($newshipment);
 					if (!$result)
-                        echo ('<p class="error">Unable to add "' .$first_name.' '.$last_name. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$first_name." ".$last_name. " to the database.</p>");
+                        echo ('<p class="error">Unable to add "' .$customer_id. '" to the database. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully added " .$customer_id. " to the database.</p>");
 				}
+					
 		}
 
 		// try to replace an existing person in the database by removing and adding
-		else {
-				$id = $_POST['old_id'];
-				$result = delete_dbPersons($id);
+		else if($_POST['submit']=='submit') {
+				$result = delete_dbShipmentsDate($ship_date);
                 if (!$result)
-                   echo ('<p class="error">Unable to update ' .$first_name.' '.$last_name. '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update ' .$customer_id. '. <br>Please report this error to the Program manager.');
 				else {
-					$result = insert_dbPersons($newperson);
+					$result = insert_dbShipments($newshipment);
                 	if (!$result)
-                   		echo ('<p class="error">Unable to update ' .$first_name.' '.$last_name. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated " .$first_name." ".$last_name. " in the database.</p>");
+                   		echo ('<p class="error">Unable to update ' .$customer_id. '. <br>Please report this error to the Foodbank Director.');
+					else echo("<p>You have successfully updated " .$customer_id. " in the database.</p>");
 //					add_log_entry('<a href=\"viewPerson.php?id='.$id.'\">'.$first_name.' '.$last_name.'</a>\'s database entry has been updated.');
 				}
 		}
@@ -172,13 +155,15 @@ function process_form($id, $person)	{
  * 
  * 
  */
-function validate_form($id){
-	if($id=='new' && ($_POST['first_name']==null || $_POST['first_name']=='new')) $errors[] = 'Please enter a first name';
-	if($id=='new' && $_POST['last_name']==null) $errors[] = 'Please enter a last name';
-	if($id=='new' && !valid_phone($_POST['phone1'])) $errors[] = 'Please enter a valid primary phone number (10 digits: ###-###-####)';
+
+function validate_form($ship_date){
+	/*
+	if($ship_date=='new' && ($_POST['customer_id']==null || $_POST['customer_id']=='new')) $errors[] = 'Please enter a customer';
+	if($ship_date=='new' && $_POST['last_name']==null) $errors[] = 'Please enter a last name';
+	if($ship_date=='new' && !valid_phone($_POST['phone1'])) $errors[] = 'Please enter a valid primary phone number (10 digits: ###-###-####)';
 	if($_POST['city']==null) $errors[] = 'Please enter a city';
 	if($_POST['address']==null) $errors[] = 'Please enter an address';
-	if($_POST['state']==null) $errors[] = 'Please enter a state';
+	if($_POST['ship_via']==null) $errors[] = 'Please enter a state';
 	if(($_POST['zip'] != strval(intval($_POST['zip']))) || ($_POST['zip']==null) || (strlen($_POST['zip'])!=5)) $errors[] = 'Please enter a valid zip code';
 	if($_POST['type']==null && $_SESSION['access_level']>=1) $errors[] = 'Please select a Type';
 	if ($_SESSION['access_level']<3 && $_POST['type']=='manager')
@@ -186,7 +171,9 @@ function validate_form($id){
 	if($_POST['phone2']!=null && !valid_phone($_POST['phone2'])) $errors[] = 'Please enter a valid secondary phone number (10 digits: ###-###-####)';
 	if(!valid_email($_POST['email']) && $_POST['email']!=null) $errors[] = "Please enter a valid email";
 	return $errors;
+	*/
 }
+
 /**
 * valid_phone validates a phone on the following parameters:
 * 		it assumes the characters '-' ' ' '+' '(' and ')' are valid, but ignores them
@@ -194,43 +181,6 @@ function validate_form($id){
 *		it should be between 7 and 11 digits
 * returns boolean if phone is valid
 */
-function valid_phone($phone){
-		if($phone==null) return false;
-		$phone = str_replace(' ','',str_replace('+','',str_replace('(','',str_replace(')','',str_replace('-','',$phone)))));
-		$test = str_replace('0','',str_replace('1','',str_replace('2','',str_replace('3','',str_replace('4','',str_replace('5','',str_replace('6','',str_replace('7','',str_replace('8','',str_replace('9','',$phone))))))))));
-		if($test != null) return false;
-		if ( (strlen($phone)) != 10) return false;
-		return true;
-}
-
-//Function from <http://www.phpit.net/code/valid-email/>
-function valid_email($email) {
-		// First, we check that there's one @ symbol, and that the lengths are right
-		if (!preg_match("/^[^@]{1,64}@[^@]{1,255}$/", $email)) {
-			// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
-			return false;
-		}
-		// Split it into sections to make life easier
-		$email_array = explode("@", $email);
-		$local_array = explode(".", $email_array[0]);
-		for ($i = 0; $i < sizeof($local_array); $i++) {
-			if (!preg_match("/^(([A-Za-z0-9!#$%&#038;'*+\/=?^_`{|}~-][A-Za-z0-9!#$%&#038;'*+\/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])) {
-				return false;
-			}
-		}
-		if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
-			$domain_array = explode(".", $email_array[1]);
-			if (sizeof($domain_array) < 2) {
-				return false; // Not enough parts to domain
-			}
-			for ($i = 0; $i < sizeof($domain_array); $i++) {
-				if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
-					return false;
-				}
-			}
-		}
-		return true;
-}
 
 function show_errors($e){
 		//this function should display all of our errors.

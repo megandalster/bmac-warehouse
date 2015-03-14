@@ -84,7 +84,7 @@
 							echo ' (select one for more info).';
 							echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Product</strong></td></tr>';
                             foreach ($result as $shipment) {
-								echo "<tr><td><a href=shipmentEdit.php?id=".$shipment->get_customer_id().">" . 
+								echo "<tr><td><a href=shipmentEdit.php?id=".urlencode($shipment->get_ship_date()).">" . 
 									$shipment->get_customer_id() . "</td><td>" . 
 									$shipment->get_ship_date() . "</td><td>" . 
 									implode(",",$shipment->get_ship_items() ). "</td><td>"; 	

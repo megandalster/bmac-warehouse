@@ -46,6 +46,21 @@ function retrieve_dbShipments($customer_id){
 	
 }
 
+function retrieve_dbShipmentsDate($ship_date){
+	connect();
+	$result=mysql_query("SELECT * FROM dbShipments WHERE ship_date  = '".$ship_date."'");
+	if(mysql_num_rows($result) !== 1){
+		mysql_close();
+		return false;
+	}
+	$result_row = mysql_fetch_assoc($result);
+	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
+	mysql_close();
+	return $theShipment;
+	
+}
+
 
 function getall_dbShipments(){
 	connect();
@@ -130,6 +145,17 @@ function delete_dbShipments($customer_id){
 	mysql_close();
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbShipments: ".$customer_id);
+		return false;
+	}
+	return true;
+}
+
+function delete_dbShipmentsDate($ship_date){
+	connect();
+	$result = mysql_query("DELETE FROM dbShipments WHERE ship_date =\"".$ship_date."\"");
+	mysql_close();
+	if (!$result) {
+		echo (mysql_error()." unable to delete from dbShipments: ".$ship_date);
 		return false;
 	}
 	return true;
