@@ -77,7 +77,7 @@
 							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
                             $allEmails = array(); // for printing all emails
                             foreach ($result as $customer) {
-								echo "<tr><td><a href=customerEdit.php?id=".$customer->get_customer_id().">" .
+								echo "<tr><td><a href=customerEdit.php?id=".urlencode($customer->get_customer_id()).">" .
 								    $customer->get_customer_id() . "</a></td><td>" .
 									$customer->get_phone() . "</td><td>" . 	
 									$customer->get_email() . "</td><td>"; 
