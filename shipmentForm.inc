@@ -39,11 +39,11 @@ if($_SESSION['access_level']<3) {
 <legend>Shipment Information</legend>
 <p>	<?php 
 	if ($ship_date=="new") {
-		echo 'Ship Date<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="ship_date" tabindex=1 value="'.$shipment->get_ship_date.'">';
+		echo 'Ship Date<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="ship_date" tabindex=1 value="'.$shipment->get_ship_date().'">';
 			}
 	else 	
 		echo 'Ship To: '.$shipment->get_customer_id();
-		echo '<br>Date: '.$shipment->get_ship_date();		
+		//echo '<br>Date: '.$shipment->get_ship_date();		
 ?>
 
 	<?php
@@ -64,43 +64,16 @@ if($_SESSION['access_level']<3) {
 	echo '<option value="Donation"'; if ($shipment->get_ship_via()=='Donation') echo " SELECTED"; echo '>Donation</option>';
 	echo('</select></p>');
 	?>
-	<table>		
-	    <tr><td>Address:</td><td> <input type="text" size="40" name="address" tabindex=3 value=""></td></tr>
-		<tr><td>City:</td><td> <input type="text" name="city" tabindex=4 value=""></td></tr>
-		<tr><td>State, Zip:</td>
-		<td><select name="state" tabindex=5><option value=''></option>
-		<!-- Need a way to pick out the states -->
-		<?PHP
-		/*
-			$states = array("AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA",
-					        "KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM",
-					        "NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA",
-					        "WV","WI","WY");
-			foreach ($states as $st) {
-				echo "<option value='" . $st . "' ";
-                if($provider->get_state() == $st ) echo("SELECTED");
-                echo ">" . $st . "</option>";
-			}
-		*/
-		?>
-		
-		</select>,
-		<!-- Need a way to insert values for here -->
-		<input type="text" name="zip" size="5" tabindex=6 value=""></td></tr>
-		<tr><td>County:</td><td><input type="text" name="county" size="40" tabindex=7 value=""></td></tr>
-		<tr><td>Contact Name:</td><td><input type="text" name="contact" size="40" tabindex=8 value=""></td></tr>
-		<tr><td>Contact Phone:</td><td><input type="text" name="phone" MAXLENGTH=12 tabindex=9 value=""></td></tr>
-		<tr><td>Contact Email:</td><td><input type="text" name="email" size="40" tabindex=10 value=""></td></tr>
-
-	</table>
+	
+	<br></br>
 	
 
 	<table>		
-		<tr><td>Product Name<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="product_name" tabindex=3 value="<?PHP echo($shipment->get_customer_id())?>"></td></tr>
-		<tr><td>Case Lots:</td><td> <input type="text" name="ship_items" tabindex=4 value="<?PHP echo($shipment->get_ship_items())?>"></td></tr>
-		<tr><td>Total Weight:</td><td> <input type="text" name="total_weight" tabindex=5 value="<?PHP echo($shipment->get_total_weight())?>"></td></tr>
-		<tr><td>Rate:</td><td> <input type="text" name="ship_rate" tabindex=6 value="<?PHP echo($shipment->get_ship_rate())?>"></td></tr>
-		<tr><td>Billed Amt:</td><td> <input type="text" name="total_price" tabindex=7 value="<?PHP echo($shipment->get_total_price())?>"></td></tr>
+		Product Name<span style="font-size:large;color:FF0000">*</span>: <input type="text" name="product_name" tabindex=3 value="<?PHP echo($shipment->get_customer_id())?>">
+		Case Lots<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="ship_items" size="5" tabindex=4 value="<?PHP echo(implode(',',$shipment->get_ship_items()))?>">
+		Total Weight<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="total_weight" size="5" tabindex=5 value="<?PHP echo($shipment->get_total_weight())?>">
+		<br></br><tr><td>Rate: <input type="text" name="ship_rate" size="5" tabindex=6 value="<?PHP echo($shipment->get_ship_rate())?>">
+		Billed Amt: <input type="text" name="total_price" size="5" tabindex=7 value="<?PHP echo($shipment->get_total_price())?>">
 		
         
 		

@@ -26,7 +26,7 @@
 	 	$shipment = new Shipment(null, null, 'new', null, null, 
 	 	null, null, null, null, null, null);
 	}
-	//WE GOT AN ISSUE WITH THIS GUY
+	
 	else {
 		$shipment = retrieve_dbShipmentsDate($ship_date);
 		if (!$shipment) {
