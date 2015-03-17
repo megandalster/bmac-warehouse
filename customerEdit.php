@@ -51,16 +51,14 @@
 	//in this case, the form has been submitted, so validate it
 		
 		if ($customer_id=='new') {
-				$customer_id = trim($_POST['customer_id']);
-				$phone = $_POST['phone'];
-				$email = $_POST['email'];
+			    $customer_id = trim($_POST['customer_id']);
+				$code = "";
 		}
 		else {
 				$customer_id = $customer->get_customer_id();
-				$phone = $customer->get_phone();
-				$email = $customer->get_email();
+				$code = $customer->get_code();
 		}
-		$customer = new Customer($customer_id, $_POST['code'], $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
+		$customer = new Customer($customer_id, $code, $_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
 								 $_POST['county'], $_POST['contact'],$_POST['phone'],
 								 $_POST['email'], $_POST['status'], $_POST['notes']);
 								 
@@ -86,7 +84,7 @@ function process_form($customer_id, $customer)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
 		if ($customer_id=='new') {
 			    $customer_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['customer_id']))));
-				$code = trim(str_replace('\\\'','\'',htmlentities($_POST['code'])));
+				$code = "";
 				$address = trim(str_replace(' ','',htmlentities($_POST['address'])));
 				$clean_phone = preg_replace("/[^0-9]/", "", $phone);
 		}
@@ -123,9 +121,8 @@ function process_form($customer_id, $customer)	{
 		}
 
 		// try to add a new customer to the database
-		else if ($_POST['old_id']=='new') {
-			    $customer_id = get_customer_id();
-				//check if there's already an entry
+		else if ($_POST['old_customer_id']=='new') {
+			    //check if there's already an entry
 				$dup = retrieve_dbCustomers($customer_id);
 				if ($dup)
 					echo('<p class="error">Unable to add ' .$customer_id.  ' to the database. <br>Another customer with the same id is already there.');

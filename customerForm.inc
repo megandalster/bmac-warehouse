@@ -49,8 +49,11 @@ else // $_SESSION['access_level']==3
 		echo 'Customer ID<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="customer_id" tabindex=1 value="'.$customer->get_customer_id().'">';
 		
 	}
-	else 	
-		echo 'Customer ID: '.$customer->get_customer_id();		
+	else 	{
+		echo 'Name: '.$customer->get_customer_id();
+		if ($customer->get_code()!="")
+			echo '<br>(Old customer code: '.$customer->get_code().")";	
+	}	
 ?>
 <fieldset>
 <legend>Contact Information</legend>
@@ -87,10 +90,8 @@ else // $_SESSION['access_level']==3
     
 	echo ('<br>&nbsp;&nbsp;Status: ');
     echo('<select name="status">');
-    echo ('<option value=""></option>');
     echo ('<option value="active"');if ($customer->get_status()=='active') echo (' SELECTED'); echo('>active</option>');
-	echo ('<option value="on-leave"');if ($customer->get_status()=='on-leave') echo (' SELECTED'); echo('>on leave</option>');
-	echo ('<option value="former"');if ($customer->get_status()=='former') echo (' SELECTED'); echo('>former</option>');
+	echo ('<option value="inactive"');if ($customer->get_status()=='inactive') echo (' SELECTED'); echo('>inactive</option>');
 	echo('</select>');
 	
 
