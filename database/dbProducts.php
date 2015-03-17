@@ -48,8 +48,8 @@ function retrieve_dbProducts($product_id){
 
 function retrieveWithFunding_dbProducts($product_id, $funding_source){
 	connect();
-	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'" . 
-			 " AND funding_source LIKE '%".$funding_source."%'";	
+	$query = "SELECT * FROM dbProducts WHERE product_id = '".$product_id . 
+			 "' AND funding_source = '".$funding_source . "'";	
 	$result = mysql_query($query);
 	if(mysql_num_rows($result) !== 1){
 			mysql_close();

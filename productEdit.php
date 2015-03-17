@@ -20,14 +20,15 @@
     
 //    include_once('database/dbLog.php');
 	$id = $_GET["id"];
+	$funding_source = $_GET['fundingsource'];
 	if ($id=='new') {
 	 	$product = new product("new", null, null, null, null, null, null, null, 
     				null, null, null, null, null);
 	}
 	else {
-		$product = retrieveWithFunding_dbProducts(substr($id, 1+strpos($id, " ")),substr($id, 0, strpos($id, " ")));
+		$product = retrieveWithFunding_dbProducts($id, $funding_source);
 		if (!$product) {
-	         echo('<p id="error">Error: there\'s no product with this id in the database</p>'. $id);
+	         echo('<p id="error">Error: there\'s no product with this id and funding source in the database</p>'. $id);
 		     die();
         }  
 	}
