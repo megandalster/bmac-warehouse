@@ -72,9 +72,9 @@ function getall_dbCustomers(){
 // retrieve only those Customers that match the criteria given in the arguments
 function getonlythose_dbCustomers($status, $name) {
 	connect();
-	$query = "SELECT * FROM dbCustomers WHERE " . 
-			 " status LIKE '%".$status."%'" . 
-			 " AND customer_id LIKE '%".$name."%'" ;
+	$query = "SELECT * FROM dbCustomers WHERE customer_id LIKE '%".$name."%'" ;
+	if ($status=="") $query .= " AND status LIKE '%".$status."%'";
+	else $query .= " AND status = '".$status."'";
     $query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
 	$theCustomers = array();

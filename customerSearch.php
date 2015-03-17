@@ -36,8 +36,8 @@
                         if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
-                            echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>Active</option>';
-							echo '<option value="on-leave"';    if ($status=="inactive")    echo " SELECTED"; echo '>On Leave</option>';
+                            echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>active</option>';
+							echo '<option value="inactive"';    if ($status=="inactive")    echo " SELECTED"; echo '>inactive</option>';
                         echo '</select>';
                         
                       //  if( !array_key_exists('s_customer_id', $_POST) ) $customer_id = ""; else $cutomer_id = $_POST['s_customer_id'];
