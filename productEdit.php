@@ -140,7 +140,8 @@ function process_form($id, $product)	{
 					$result = insert_dbProducts($newproduct);
 					if (!$result)
                         echo ('<p class="error">Unable to add "' .$product_id. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$product_id. " to the database.</p>");
+					else echo('<p>You have successfully added <a href="productEdit.php?id=' . $product_id . '&fundingsource='.$funding_source.
+					     '"><b>' . $product_id . ' </b></a> to the database.</p>');
 				}
 		}
 
@@ -153,7 +154,10 @@ function process_form($id, $product)	{
 					$result = insert_dbProducts($newproduct);
                 	if (!$result)
                    		echo ('<p class="error">Unable to update ' .$product_id. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated " .$product_id. " in the database.</p>");
+					else 
+					    echo('<p>You have successfully updated <a href="productEdit.php?id=' . $product_id . '&fundingsource='.$funding_source.
+					     '"><b>' . $product_id . ' </b></a> in the database.</p>');
+                            
 //					add_log_entry('<a href=\"viewProduct.php?id='.$product_id.'\">'.$product_id.'</a>\'s database entry has been updated.');
 				}
 		}

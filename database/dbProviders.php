@@ -74,9 +74,12 @@ function getall_dbProviders(){
 // retrieve only those Providers that match the criteria given in the arguments
 function getonlythose_dbProviders($provider_id, $type, $status) {
 	connect();
+	
 	$query = "SELECT * FROM dbProviders WHERE provider_id LIKE '%".$provider_id."%'" . 
 			 " AND type LIKE '%".$type."%'" . 
-			 " AND provider_id LIKE '%".$provider_id."%'" ;
+			 " AND provider_id LIKE '%".$provider_id."%'"; 		 
+	if ($status=="") $query .= " AND status LIKE '%".$status."%'";
+	else $query .= " AND status = '".$status."'";
     $query .= " ORDER BY provider_id";
 	$result = mysql_query($query);
 	$theProviders = array();

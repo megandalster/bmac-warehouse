@@ -126,7 +126,8 @@ function process_form($id, $provider)	{
 					$result = insert_dbProviders($newprovider);
 					if (!$result)
                         echo ('<p class="error">Unable to add "' .$provider_id. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$provider_id. " to the database.</p>");
+					else 
+					    echo('<p>You have successfully added <a href="providerEdit.php?id=' . $provider_id . '"><b>' . $provider_id . ' </b></a> to the database.</p>');
 				}
 		}
 
@@ -139,7 +140,8 @@ function process_form($id, $provider)	{
 					$result = insert_dbProviders($newprovider);
                 	if (!$result)
                    		echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully updated " .$provider_id. " in the database.</p>");
+					else 
+					    echo('<p>You have successfully updated <a href="providerEdit.php?id=' . $provider_id . '"><b>' . $provider_id . ' </b></a> in the database.</p>');
 //					add_log_entry('<a href=\"viewProvider.php?id='.$provider_id.'\">'.$provider_id.'</a>\'s database entry has been updated.');
 				}
 		}
