@@ -84,12 +84,11 @@
 				            echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td><strong>Initial Date</strong></td></tr>';
                             
                             foreach ($result as $product) {
-								echo "<tr><td><a href=productEdit.php?id=".$product->get_funding_source()."%20".urlencode($product->get_product_id()).">" . 
+								echo "<tr><td><a href=productEdit.php?id=".urlencode($product->get_product_id())."&fundingsource=".urlencode($product->get_funding_source()).">" . 
 									$product->get_product_id() . "</td><td>" .
 									$product->get_funding_source() . "</td><td>" .  
 									$product->get_status() . "</td><td>" . 
-									$product->get_initial_date() . "</td><td>"; 
-									
+									$product->get_initial_date() . "</td><td>"; 			
 								echo "</td></a></tr>";
 							}
 							echo '</table>';

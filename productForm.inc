@@ -42,7 +42,7 @@ else {// $_SESSION['access_level']==3
 	else {
 		echo 'Product Name: '.$product->get_product_id();		
 		if($product->get_product_code()!=null) {
-			echo '<br>Product Code: '.$product->get_product_code();
+			echo '<br>(Old Product Code: '.$product->get_product_code().")";
 		}
 	}
 ?>
@@ -54,17 +54,17 @@ else {// $_SESSION['access_level']==3
     echo('<option value="TFAP"');if ($product->get_funding_source()=='TFAP' || $product->get_funding_source()=='') echo (' SELECTED'); echo('>TFAP</option>');
 	echo '<option value="CSFP"'; if ($product->get_funding_source()=="CSFP" || $product->get_funding_source()=='2CSFP') echo " SELECTED"; echo '>CSFP</option>';
 	echo '<option value="INK"'; if ($product->get_funding_source()=="INK") echo " SELECTED"; echo '>INK</option>';
-	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation") echo " SELECTED"; echo '>Donation</option>';
+	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation" || $product->get_funding_source()=="") echo " SELECTED"; echo '>Donation</option>';
 	echo('</select></p>');
 	?>
 
-	<table>		<tr><td>Unit Weight<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="unit_weight" tabindex=3 value="<?PHP echo($product->get_unit_weight())?>"></td></tr>
-		<tr><td>Unit Price:</td><td> <input type="text" name="unit_price" tabindex=4 value="<?PHP echo($product->get_unit_price())?>"></td></tr>
-		<tr><td>Initial Date:</td><td> <input type="text" name="initial_date" tabindex=5 value="<?PHP echo($product->get_initial_date())?>">
-		Initial Stock: <input type="text" name="initial_stock" tabindex=6 value="<?PHP echo($product->get_initial_stock())?>">
-		Minimum Stock: <input type="text" name="minimum_stock" tabindex=7 value="<?PHP echo($product->get_minimum_stock())?>"></td></tr>
-		<tr><td>Current Stock:</td><td><input type="text" name="current_stock" tabindex=8 value="<?PHP echo($product->get_current_stock())?>">
-		Inventory Date: <input type="text" name="inventory_date" tabindex=9 value="<?PHP echo($product->get_inventory_date())?>"></td></tr>
+	<table>		<tr><td>Unit Weight<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size=10 name="unit_weight" tabindex=3 value="<?PHP echo($product->get_unit_weight())?>"></td>
+		<td>Unit Price: <input type="text" size=10 name="unit_price" tabindex=4 value="<?PHP echo($product->get_unit_price())?>"></td></tr>
+		<tr><td>Initial Stock: <input type="text" size=10 name="initial_stock" tabindex=5 value="<?PHP echo($product->get_initial_stock())?>"></td><td>
+		Initial Date: <input type="text" size=10 name="initial_date" id="initial_date" tabindex=6 value="<?PHP echo($product->get_initial_date())?>"></td></tr><tr><td>
+		Minimum Stock: <input type="text" size=10 name="minimum_stock" tabindex=7 value="<?PHP echo($product->get_minimum_stock())?>"></td></tr>
+		<tr><td>Current Stock: <input type="text" size=10 name="current_stock" tabindex=8 value="<?PHP echo($product->get_current_stock())?>"></td><td>
+		Inventory Date: <input type="text" size=10 name="inventory_date" id="inventory_date" tabindex=9 value="<?PHP echo($product->get_inventory_date())?>"></td></tr>
 
 </table>
 </fieldset>
@@ -75,22 +75,7 @@ else {// $_SESSION['access_level']==3
     echo('<option value="active"');if ($product->get_status()=='active' || $product->get_status()=='') echo (' SELECTED'); echo('>active</option>');
 	echo('<option value="discontinued"');if ($product->get_status()=='inactive') echo (' SELECTED'); echo('>discontinued</option>');
 	echo('</select></p>');
-/*	
-	$st = $provider->get_type();
-    $types = array('funds' => "Funds Provider", 'food'=>'Food Provider');
-	echo('<p>Type');
-	echo('<span style="font-size:x-small;color:FF0000">*</span>: ');
 
-    foreach ($types as $key=>$value) {
-    	echo ('<input type="radio" name="type" value=' . $key);
-    	if(strpos($st,$key)!==false) echo(' CHECKED');
-    	if($id=='new' && $key=='food') echo(' CHECKED');
-    	echo ('>' . $value . '&nbsp;&nbsp;');
-    }
-
-
-    echo "</p>";
-*/
 	echo('<p>Notes:<br />');
 	      echo('<textarea name="notes" rows="2" cols="60">');
 	      echo($product->get_notes());
