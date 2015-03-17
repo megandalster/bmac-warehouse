@@ -42,7 +42,7 @@ else {// $_SESSION['access_level']==3
 	else {
 		echo 'Name: '.$provider->get_provider_id();		
 		if($provider->get_code()!=null) {
-			echo '<br>Code: '.$provider->get_code();
+			echo '<br>(Old Provider Code: '.$provider->get_code().")";
 		}
 	}
 ?>
