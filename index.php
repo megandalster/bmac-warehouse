@@ -10,7 +10,7 @@
 	session_cache_expire(30);
 	
 	// setting the default time zone
-	date_default_timezone_set('America/New_York');
+	date_default_timezone_set('America/Los_Angeles');
 ?>
 <html>
 	<head>

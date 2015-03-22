@@ -1,12 +1,12 @@
 <?PHP
 /*
- * Copyright 2014 by Allen Tucker. 
- * This program is part of Homerestore, which is free software.
- * It comes with absolutely no warranty.  You can redistribute and/or
- * modify it under the terms of the GNU Public License as published
- * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
-*/
-
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is 
+ * free software.  It comes with absolutely no warranty. You can redistribute and/or 
+ * modify it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * 
+ */
 /**
  *	providerForm.inc
  *  a form for a provider to be added or edited in the database

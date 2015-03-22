@@ -1,17 +1,18 @@
 <?PHP
 /*
- * Copyright 2014 by Allen Tucker. 
- * This program is part of BMAC-Warehouse, which is free software.
- * It comes with absolutely no warranty.  You can redistribute and/or
- * modify it under the terms of the GNU Public License as published
- * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
-*/
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is 
+ * free software.  It comes with absolutely no warranty. You can redistribute and/or 
+ * modify it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * 
+ */
 
 //Use St.Vincent/Clarkson from 14-12-03:13:51
 
 /**
  *	shipmentEdit.php
- *  oversees the editing of a person to be added, changed, or deleted from the database
+ *  oversees the editing of a shipment to be added, changed, or deleted from the database
  *	@author Dylan Martin
  *	@version March 13, 2015
  */
@@ -21,26 +22,56 @@
     include_once('domain/Shipment.php'); 
     
 //    include_once('database/dbLog.php');
-	$ship_date = $_GET["id"];
-	if ($ship_date=='new') {
-	 	$shipment = new Shipment(null, null, 'new', null, null, 
-	 	null, null, null, null, null, null);
+	$customer_id = $_GET["id"];  // expecting either "new" or "yy-mm-dd:hh:mm"
+	if ($customer_id=='new') {
+		$ship_date = date('y-m-d:h:m');  // generate unique id for this new shipmenet: current date and time
+	 	$shipment = new Shipment("new", null, $ship_date, null, null, null, null, null, null, null, null);
 	}
-	
 	else {
-		$shipment = retrieve_dbShipmentsDate($ship_date);
+		$shipment = retrieve_dbShipmentsDate($customer_id);
 		if (!$shipment) {
 	         echo('<p id="error">Error: there\'s no shipment from this date in the database</p>'. $ship_date);
 		     die();
         }  
 	}
+	var_dump($shipment);
 ?>
 <html>
 	<head>
 		<title>
 			Editing <?PHP echo($shipment->get_ship_date());?>
 		</title>
-		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<link rel="stylesheet" href="lib/jquery-ui.css" />
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<script src="lib/jquery-1.9.1.js"></script>
+<script src="lib/jquery-ui.js"></script>
+<script>
+$(function() {
+	$(document).on("keyup", ".product-id", function() {
+		var str = $(this).val();
+		var target = $(this);
+		$.ajax({
+			type: 'GET',
+			url: 'advanced_getProducts.php?q='+str
+		})
+		 .done(function (response) {
+			//console.log(response)
+			var suggestions = $.parseJSON(response);
+			//console.log(suggestions);
+			target.autocomplete({
+				source: suggestions	
+			});
+		});
+	});
+	$("#add-more").on('click', function(e) {
+		e.preventDefault();
+		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
+		$("#product-id-inputs").append(new_input);
+	});
+	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+});
+</script>
 	</head>
 <body>
   <div id="container">
@@ -53,9 +84,9 @@
 	}
 	else {
 	//in this case, the form has been submitted, so validate it
-		if ($ship_date=='new') {
+		if ($customer_id=='new') {
 				$ship_date = trim($_POST['ship_date']);
-				$customer_id = null;
+				$customer_id = $_POST['customer_id'];
 		}
 		else {
 				$ship_date = $shipment->get_ship_date();
@@ -65,7 +96,7 @@
 								 $_POST['ship_via'], $_POST['ship_items'], $_POST['ship_rate'],
 								 $_POST['total_weight'], $_POST['total_price'], $_POST['invoice_date'], 
 								 $_POST['invoice_no'], $_POST['notes']);
-		$errors = validate_form($ship_date); 	//step one is validation.
+		$errors = validate_form($_POST['old_id']); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
@@ -74,7 +105,7 @@
 		}
 		// this was a successful form submission; update the database and exit
 		else
-			process_form($ship_date, $shipment);
+			process_form($customer_id, $shipment);
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
@@ -83,28 +114,25 @@
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($ship_date, $shipment)	{
+function process_form($customer_id, $shipment)	{
 	//step one: sanitize data by replacing HTML entities and escaping the ' character
-		if ($ship_date=='new') {
+		if ($customer_id=='new') {
 				$ship_date = trim($_POST['ship_date']);
+				$customer_id = trim(htmlentities($_POST['customer_id']));
 		}
 		else {
-				$ship_date = $shipment->get_ship_date();
-				//$customer_id = $shipment->get_customer_id();
+				$ship_date = $shipment->get_ship_date(); // don't allow editing an existing shipment's customer or date/time.
+				$customer_id = $shipment->get_customer_id();
 		}
-		
-		
-	 	$customer_id = trim(htmlentities($_POST['customer_id']));
 		$funds_source = trim(htmlentities($_POST['funds_source']));
-		$ship_date = $_POST['ship_date'];
 		$ship_via = trim(htmlentities($_POST['ship_via']));
 		$ship_items = trim(htmlentities($_POST['ship_items']));
 		$ship_rate = trim(htmlentities($_POST['ship_rate']));
 		$total_weight = trim(htmlentities($_POST['total_weight']));
 		$total_price = trim(htmlentities($_POST['total_price']));			
         $invoice_date = trim(htmlentities($_POST['invoice_date']));
-        $notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
-		$invoice_number = trim(htmlentities($_POST['invoice_number']));
+        $invoice_number = trim(htmlentities($_POST['invoice_number']));
+		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
 		
 		
 		$newshipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items, $ship_rate, 

@@ -28,7 +28,7 @@ class Contribution {
         $this->receive_date = $receive_date;
         $this->receive_items = array();
 		if ($receive_items!="")
-			$this->receive_items = explode(':',$receive_items);
+			$this->receive_items = explode(',',$receive_items);
 		$this->payment_source = $payment_source; 
 		$this->billed_amt = $billed_amt;     
         $this->notes = $notes;   
