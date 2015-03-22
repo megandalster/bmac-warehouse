@@ -41,12 +41,15 @@
 						
                         if( !array_key_exists('s_funding_source', $_POST) ) $funding_source = ""; else $funding_source = $_POST['s_funding_source'];
 						echo '<br><br>funding_source:<select name="s_funding_source">';
-							echo '<option value=""'; if ($funding_source=="") echo " SELECTED"; echo '>--all--</option>'; 
-							echo '<option value="TFAP"'; if ($funding_source=="TFAP") echo " SELECTED"; echo '>TFAP</option>'; 
-							echo '<option value="CSFP"'; if ($funding_source=="CSFP") echo " SELECTED"; echo '>CSFP</option>';
-							echo '<option value="INK"'; if ($funding_source=="INK") echo " SELECTED"; echo '>INK</option>';
-							echo '<option value="Donation"'; if ($funding_source=="Donation") echo " SELECTED"; echo '>Donation</option>'; 
-                        echo '</select>';
+						echo '<option value=""'; echo " SELECTED"; echo '>--any--</option>';
+    echo('<option value="TFAP"'); echo('>TFAP</option>');
+	echo '<option value="CSFP"'; echo '>CSFP or 2CSFP</option>';
+	echo '<option value="INK"'; echo '>INK</option>';
+	echo '<option value="AFF"'; echo '>AFF</option>';
+	echo '<option value="FC"'; echo '>FC</option>';
+	echo '<option value="F.D."'; echo '>F.D.</option>';
+	echo '<option value="SP"'; echo '>SP</option>';
+						echo '</select>';
                         
                        //should create a datepicker java-thingy here for initial date search.
                         

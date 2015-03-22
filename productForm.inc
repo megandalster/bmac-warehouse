@@ -1,12 +1,12 @@
 <?PHP
 /*
- * Copyright 2014 by Allen Tucker. 
- * This program is part of Homerestore, which is free software.
- * It comes with absolutely no warranty.  You can redistribute and/or
- * modify it under the terms of the GNU Public License as published
- * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
-*/
-
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is 
+ * free software.  It comes with absolutely no warranty. You can redistribute and/or 
+ * modify it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * 
+ */
 /**
  *	productForm.inc
  *  a form for a product to be added or edited in the database
@@ -51,9 +51,13 @@ else {// $_SESSION['access_level']==3
 	<?php
 	echo('<p>Funding Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="funding_source">');
-    echo('<option value="TFAP"');if ($product->get_funding_source()=='TFAP' || $product->get_funding_source()=='') echo (' SELECTED'); echo('>TFAP</option>');
-	echo '<option value="CSFP"'; if ($product->get_funding_source()=="CSFP" || $product->get_funding_source()=='2CSFP') echo " SELECTED"; echo '>CSFP</option>';
-	echo '<option value="INK"'; if ($product->get_funding_source()=="INK") echo " SELECTED"; echo '>INK</option>';
+    echo('<option value="TFAP"');if ($product->get_funding_source()=='TFAP') echo (' SELECTED'); echo('>TFAP</option>');
+	echo '<option value="CSFP"'; if ($product->get_funding_source()=="CSFP" || $product->get_funding_source()=='2CSFP') echo " SELECTED"; echo '>CSFP or 2CSFP</option>';
+	echo '<option value="INK"'; if (substr($product->get_funding_source(),0,3)=="INK") echo " SELECTED"; echo '>INK</option>';
+	echo '<option value="AFF"'; if ($product->get_funding_source()=="AFF") echo " SELECTED"; echo '>AFF</option>';
+	echo '<option value="FC"'; if ($product->get_funding_source()=="FC") echo " SELECTED"; echo '>FC or F.D.</option>';
+	echo '<option value="SP"'; if ($product->get_funding_source()=="SP") echo " SELECTED"; echo '>SP</option>';
+	echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
 	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation" || $product->get_funding_source()=="") echo " SELECTED"; echo '>Donation</option>';
 	echo('</select></p>');
 	?>

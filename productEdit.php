@@ -1,17 +1,17 @@
 <?PHP
 /*
- * Copyright 2014 by Allen Tucker. 
- * This program is part of BMAC-Warehouse, which is free software.
- * It comes with absolutely no warranty.  You can redistribute and/or
- * modify it under the terms of the GNU Public License as published
- * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
-*/
-
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is 
+ * free software.  It comes with absolutely no warranty. You can redistribute and/or 
+ * modify it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * 
+ */
 /*
  *	productEdit.php
  *  oversees the editing of a product to be added, changed, or deleted from the database
- *	@author Allen Tucker
- *	@version December 29, 2014
+ *	@author Noah Jensen
+ *	@version March 13, 2015
  */
 	session_start();
 	session_cache_expire(30);
@@ -124,7 +124,7 @@ function process_form($id, $product)	{
 			if (!$result)
 				echo('<p>Unable to delete. ' .$product_id. ' is not in the database.');
 			else {
-				$result = delete_dbProducts($product_id);
+				$result = delete_dbProducts($product_id,$funding_source);
 				echo("<p>You have successfully removed " .$product_id. " from the database.</p>");		
 			}
 		}
@@ -147,7 +147,7 @@ function process_form($id, $product)	{
 
 		// try to replace an existing product in the database by removing and adding
 		else if($_POST['submit']=='submit') {
-				$result = delete_dbProducts($product_id);
+				$result = delete_dbProducts($product_id,$funding_source);
                 if (!$result)
                    echo ('<p class="error">Unable to update ' .$product_id. '. <br>Please report this error to the Program manager.');
 				else {

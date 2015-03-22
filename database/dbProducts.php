@@ -131,12 +131,22 @@ function insert_dbProducts($Product){
 		return false;
 	}
 	connect();
-	$query = "SELECT * FROM dbProducts WHERE product_id = '" . $Product->get_product_id() . "'";
+	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
+	$result = mysql_query($query);
+	if (mysql_num_rows($result) > 0) {
+		echo (mysql_error(). " Unable to insert: duplicate product code=" . $Product->get_product_code(). " product_id=".$Product->get_product_id()."<br>");
+		mysql_close();
+		return false;   // never insert a new item with the same product code
+	}
+	/*
+	$query = "SELECT * FROM dbProducts WHERE product_id = '".$product->get_product_id() . 
+			 "' AND funding_source = '".$product->get_funding_source() . "'";	
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
-		delete_dbProducts ($Product->get_product_id());
-		connect();
+		delete_dbProducts ($Product->get_product_id(),$product->get_funding_source());
+		connect();     // when a product with the same name and funding source is there, replace it
 	}
+	*/   
 	$query = "INSERT INTO dbProducts VALUES ('".
 				$Product->get_product_id()."','" .
 				$Product->get_product_code()."','".
@@ -167,7 +177,7 @@ function update_dbProducts($Product){
 		echo ("Invalid argument for update_dbProduct function call");
 		return false;
 	}
-	if (delete_dbProducts($Product->get_product_id()))
+	if (delete_dbProducts($Product->get_product_id(),$Product->get_funding_source()))
 	return insert_dbProducts($Product);
 	else {
 		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id());
@@ -175,12 +185,14 @@ function update_dbProducts($Product){
 	}
 }
 
-function delete_dbProducts($product_id){
+function delete_dbProducts($product_id, $funding_source){
 	connect();
-	$result = mysql_query("DELETE FROM dbProducts WHERE product_id =\"".$product_id."\"");
+	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . 
+			 "' AND funding_source = '".$funding_source . "'";
+	$result = mysql_query($query);
 	mysql_close();
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbProducts: ".$product_id);
+		echo (mysql_error()." unable to delete from dbProducts: ".$product_id . $funding_source);
 		return false;
 	}
 	return true;

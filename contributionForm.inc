@@ -20,56 +20,25 @@ if($_SESSION['access_level']<3) {
 	die();
 }
 else {// $_SESSION['access_level']==3
+	echo('<p><strong>Warehouse Receipt Form</strong><br />');
 	if ($id=='new') {
-	  echo('<p><strong>Receipt Input Form</strong><br />');
-	  echo('Here you can add a new receipt to the database. </p>');
+	  echo('Here you can add a new contribution to the database. </p>');
     }
     else {
-	   echo('<p><strong>Receipt Information Form</strong><br />');
-	   echo('Here you can edit or delete the receipt\'s information.</p><p>');
+	   echo('Here you can edit or delete a contribution from the database.</p><p>');
     }
 }
 ?>
 <form method="POST">
-	<input type="hidden" name="old_id" value=<?PHP echo("\"".$receive_date."\"");?>>
+	<input type="hidden" name="old_id" value=<?PHP echo("\"".$contribution->get_receive_date()."\"");?>>
 	<input type="hidden" name="_form_submit" value="1">
 <p>(<span style="font-size:x-small;color:FF0000">*</span> indicates required information.)
 
-<p>	<?php 
-	if ($id=="new") {
-		$new_receive_date = date('y-m-d:h:i');
-		echo '<input type="hidden" name="receive_date" value="'.$new_receive_date.'">';
-		echo '<p>Receipt Date: '.$new_receive_date.'</p>';
-		
-
-	}
-	else {
-		echo '<input type="hidden" name="receive_date" value="'.$contribution->get_receive_date().'">';
-		echo 'Receipt Date: '.$contribution->get_receive_date();
-		
-
-				
-	}
-	echo '<p>Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" tabindex=1 value="'.$contribution->get_provider_id().'"></p>';
-	
-	$itemArray = $contribution->get_receive_items();
-?>
-<fieldset>
-<legend>Items received <span style="font-size:x-small;color:FF0000">*</span></legend>
-	<table>		<tr><td>Product name:</td><td> <input type="text" name="product_name" tabindex=3 value="<?PHP echo($itemArray[0])?>"></td></tr>
-		<tr><td>Units:</td><td> <input type="text" name="units" tabindex=4 value="<?PHP echo($itemArray[1])?>"></td></tr>
-		<tr><td>Weight:</td><td> <input type="text" name="weight" tabindex=4 value="<?PHP echo($itemArray[2	])?>"></td></tr>
-
-
-</table>
-</fieldset>
-<?PHP
-	$receive_items = array();
-	$receive_items[]=$_POST['product_name'];
-	$receive_items[]=$_POST['units'];
-	$receive_items[]=$_POST['weight'];
-	echo '<input type="hidden" name="receive_items" value="'.implode(":",$receive_items).'">';
-    echo('<p>Payment Source<span style="font-size:x-small;color:FF0000">*</span>: ');
+<?php 
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Receipt Date: '.$contribution->get_receive_date();
+	echo '<p>Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="40" name="provider_id" tabindex=1 value="'.$contribution->get_provider_id().'">';
+	echo '<input type="hidden" name="receive_date" value="'.$contribution->get_receive_date().'">';
+	echo('&nbsp;&nbsp;&nbsp;&nbsp;Payment Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="payment_source">');
     echo('<option value="Donation"');if ($contribution->get_payment_source()=='Donation' || $contribution->get_payment_source()=='') echo (' SELECTED'); echo('>Donation</option>');
 	echo('<option value="TEFAP"');if ($contribution->get_payment_source()=='TEFAP') echo (' SELECTED'); echo('>TEFAP</option>');
@@ -77,7 +46,33 @@ else {// $_SESSION['access_level']==3
 	echo('<option value="EFAP-FB"');if ($contribution->get_payment_source()=='EFAP-FB') echo (' SELECTED'); echo('>EFAP-FB</option>');
 	echo('<option value="CSFP"');if ($contribution->get_payment_source()=='CSFP') echo (' SELECTED'); echo('>CSFP</option>');
 	echo('<option value="United Way"');if ($contribution->get_payment_source()=='United Way') echo (' SELECTED'); echo('>United Way</option>');
-	echo('</select></p>');
+	echo('</select>');
+	
+?>
+<fieldset>
+<legend>Items received <span style="font-size:x-small;color:FF0000">*</span></legend>
+	<table>		<tr><td>Product Name</td><td>Unit Wt.</td><td>Case Lots</td><td>Total Weight</td></tr>
+	<?php
+	$itemArray = $contribution->get_receive_items(); 
+	foreach ($itemArray as $item) {
+		$details = explode(":",$item);
+		echo "<tr>";
+	    echo '<td><input type="text" name="product-ids[]" class="product-id" id="1" tabindex=1 size=30 value="'. $details[0] . '"></td>';
+		echo '<td><input type="text" name="product_unit_wt" tabindex=2 size=10 value=""></td>';
+	    echo '<td><input type="text" name="product_units" type="number" tabindex=3 size=10 value="'. $details[1] . '"></td>';
+		echo '<td><input type="text" name="product_total_wt" type="number" tabindex=4 size=10 value="'. $details[2] . '"></td>';
+		echo "</tr>";
+    }
+    ?>
+	</table>
+</fieldset>
+<?PHP
+	$receive_items = array();
+	$receive_items[]=$_POST['product_name'];
+	$receive_items[]=$_POST['units'];
+	$receive_items[]=$_POST['weight'];
+	echo '<input type="hidden" name="receive_items" value="'.implode(":",$receive_items).'">';
+    
 	
 	echo "</p>";
 	echo '<p>Amount billed<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="8" name="billed_amt" tabindex=1 value="'.$contribution->get_billed_amt().'"></p>';
@@ -97,40 +92,6 @@ else {// $_SESSION['access_level']==3
 			echo ('<input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
 				'<input type="submit" value="delete" name="submit"> to delete this receipt from the database. </p>');
 	}
-
-/*
-function &select_date($month, $day, $year, $month_name, $day_name, $year_name) {
-		$months = array('','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-        echo('<select name='.$month_name.'><option value=""></option>');
-		echo('');
-        for ($i = 1; $i <= 12; $i++) {
-            echo '<option value='.(($i<10)?"0".$i:$i);
-            if ($month==$i) 
-            	echo(' SELECTED');
-            echo '>' . $months[$i] . ' </option>';
-        }
-		echo "</select>";
-
-		echo '<select name='.$day_name.'><option value=""></option>';
-		for ($i = 1; $i <= 31; $i++) {
-            echo '<option value='.(($i<10)?"0".$i:$i); 
-            if($day==$i) 
-            	echo(' SELECTED'); 
-            echo '>' . $i . ' </option>'; 
-		}
-		echo "</select>";
-        // handles a year range of 90 years, from today+10 to today-80
-		echo '<select name='.$year_name.'><option value=""></option>';
-		$start_year = date("Y")+10;
-        for ($i = $start_year; $i >= ($start_year-90); $i--){
-         	echo '<option value='.substr($i,2,2); 
-         	if($year==substr($i,2,2)) 
-         		echo(' SELECTED'); 
-         	echo '>' . $i . ' </option>'; 
-        }
-		echo "</select>";	
-}
-*/
 
 ?>
 </form>

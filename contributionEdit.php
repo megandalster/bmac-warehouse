@@ -8,7 +8,7 @@
 */
 
 /**
- *	ContributionEdit.php
+ *	contributionEdit.php
  *  oversees the editing of a person to be added, changed, or deleted from the database
  *	@author Luis Martin Munguia Orta
  *	@version March 10, 2015
@@ -19,43 +19,10 @@
     include_once('domain/Contribution.php'); 
 
 //    include_once('database/dbLog.php');
+	date_default_timezone_set('America/Los_Angeles');
 	$id = $_GET["id"];
 	if ($id=='new') {
-	 	$contribution = new Contribution('new',null,null,null,null,null);
-	}
-	else {
-		$contribution = retrieve_dbContributions($id);
-		if (!$contribution) {
-	         echo('<p id="error">Error: there\'s no receipt with this id in the database</p>'. $id);
-		     die();
-        }  
-	}
-?>
-<html>
-	<?PHP
-/*
- * Copyright 2014 by Luis Martin Munguia Orta. 
- * This program is part of BMAC-Warehouse, which is free software.
- * It comes with absolutely no warranty.  You can redistribute and/or
- * modify it under the terms of the GNU Public License as published
- * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
-*/
-
-/**
- *	ContributionEdit.php
- *  oversees the editing of a person to be added, changed, or deleted from the database
- *	@author Luis Martin Munguia Orta
- *	@version March 10, 2015
- */
-	session_start();
-	session_cache_expire(30);
-    include_once('database/dbContributions.php');
-    include_once('domain/Contribution.php'); 
-
-//    include_once('database/dbLog.php');
-	$id = $_GET["id"];
-	if ($id=='new') {
-	 	$contribution = new Contribution(null,'new',null,null,null,null);
+	 	$contribution = new Contribution('new',date('y-m-d:h:i'),null,null,null,null);
 	}
 	else {
 		$contribution = retrieve_dbContributions($id);
@@ -68,11 +35,43 @@
 <html>
 	<head>
 		<title>
-			<?PHP 
-			if($id=='new') echo('Add a new receipt');
-			else echo('Editing '.$contribution->get_receive_date());?>
+			<?PHP echo('Editing Receipt '.$contribution->get_receive_date());?>
 		</title>
+		<link rel="stylesheet" href="lib/jquery-ui.css" />
 		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<script src="lib/jquery-1.9.1.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+<script>
+$(function() {
+	$(document).on("keyup", ".product-id", function() {
+		var str = $(this).val();
+		var target = $(this);
+		$.ajax({
+			type: 'GET',
+			url: 'advanced_getProducts.php?q='+str
+		})
+		 .done(function (response) {
+			//console.log(response)
+			var suggestions = $.parseJSON(response);
+			//console.log(suggestions);
+			target.autocomplete({
+				source: suggestions	
+			});
+		});
+	});
+
+	$("#add-more").on('click', function(e) {
+		e.preventDefault();
+		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
+		$("#product-id-inputs").append(new_input);
+	});
+	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+
+	$( "#target" ).scroll();
+});
+</script>
+		
 	</head>
 <body>
   <div id="container">
@@ -85,13 +84,7 @@
 	}
 	else {
 	//in this case, the form has been submitted, so validate it
-			if ($id=='new') {
-				$receive_date = $_POST['receive_date'];
-		}
-		else {
-				$receive_date = $contribution->get_receive_date();
-				
-		}
+		
 		$contribution = new Contribution($_POST['provider_id'], $receive_date, $_POST['payment_source'], $_POST['billed_amt'], $_POST['notes']);
 		$errors = validate_form($id); 	//step one is validation.
         // errors array lists problems on the form submitted
@@ -142,8 +135,8 @@ function process_form($id, $contribution)	{
 				else {
 					$result = insert_dbContributions($contribution);
 					if (!$result)
-                        echo ('<p class="error">Unable to add "' .$provider_id. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$provider_id. " to the database.</p>");
+                        echo ('<p class="error">Unable to add the contribution from "' .$provider_id. '" to the database. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully added a contribution from " .$provider_id. " to the database.</p>");
 				}
 		}
 
@@ -157,7 +150,7 @@ function process_form($id, $contribution)	{
 					$result = insert_dbContributions($contribution);
                 	if (!$result)
                    		echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated " .$provider_id. " in the database.</p>");
+					else echo("<p>You have successfully updated the contribution from " .$provider_id. "on  in the database.</p>");
 //					add_log_entry('<a href=\"viewContribution.php?id='.$provider_id.'\">'.'</a>\'s database entry has been updated.');
 				}
 		}
