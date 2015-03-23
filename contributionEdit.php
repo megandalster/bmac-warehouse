@@ -1,12 +1,11 @@
 <?PHP
 /*
- * Copyright 2014 by Luis Martin Munguia Orta. 
- * This program is part of BMAC-Warehouse, which is free software.
+ * Copyright 2014 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is free software.
  * It comes with absolutely no warranty.  You can redistribute and/or
  * modify it under the terms of the GNU Public License as published
  * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
 */
-
 /**
  *	contributionEdit.php
  *  oversees the editing of a person to be added, changed, or deleted from the database
@@ -17,6 +16,8 @@
 	session_cache_expire(30);
     include_once('database/dbContributions.php');
     include_once('domain/Contribution.php'); 
+    include_once('database/dbProducts.php');
+    include_once('domain/Product.php'); 
 
 //    include_once('database/dbLog.php');
 	date_default_timezone_set('America/Los_Angeles');
@@ -60,10 +61,33 @@ $(function() {
 		});
 	});
 
+	$(document).on("keyup", ".provider-id", function() {
+		var str = $(this).val();
+		var target = $(this);
+		$.ajax({
+			type: 'GET',
+			url: 'advanced_getProviders.php?q='+str
+		})
+		 .done(function (response) {
+			//console.log(response)
+			var suggestions = $.parseJSON(response);
+			//console.log(suggestions);
+			target.autocomplete({
+				source: suggestions	
+			});
+		});
+	});
+	
+
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
-		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
-		$("#product-id-inputs").append(new_input);
+		var new_row = '<p class=ui-widget>'
+	    	+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30>&nbsp;&nbsp;&nbsp;&nbsp;'
+		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
+	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
+			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10>'
+			+ '</p>';
+		$("#product-rows").append(new_row);
 	});
 	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
@@ -83,10 +107,16 @@ $(function() {
 			include('contributionForm.inc');
 	}
 	else {
-	//in this case, the form has been submitted, so validate it
 		
-		$contribution = new Contribution($_POST['provider_id'], $receive_date, $_POST['payment_source'], $_POST['billed_amt'], $_POST['notes']);
-		$errors = validate_form($id); 	//step one is validation.
+	//in this case, the form has been submitted, so validate it
+		$receive_date = $contribution->get_receive_date();
+		$receive_items = gather_receive_items($_POST['product-id'],$_POST['product-units'],$_POST['product-total-wt']);
+		$provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider-id']))));
+		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
+		$payment_source = $_POST['payment_source'];
+		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
+		$contribution = new Contribution($provider_id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes);
+		$errors = validate_form($contribution); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
@@ -95,62 +125,63 @@ $(function() {
 		}
 		// this was a successful form submission; update the database and exit
 		else
-			process_form($id, $contribution);
+			process_form($contribution);
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
 	}
 	
+function gather_receive_items($ids, $units, $wts) {
+	$receive_items = ""; 
+	for ($i=0;$i<count($ids);$i++) 
+	    if ($ids[$i]!="") {
+		    $receive_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+	    }
+	return substr($receive_items,1);
+}
+	
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($id, $contribution)	{
-	//step one: sanitize data by replacing HTML entities and escaping the ' character
-		$provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider_id']))));
-		$receive_date = $_POST['receive_date'];
-		$receive_items = trim(str_replace('\\\'','',htmlentities(trim($_POST['receive_items']))));     
-		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
-		$payment_source = $_POST['payment_source'];
-		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
-		
-		$contribution = new Contribution($provider_id, $receive_date, $receive_items, $payment_source, $billed_amt, $notes);
-        
-	//step two: try to make the deletion, addition, or change
+function process_form($contribution)	{
+	    //try to make the deletion
 		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
-			$result = retrieve_dbContributions($receive_date);
+			$result = retrieve_dbContributions($contribution->get_receive_date());
 			if (!$result)
-				echo('<p>Unable to delete. Receipt with timestamp ' . $receive_date .' is not in the database.');
+				echo('<p>Unable to delete. Receipt with timestamp ' . $contribution->get($receive_date) .' is not in the database.');
 			else {
-				$result = delete_dbContributions($receive_date);
-				echo("<p>You have successfully removed the receipt with timestamp" .$receive_date. " from the database.</p>");	
+				$result = delete_dbContributions($contribution->get_receive_date());
+				echo("<p>You have successfully removed the receipt with timestamp " .$contribution->get_receive_date(). " from the database.</p>");	
 			}
 		}
 
 		// try to add a new contribution (receipt) to the database
 		else if ($_POST['old_id']=='new') {
 			    //check if there's already an entry
-				$dup = retrieve_dbContributions($receive_date);
+				$dup = retrieve_dbContributions($contribution->get_receive_date());
 				if ($dup)
-					echo('<p class="error">Unable to add receipt with timestamp' .$receive_date. ' to the database. <br>Another receipt with the same timestamp is already there.');
+					echo('<p class="error">Unable to add receipt with timestamp' .$contribution->get_receive_date(). ' to the database. <br>Another receipt with the same timestamp is already there.');
 				else {
 					$result = insert_dbContributions($contribution);
 					if (!$result)
-                        echo ('<p class="error">Unable to add the contribution from "' .$provider_id. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added a contribution from " .$provider_id. " to the database.</p>");
+                        echo ('<p class="error">Unable to add the contribution from "' .$contribution->get_provider_id(). '" to the database. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully added a contribution from " .$contribution->get_provider_id(). " with timestamp <a href='contributionEdit.php?id=".
+								$contribution->get_receive_date(). "'>".$contribution->get_receive_date()."</a> in the database.</p>");
 				}
 		}
 
 		// try to replace an existing receipt in the database by removing and adding
 		else {
 				$receive_date = $_POST['old_id'];
-				$result = delete_dbContributions($receive_date);
+				$result = delete_dbContributions($contribution->get_receive_date());
                 if (!$result)
-                   echo ('<p class="error">Unable to update receipt with timestamp ' .$receive_date. '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update receipt with timestamp ' .$contribution->get_receive_date(). '. <br>Please report this error to the Program manager.');
 				else {
 					$result = insert_dbContributions($contribution);
                 	if (!$result)
-                   		echo ('<p class="error">Unable to update ' .$provider_id. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated the contribution from " .$provider_id. "on  in the database.</p>");
+                   		echo ('<p class="error">Unable to update contribution with timestamp ' .$contribution->get_receive_date(). '. <br>Please report this error to the Foodbank Director.');
+					else echo("<p>You have successfully updated the contribution from " .$contribution->get_provider_id(). " with timestamp <a href='contributionEdit.php?id=".
+								$contribution->get_receive_date(). "'>".$contribution->get_receive_date()."</a> in the database.</p>");
 //					add_log_entry('<a href=\"viewContribution.php?id='.$provider_id.'\">'.'</a>\'s database entry has been updated.');
 				}
 		}
@@ -158,9 +189,8 @@ function process_form($id, $contribution)	{
 
 function validate_form($id){
 	if($id=='new' && ($_POST['provider_id']==null || $_POST['provider_id']=='new')) $errors[] = 'Please enter the name of the provider';
-	if($_POST['receive_items']==null) $errors[] = 'Please enter the items received';
+	if($_POST['product-id']==null) $errors[] = 'Please enter the items received';
 	if($_POST['payment_source']==null) $errors[] = 'Please enter the payment source';
-	if($_POST['billed_amt']==null) $errors[] = 'Please enter the amount billed';
 	return $errors;
 }
 

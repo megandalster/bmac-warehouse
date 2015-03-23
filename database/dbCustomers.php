@@ -69,6 +69,17 @@ function getall_dbCustomers(){
 	return $theVols;
 }
 
+function getall_dbCustomer_ids(){
+	connect();
+	$result = mysql_query("SELECT customer_id FROM dbCustomers ORDER BY customer_id");
+	$the_ids = array();
+	while($result_row = mysql_fetch_assoc($result)){
+		$the_ids[] = $result_row['customer_id'];
+	}
+	mysql_close();
+	return $the_ids;
+}
+
 // retrieve only those Customers that match the criteria given in the arguments
 function getonlythose_dbCustomers($status, $name) {
 	connect();

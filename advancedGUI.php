@@ -25,7 +25,7 @@ $(function() {
 
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
-		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
+		var new_input = '<p class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></p>';
 		$("#product-id-inputs").append(new_input);
 	});
 	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
@@ -48,7 +48,7 @@ $(function() {
 		</td>
 		<td> Select Products:
 		    <p id="product-id-inputs" class="ui-widget"> 
-		    <input type="text" name="product-ids[]" class="product-id" id="1"></p>
+		    <input type="text" name="product-ids[]" class="product-id"></p>
 		<button id="add-more">add more</button><br><br>
 		</td>
 		
