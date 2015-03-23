@@ -70,6 +70,17 @@ function getall_dbProviders(){
 	return $theProviders;
 }
 
+function getall_dbProvider_ids(){
+	connect();
+	$result = mysql_query("SELECT provider_id FROM dbProviders ORDER BY provider_id");
+	$the_ids = array();
+	while($result_row = mysql_fetch_assoc($result)){
+		$the_ids[] = $result_row['provider_id'];
+	}
+	mysql_close();
+	return $the_ids;
+}
+
 
 // retrieve only those Providers that match the criteria given in the arguments
 function getonlythose_dbProviders($provider_id, $type, $status) {

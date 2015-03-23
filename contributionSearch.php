@@ -74,24 +74,27 @@
 						if ($receive_items!="") echo ' with received items like "'.$receive_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Receive Date</strong></td><td><strong>Provider</strong></td><td><strong>Product Name</strong></td><td><strong>Number of Items</strong></td><td><strong>Weight</strong></td><td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>';
+							echo '<div id="target" style="overflow: scroll; width: variable; height: 200px;">';
+				            echo '<table> <tr><td><strong>Receive Date</strong></td><td><strong>Provider</strong></td>
+				                              <td><strong>Product:caselots:weight</strong></td>
+				                              <td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>';
                             $allIds = array(); // for printing all provider id's
                             foreach ($result as $contribution) {
                             	$items = $contribution->get_receive_items();
                             	                        	                      	
-								echo "<tr><td><a href='contributionEdit.php?id=".$contribution->get_receive_date()."'>" .
-									$contribution->get_receive_date() . "</a></td><td>" . 
+								echo "<tr><td valign='top'><a href='contributionEdit.php?id=".$contribution->get_receive_date()."'>" .
+									$contribution->get_receive_date() . "</a></td><td valign='top'>" . 
 									$contribution->get_provider_id().  "</td><td>";
-                            		foreach($items as $property) {
-                            			echo($property."</td><td>");
+                            		foreach($items as $item) {
+                            			echo($item."<br>");
                             		} 
-									 
-									echo $contribution->get_payment_source() . "</td><td>" . 
-									$contribution->get_billed_amt() . "</td><td>"; 
-									$allNotes[] = $contribution->get_notes();
-								echo "</td></a></tr>";
+									echo "</td><td valign='top'>"; 
+									echo $contribution->get_payment_source() . "</td><td valign='top'>" . 
+									$contribution->get_billed_amt() . "</td>"; 
+								echo "</tr>";
 							}
-							echo '</table>';  
+							echo '</table>';
+							echo '</div>';  
 						}    
 					}
 				?>
