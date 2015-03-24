@@ -148,7 +148,7 @@ function process_form($contribution)	{
 		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
 			$result = retrieve_dbContributions($contribution->get_receive_date());
 			if (!$result)
-				echo('<p>Unable to delete. Receipt with timestamp ' . $contribution->get($receive_date) .' is not in the database.');
+				echo('<p>Unable to delete. Receipt with timestamp ' . $contribution->get_receive_date() .' is not in the database.');
 			else {
 				$result = delete_dbContributions($contribution->get_receive_date());
 				echo("<p>You have successfully removed the receipt with timestamp " .$contribution->get_receive_date(). " from the database.</p>");	

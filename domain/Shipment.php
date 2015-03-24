@@ -24,7 +24,7 @@ class Shipment {
     private $total_weight;	    //  total weight shipped
 	private $total_price;	    //  total price this shipment 
     private $invoice_date;    //  date of invoice yy-mm-dd 
-	private $invoice_no;      // invoice number
+	private $invoice_no;      // invoice number -- not used
     private $notes;           // notes about this shipment
     
        /**

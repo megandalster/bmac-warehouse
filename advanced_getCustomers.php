@@ -1,10 +1,10 @@
 <?php 
-include_once('database/dbProducts.php');
-include_once('domain/Product.php');
-$product_ids = getall_dbProduct_ids();
-//var_dump($product_ids);
+include_once('database/dbCustomers.php');
+include_once('domain/Customer.php');
+$customer_ids = getall_dbCustomer_ids();
+//var_dump($customer_ids);
 if (isset($_GET['q'])) {
-	show_hint($product_ids);
+	show_hint($customer_ids);
 }
 
 function show_hint($names) {
