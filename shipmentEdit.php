@@ -7,9 +7,6 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  * 
  */
-
-//Use St.Vincent/Clarkson from 14-12-03:13:51
-
 /**
  *	shipmentEdit.php
  *  oversees the editing of a shipment to be added, changed, or deleted from the database
@@ -20,31 +17,33 @@
 	session_cache_expire(30);
     include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
+    include_once('database/dbProducts.php');
+    include_once('domain/Product.php'); 
     
 //    include_once('database/dbLog.php');
-	$customer_id = $_GET["id"];  // expecting either "new" or "yy-mm-dd:hh:mm"
-	if ($customer_id=='new') {
-		$ship_date = date('y-m-d:h:m');  // generate unique id for this new shipmenet: current date and time
-	 	$shipment = new Shipment("new", null, $ship_date, null, null, null, null, null, null, null, null);
+	date_default_timezone_set('America/Los_Angeles');
+	$id = $_GET["id"];  // expecting either "new" or "yy-mm-dd:hh:mm"
+	if ($id=='new') {
+		$shipment = new Shipment("new", null, date('y-m-d:h:m'), null, null, null, null, null, null, null, null);
 	}
 	else {
-		$shipment = retrieve_dbShipmentsDate($customer_id);
+		$shipment = retrieve_dbShipmentsDate($id);
 		if (!$shipment) {
 	         echo('<p id="error">Error: there\'s no shipment from this date in the database</p>'. $ship_date);
 		     die();
         }  
 	}
-	var_dump($shipment);
+	$ship_date = $shipment->get_ship_date();
 ?>
 <html>
 	<head>
 		<title>
-			Editing <?PHP echo($shipment->get_ship_date());?>
+			Editing <?PHP echo('Editing Shipment '.$shipment->get_ship_date());?>
 		</title>
 		<link rel="stylesheet" href="lib/jquery-ui.css" />
-<link rel="stylesheet" href="styles.css" type="text/css" />
-<script src="lib/jquery-1.9.1.js"></script>
-<script src="lib/jquery-ui.js"></script>
+		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<script src="lib/jquery-1.9.1.js"></script>
+		<script src="lib/jquery-ui.js"></script>
 <script>
 $(function() {
 	$(document).on("keyup", ".product-id", function() {
@@ -63,10 +62,33 @@ $(function() {
 			});
 		});
 	});
+	
+	$(document).on("keyup", ".customer-id", function() {
+		var str = $(this).val();
+		var target = $(this);
+		$.ajax({
+			type: 'GET',
+			url: 'advanced_getCustomers.php?q='+str
+		})
+		 .done(function (response) {
+			//console.log(response)
+			var suggestions = $.parseJSON(response);
+			//console.log(suggestions);
+			target.autocomplete({
+				source: suggestions	
+			});
+		});
+	});
+	
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
-		var new_input = '<div class="ui-widget"> <input type="text" name="product-ids[]" class="product-id"></div>';
-		$("#product-id-inputs").append(new_input);
+		var new_row = '<p class=ui-widget>'
+	    	+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30>&nbsp;&nbsp;&nbsp;&nbsp;'
+		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
+	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
+			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10>'
+			+ '</p>';
+		$("#product-rows").append(new_row);
 	});
 	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
@@ -80,23 +102,23 @@ $(function() {
 <?PHP
 	if($_POST['_form_submit']!=1){
 	//in this case, the form has not been submitted, so show it
-			include('shipmentForm.inc');
+		include('shipmentForm.inc');
 	}
 	else {
+		
 	//in this case, the form has been submitted, so validate it
-		if ($customer_id=='new') {
-				$ship_date = trim($_POST['ship_date']);
-				$customer_id = $_POST['customer_id'];
-		}
-		else {
-				$ship_date = $shipment->get_ship_date();
-				$customer_id = $shipment->get_customer_id();
-		}
-		$shipment = new Shipment($customer_id, $_POST['funds_source'], $ship_date, 
-								 $_POST['ship_via'], $_POST['ship_items'], $_POST['ship_rate'],
-								 $_POST['total_weight'], $_POST['total_price'], $_POST['invoice_date'], 
-								 $_POST['invoice_no'], $_POST['notes']);
-		$errors = validate_form($_POST['old_id']); 	//step one is validation.
+		$customer_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['customer-id']))));
+		$funds_source = $_POST['funds_source'];
+		$ship_date = $shipment->get_ship_date();
+		$ship_via = $_POST['ship_via'];
+		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-units'],$_POST['product-total-wt']);
+		$ship_rate = trim(str_replace('\\\'','\'',htmlentities($_POST['ship_rate'])));
+		$total_weight = trim(str_replace('\\\'','\'',htmlentities($_POST['total_wt'])));
+		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
+		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
+		$shipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items, 
+			$ship_rate, $total_weight, $billed_amt, substr($ship_date,0,8), "", $notes);
+		$errors = validate_form($_POST,$shipment); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
@@ -105,110 +127,74 @@ $(function() {
 		}
 		// this was a successful form submission; update the database and exit
 		else
-			process_form($customer_id, $shipment);
+			process_form($_POST, $shipment);
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
 	}
+
+function gather_ship_items($ids, $units, $wts) {
+	$ship_items = ""; 
+	for ($i=0;$i<count($ids);$i++) 
+	    if ($ids[$i]!="") {
+		    $ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+	    }
+	return substr($ship_items,1);
+}
 	
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($customer_id, $shipment)	{
-	//step one: sanitize data by replacing HTML entities and escaping the ' character
-		if ($customer_id=='new') {
-				$ship_date = trim($_POST['ship_date']);
-				$customer_id = trim(htmlentities($_POST['customer_id']));
-		}
-		else {
-				$ship_date = $shipment->get_ship_date(); // don't allow editing an existing shipment's customer or date/time.
-				$customer_id = $shipment->get_customer_id();
-		}
-		$funds_source = trim(htmlentities($_POST['funds_source']));
-		$ship_via = trim(htmlentities($_POST['ship_via']));
-		$ship_items = trim(htmlentities($_POST['ship_items']));
-		$ship_rate = trim(htmlentities($_POST['ship_rate']));
-		$total_weight = trim(htmlentities($_POST['total_weight']));
-		$total_price = trim(htmlentities($_POST['total_price']));			
-        $invoice_date = trim(htmlentities($_POST['invoice_date']));
-        $invoice_number = trim(htmlentities($_POST['invoice_number']));
-		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['my_notes'])));
-		
-		
-		$newshipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items, $ship_rate, 
-									$total_weight, $total_price, $invoice_date, $invoice_no, $notes);
-        
-	//step two: try to make the deletion, addition, or change
-		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
-			$result = retrieve_dbShipmentsDate($ship_date);
+function process_form($post,$shipment)	{
+	    //try to make the deletion
+		if($post['submit']=='delete' && $post['delete-check']=='delete') {
+			$result = retrieve_dbShipmentsDate($shipment->get_ship_date());
 			if (!$result)
-				echo('<p>Unable to delete. ' .$customer_id. ' is not in the database. <br>Please report this error to the House Manager.');
+				echo('<p>Unable to delete. Shipment with timestamp ' . $shipment->get_ship_date() .' is not in the database.');
 			else {
-					$result = delete_dbShipmentsDate($ship_date);
-					echo("<p>You have successfully removed " .$customer_id. " from the database.</p>");		
-				}
+				$result = delete_dbShipmentsDate($shipment->get_ship_date());
+				echo("<p>You have successfully removed the shipment with timestamp " .$shipment->get_ship_date(). " from the database.</p>");	
 			}
-		
+		}
 
-		// try to add a new shipment to the database
-		else if($_POST['submit']=='submit' && $_POST['old_id']=='new') {
-				//check if there's already an entry
-				$dup = retrieve_dbShipmentsDate($ship_date);
+		// try to add a new contribution (receipt) to the database
+		else if ($post['old_id']=='new') {
+			    //check if there's already an entry
+				$dup = retrieve_dbShipmentsDate($shipment->get_ship_date());
 				if ($dup)
-					echo('<p class="error">Unable to add ' .$customer_id. ' to the database. <br>Another shipment with the same id is already there.');
+					echo('<p class="error">Unable to add shipment with timestamp' .$shipment->get_ship_date(). ' to the database. <br>Another shipment with the same timestamp is already there.');
 				else {
-					$result = insert_dbShipments($newshipment);
+					$result = insert_dbShipments($shipment);
 					if (!$result)
-                        echo ('<p class="error">Unable to add "' .$customer_id. '" to the database. <br>Please report this error to the Program manager.');
-					else echo("<p>You have successfully added " .$customer_id. " to the database.</p>");
+                        echo ('<p class="error">Unable to add the shipment for "' .$shipment->get_customer_id(). '" to the database. <br>Please report this error to the Program manager.');
+					else echo("<p>You have successfully added a shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.</p>");
 				}
-					
 		}
 
-		// try to replace an existing person in the database by removing and adding
-		else if($_POST['submit']=='submit') {
-				$result = delete_dbShipmentsDate($ship_date);
+		// try to replace an existing receipt in the database by removing and adding
+		else {
+				$ship_date = $post['old_id'];
+				$result = delete_dbShipmentsDate($shipment->get_ship_date());
                 if (!$result)
-                   echo ('<p class="error">Unable to update ' .$customer_id. '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update shipment with timestamp ' .$shipment->get_ship_date(). '. <br>Please report this error to the Program manager.');
 				else {
-					$result = insert_dbShipments($newshipment);
+					$result = insert_dbShipments($shipment);
                 	if (!$result)
-                   		echo ('<p class="error">Unable to update ' .$customer_id. '. <br>Please report this error to the Foodbank Director.');
-					else echo("<p>You have successfully updated " .$customer_id. " in the database.</p>");
-//					add_log_entry('<a href=\"viewPerson.php?id='.$id.'\">'.$first_name.' '.$last_name.'</a>\'s database entry has been updated.');
+                   		echo ('<p class="error">Unable to update shipment with timestamp ' .$shipment->get_ship_date(). '. <br>Please report this error to the Foodbank Director.');
+					else echo("<p>You have successfully updated the shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.</p>");
+//					add_log_entry('<a href=\"viewContribution.php?id='.$provider_id.'\">'.'</a>\'s database entry has been updated.');
 				}
 		}
 }
-/*
- * 
- * 
- */
 
-function validate_form($ship_date){
-	/*
-	if($ship_date=='new' && ($_POST['customer_id']==null || $_POST['customer_id']=='new')) $errors[] = 'Please enter a customer';
-	if($ship_date=='new' && $_POST['last_name']==null) $errors[] = 'Please enter a last name';
-	if($ship_date=='new' && !valid_phone($_POST['phone1'])) $errors[] = 'Please enter a valid primary phone number (10 digits: ###-###-####)';
-	if($_POST['city']==null) $errors[] = 'Please enter a city';
-	if($_POST['address']==null) $errors[] = 'Please enter an address';
-	if($_POST['ship_via']==null) $errors[] = 'Please enter a state';
-	if(($_POST['zip'] != strval(intval($_POST['zip']))) || ($_POST['zip']==null) || (strlen($_POST['zip'])!=5)) $errors[] = 'Please enter a valid zip code';
-	if($_POST['type']==null && $_SESSION['access_level']>=1) $errors[] = 'Please select a Type';
-	if ($_SESSION['access_level']<3 && $_POST['type']=='manager')
-		$errors[] = "Sorry, you can't promote yourself to a mamager.";
-	if($_POST['phone2']!=null && !valid_phone($_POST['phone2'])) $errors[] = 'Please enter a valid secondary phone number (10 digits: ###-###-####)';
-	if(!valid_email($_POST['email']) && $_POST['email']!=null) $errors[] = "Please enter a valid email";
+function validate_form($post,$id){
+	if($id=='new' && ($post['customer_id']==null || $post['customer_id']=='new')) $errors[] = 'Please enter the name of the customer';
+	if($post['product-id']==null) $errors[] = 'Please enter the items received';
+	if($post['funds_source']==null) $errors[] = 'Please enter the funds source';
 	return $errors;
-	*/
 }
-
-/**
-* valid_phone validates a phone on the following parameters:
-* 		it assumes the characters '-' ' ' '+' '(' and ')' are valid, but ignores them
-*		every other digit must be a number
-*		it should be between 7 and 11 digits
-* returns boolean if phone is valid
-*/
 
 function show_errors($e){
 		//this function should display all of our errors.

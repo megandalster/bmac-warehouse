@@ -83,15 +83,13 @@ else {// $_SESSION['access_level']==3
 	      echo('</textarea>');
 
 		  echo('<input type="hidden" name="_submit_type" value="submit"><p>');
-		  if ($_SESSION['access_level']==0)
-		  	 echo('Hit <input type="submit" value="submit" name="submit"> to complete this application.<br /><br />');
-		  else if ($id=="new")
+		  if ($id=="new")
 		     echo('Hit <input type="submit" value="submit" name="submit"> to add this new receipt.<br /><br />');
 		  else
 		     echo('Hit <input type="submit" value="submit" name="submit"> to complete these changes.<br /><br />');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
 			echo ('<input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
-				'<input type="submit" value="delete" name="submit"> to delete this receipt from the database. </p>');
+				'<input type="submit" value="delete" name="submit"> to delete this receipt from the database.');
 	}
 
 ?>

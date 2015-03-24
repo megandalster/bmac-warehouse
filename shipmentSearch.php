@@ -82,16 +82,17 @@
 						if ($ship_items!="") echo ' with shipped items like "'.$ship_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Product</strong></td></tr>';
+							echo '<div id="target" style="overflow: scroll; width: variable; height: 200px;">';
+				            echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Products</strong></td></tr>';
                             foreach ($result as $shipment) {
-								echo "<tr><td><a href=shipmentEdit.php?id=".urlencode($shipment->get_ship_date()).">" . 
-									$shipment->get_customer_id() . "</td><td>" . 
-									$shipment->get_ship_date() . "</td><td>" . 
-									implode(",",$shipment->get_ship_items() ). "</td><td>"; 	
+								echo "<tr><td valign='top'><a href=shipmentEdit.php?id=".urlencode($shipment->get_ship_date()).">" . 
+									$shipment->get_customer_id() . "</td><td valign='top'>" . 
+									$shipment->get_ship_date() . "</td><td valign='top'>" . 
+									implode("<br>",$shipment->get_ship_items() ). "</td><td>"; 	
 								echo "</td></a></tr>";
 							}
-							
 							echo '</table>';
+							echo '</div>';
 						}
 					}
 				?>
