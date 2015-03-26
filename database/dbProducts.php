@@ -80,7 +80,6 @@ function retrieveByCode_dbProducts($product_code){
 	return $theProd;
 }
 
-
 function getall_dbProducts(){
 	connect();
 	$result = mysql_query("SELECT * FROM dbProducts ORDER BY product_id");
@@ -97,10 +96,10 @@ function getall_dbProducts(){
 
 function getall_dbProduct_ids(){
 	connect();
-	$result = mysql_query("SELECT product_id FROM dbProducts ORDER BY product_id");
+	$result = mysql_query("SELECT product_id,unit_weight FROM dbProducts ORDER BY product_id");
 	$the_ids = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$the_ids[] = $result_row['product_id'];
+		$the_ids[] = $result_row['product_id'].";".$result_row[unit_weight];
 	}
 	mysql_close();
 	return $the_ids;

@@ -63,8 +63,13 @@ else {// $_SESSION['access_level']==3
 	echo '<p class=ui-widget id=product-rows>';
 	foreach ($itemArray as $item) {
 		$details = explode(":",$item);
-		$unit_weight = retrieveWithFunding_dbProducts($details[0], $contribution->get_payment_source()); 
-		if (!$unit_weight) $unit_weight = "";
+		if (strpos($details[0],";")>0) {
+			$unit_weight = substr($details[0],strpos($details[0],";")+1);
+			$details[0] = substr($details[0],0,strpos($details[0],";"));
+			if ($details[2]=="" && $details[1]!="")
+				$details[2] = $unit_weight*$details[1];
+		} 
+		else $unit_weight = "";
 		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30 value="'. $details[0] . '">';
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10 value="'.$unit_weight.'">';
 	    echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10 value="'. $details[1] . '">';
