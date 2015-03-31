@@ -40,17 +40,17 @@
 				// display the search form
 					echo('<p><a href="'.$path.'contributionEdit.php?id=new">Add new receipt</a>');  #Is this alright?
 					echo('<form method="post">');
-					echo('<p><strong>Search for receipts:</strong>');
-					$provider_id = $_POST['s_provider_id'];
-					echo '<br><br><p>Provider name: ' ;
-						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '"></p>';
+					echo('<p><strong>Search for receipts</strong>');
 					$receive_date1 = $_POST['s_receive_date1'];	
 					$receive_date2 = $_POST['s_receive_date2'];
-                        echo '<p>Date Range from: ' ;
+                        echo '&nbsp;&nbsp;&nbsp;&nbsp;Date Range from: ' ;
 						echo '<input type="text" name="s_receive_date1" value="' . $receive_date1 . '" id="from">';
 						echo '&nbsp;&nbsp;to: <input type="text" name="s_receive_date2" value="' . $receive_date2 . '" id="to"></p>';
+					$provider_id = $_POST['s_provider_id'];
+					echo '<p>Provider name: ' ;
+						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '">';
 					$receive_items = $_POST['s_receive_items'];  
-                        echo '<p>Items received: ' ;
+                        echo '&nbsp;&nbsp;&nbsp;&nbsp;Received items: ' ;
 						echo '<input type="text" name="s_receive_items" value="' . $receive_items . '"></p>';
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
@@ -67,14 +67,14 @@
                         
                         $result = getonlythose_dbContributions($provider_id, $receive_date1, $receive_date2, $receive_items);
 
-						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
+						echo '<p><strong>Search Results:</strong>&nbsp;&nbsp;Found ' . sizeof($result). ' ';
                             echo "receipt(s)";
-						if ($provider_id!="") echo ' with provider id like "'.$provider_id.'"';
 						if ($receive_date1!="" || $receive_date2!="") echo ' within the given date range ';
+						if ($provider_id!="") echo ' with provider name like "'.$provider_id.'"';
 						if ($receive_items!="") echo ' with received items like "'.$receive_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<div id="target" style="overflow: scroll; width: variable; height: 200px;">';
+							echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
 				            echo '<table> <tr><td><strong>Receive Date</strong></td><td><strong>Provider</strong></td>
 				                              <td><strong>Product:caselots:weight</strong></td>
 				                              <td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>';

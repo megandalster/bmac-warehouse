@@ -110,7 +110,7 @@ $(function() {
 		
 	//in this case, the form has been submitted, so validate it
 		$receive_date = $contribution->get_receive_date();
-		$receive_items = gather_receive_items($_POST['product-id'],$_POST['product-units'],$_POST['product-total-wt']);
+		$receive_items = gather_receive_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider-id']))));
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
 		$payment_source = $_POST['payment_source'];
@@ -131,11 +131,14 @@ $(function() {
 		die();
 	}
 	
-function gather_receive_items($ids, $units, $wts) {
+function gather_receive_items($ids, $unit_wts, $units, $wts) {
 	$receive_items = ""; 
 	for ($i=0;$i<count($ids);$i++) 
 	    if ($ids[$i]!="") {
-		    $receive_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+	    	if ($unit_wts[$i]!="")
+	    	    $receive_items .= ",".$ids[$i].";".$unit_wts[$i].":".$units[$i].":".$wts[$i];
+		    else 
+		    	$receive_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
 	    }
 	return substr($receive_items,1);
 }

@@ -43,22 +43,19 @@
 						echo('<p><strong>Search for shipments:</strong>');
                         
 						// Lay out the three search boxes
-						$customer_id = $_POST['s_customer_id'];
-						echo '<br><br>';
-						echo 'Customer Name: ' ;
-						//Change this to whatever I want displayed in text area
-						echo '<input type="text" name="s_customer_id" value="' . $customer_id . '">';
-						echo '<br>';
 						
 						$ship_date1 = $_POST['s_ship_date1'];	
 					    $ship_date2 = $_POST['s_ship_date2'];
-                        echo '<br>Date Range from: ' ;
+                        echo '&nbsp;&nbsp;&nbsp;&nbsp;Date Range from: ' ;
 						echo '<input type="text" name="s_ship_date1" value="' . $ship_date1 . '" id="from">';
 						echo '&nbsp;&nbsp;to: <input type="text" name="s_ship_date2" value="' . $ship_date2 . '" id="to">';if( !array_key_exists('s_ship_date', $_POST) ) $ship_date = ""; else $ship_date = $_POST['s_ship_date'];
 						
+						$customer_id = $_POST['s_customer_id'];
+						echo '<p>&nbsp;&nbsp;&nbsp;&nbsp;Customer Name: ' ;
+						//Change this to whatever I want displayed in text area
+						echo '<input type="text" name="s_customer_id" value="' . $customer_id . '">';
 						$ship_items = $_POST['s_ship_items'];
-						echo '<br><br>';
-						echo 'Product: ';
+						echo '&nbsp;&nbsp;&nbsp;&nbsp;Product: ';
 						echo '<input type="text" name="s_ship_items" value="' . $ship_items . '">';
 						
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
@@ -76,13 +73,13 @@
                         include_once('domain/Shipment.php');
                         $result = getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_items);  
 
-						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' shipment(s)';
+						echo '<p><strong>Search Results:</strong> &nbsp;&nbsp;&nbsp;&nbsp;Found ' . sizeof($result). ' shipment(s)';
                         if ($customer_id!="") echo ' with Customer Name like "'.$customer_id.'"';
                         if ($ship_date1!="" || $ship_date2!="") echo ' within the given date range ';
 						if ($ship_items!="") echo ' with shipped items like "'.$ship_items.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<div id="target" style="overflow: scroll; width: variable; height: 200px;">';
+							echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
 				            echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Products</strong></td></tr>';
                             foreach ($result as $shipment) {
 								echo "<tr><td valign='top'><a href=shipmentEdit.php?id=".urlencode($shipment->get_ship_date()).">" . 
