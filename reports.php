@@ -22,11 +22,12 @@ include_once('header.php');
 <title>Search for data objects</title>	
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <link rel="stylesheet" href="lib/jquery-ui.css" />
+<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script>
 $(function() {
-	$( "#from" ).datepicker();
-	$( "#to" ).datepicker();
+	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 
 	$(document).on("keyup", ".volunteer-name", function() {
 		var str = $(this).val();

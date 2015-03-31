@@ -79,6 +79,29 @@ function getonlythose_dbContributions($provider_id, $receive_date1, $receive_dat
 	return $theCons;
 }
 
+// retrieve receipts that match criteria and sort by product_id and date
+function retrieve_receipts($payment_source, $receive_date1, $receive_date2) { 
+	connect();
+	$query = "SELECT * FROM dbContributions WHERE payment_source LIKE '%".$payment_source."%'";
+	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+	$result = mysql_query($query);
+	$thequads = array();
+    $count = 0;	
+	while(($result_row = mysql_fetch_assoc($result)) /*&& $count<100*/){
+		$items = explode(",",$result_row['receive_items']);
+		foreach ($items as $item) {
+			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
+			$thequad = $it[0].":".substr($result_row['receive_date'],0,8).":".$result_row['provider_id'].":".$it[2];
+			$thequads[] = $thequad;
+		}
+	    $count++;
+	}
+	mysql_close();
+	sort($thequads);
+	return $thequads;
+}
+
 function insert_dbContributions($Contribution){
 	if(! $Contribution instanceof Contribution){
 		return false;
