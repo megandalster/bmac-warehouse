@@ -111,7 +111,7 @@ $(function() {
 		$funds_source = $_POST['funds_source'];
 		$ship_date = $shipment->get_ship_date();
 		$ship_via = $_POST['ship_via'];
-		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-units'],$_POST['product-total-wt']);
+		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$ship_rate = trim(str_replace('\\\'','\'',htmlentities($_POST['ship_rate'])));
 		$total_weight = trim(str_replace('\\\'','\'',htmlentities($_POST['total_wt'])));
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
@@ -133,11 +133,14 @@ $(function() {
 		die();
 	}
 
-function gather_ship_items($ids, $units, $wts) {
+function gather_ship_items($ids, $unit_wts, $units, $wts) {
 	$ship_items = ""; 
 	for ($i=0;$i<count($ids);$i++) 
 	    if ($ids[$i]!="") {
-		    $ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+	    	if ($unit_wts[$i]!="")
+	    	    $ship_items .= ",".$ids[$i].";".$unit_wts[$i].":".$units[$i].":".$wts[$i];
+		    else 
+		        $ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
 	    }
 	return substr($ship_items,1);
 }
