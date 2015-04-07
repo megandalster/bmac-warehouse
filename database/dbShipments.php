@@ -84,7 +84,7 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 	if($ship_date2) 
 		$query.= " AND ship_date <= '".$ship_date2.":23:59"."'"; 
 	$query .= " AND ship_items LIKE '%".$ship_items."%'" ;
-	$query .= " ORDER BY customer_id";
+	$query .= " ORDER BY ship_date DESC";
 	$result = mysql_query($query);
 	$theShipments = array();
 
@@ -160,5 +160,30 @@ function delete_dbShipmentsDate($ship_date){
 	}
 	return true;
 }
+
+// count shipments for a given product and payment source within the date range
+// return the pair "no_shipments:total_wt" as a character string
+function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2) { 
+	connect();
+	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$payment_source."%'";
+  	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
+	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":23:59"."'"; 
+	$result = mysql_query($query);
+	$total_weight = 0;
+	$item_count = 0;
+	while(($result_row = mysql_fetch_assoc($result))){
+		$items = explode(",",$result_row['ship_items']);
+		foreach ($items as $item) {
+			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
+			if ($it[0]!=$product_id) 
+			    continue;
+			$total_weight += $it[2];
+			$item_count ++;
+		}
+	}
+	mysql_close();
+	return $item_count.":".$total_weight;
+}
+
 
 ?>

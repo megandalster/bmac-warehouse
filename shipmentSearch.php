@@ -80,11 +80,11 @@
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
 							echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
-				            echo '<p><table> <tr><td><strong>Customer Name</strong></td><td><strong>Ship Date</strong></td><td><strong>Products</strong></td></tr>';
+				            echo '<p><table> <tr><td><strong>Ship Date</strong></td><td><strong>Customer Name</strong></td><td><strong>Products</strong></td></tr>';
                             foreach ($result as $shipment) {
 								echo "<tr><td valign='top'><a href=shipmentEdit.php?id=".urlencode($shipment->get_ship_date()).">" . 
+									pretty_date(substr($shipment->get_ship_date(),0,8)) . "</td><td valign='top'>" . 
 									$shipment->get_customer_id() . "</td><td valign='top'>" . 
-									$shipment->get_ship_date() . "</td><td valign='top'>" . 
 									implode("<br>",$shipment->get_ship_items() ). "</td><td>"; 	
 								echo "</td></a></tr>";
 							}
@@ -92,6 +92,9 @@
 							echo '</div>';
 						}
 					}
+				function pretty_date($yy_mm_dd) {
+					return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
+				}
 				?>
 				<!-- below is the footer that we're using currently-->
 				
