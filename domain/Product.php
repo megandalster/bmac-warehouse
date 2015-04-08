@@ -24,8 +24,8 @@ class Product {
 	private $initial_date;   // date first in warehouse yy-mm-dd
 	private $initial_stock;   // initial number of units   E.g., 1000
 	private $minimum_stock;   // replenish point (units)   E.g.,  100
-	private $history;         // array of yy-mm:units:weight triples showing
-					   // inventory level at the end of each month 
+	private $history;         // array of yy-mm-dd:units:weight triples showing
+					          // physical inventory -- sorted by date (most recent last)
 	private $current_stock;   // units:weight on hand
 	private $inventory_date;  // yy-mm when last inventory was checked.
 	private $status;	         // “active”, “discontinued”

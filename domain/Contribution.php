@@ -52,7 +52,15 @@ class Contribution {
     function get_notes() {
     	return $this->notes;
     }
-
+    // add up weights of items to get total weight of contribution
+	function get_total_weight() {
+		$total = 0;
+		foreach ($this->receive_items as $item) {
+			$details = explode(":",$item);
+			$total += $details[2];		
+		}
+		return $total;
+	}
         
 }
 ?>

@@ -30,6 +30,7 @@
 				<?PHP
 				// display the search form
 					echo('<p><a href="'.$path.'productEdit.php?id=new">Add new product</a>');
+					echo('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="'.$path.'inventory.php">Work on inventory</a>');
 					echo('<form method="post">');
 						echo('<p><strong>Search for products:</strong>');
 						
