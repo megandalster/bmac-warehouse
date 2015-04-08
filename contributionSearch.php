@@ -77,19 +77,19 @@
 							echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
 				            echo '<table> <tr><td><strong>Receive Date</strong></td><td><strong>Provider</strong></td>
 				                              <td><strong>Product:caselots:weight</strong></td>
-				                              <td><strong>Payment Source</strong></td><td><strong>Amount Billed</strong></td></tr>';
+				                              <td><strong>Total Weight</strong></td><td><strong>Amount Billed</strong></td></tr>';
                             $allIds = array(); // for printing all provider id's
                             foreach ($result as $contribution) {
                             	$items = $contribution->get_receive_items();
                             	                        	                      	
 								echo "<tr><td valign='top'><a href='contributionEdit.php?id=".$contribution->get_receive_date()."'>" .
-									$contribution->get_receive_date() . "</a></td><td valign='top'>" . 
+									pretty_date(substr($contribution->get_receive_date(),0,8)) . "</a></td><td valign='top'>" . 
 									$contribution->get_provider_id().  "</td><td>";
                             		foreach($items as $item) {
                             			echo($item."<br>");
                             		} 
 									echo "</td><td valign='top'>"; 
-									echo $contribution->get_payment_source() . "</td><td valign='top'>" . 
+									echo $contribution->get_total_weight() . "</td><td valign='top'>" . 
 									$contribution->get_billed_amt() . "</td>"; 
 								echo "</tr>";
 							}
@@ -97,6 +97,9 @@
 							echo '</div>';  
 						}    
 					}
+				function pretty_date($yy_mm_dd) {
+					return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
+				}
 				?>
 				<!-- below is the footer that we're using currently-->
 			</div>
