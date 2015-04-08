@@ -17,7 +17,7 @@ if (isset($_POST['_form_submit']) && $_POST['_form_submit'] == 'report') {
 function show_report() {
 
 	$status = $_POST['status'];
-	$funding_source = $_POST['funding-source'];
+	$fund_source = $_POST['funding-source'];
 	$from = $_POST["from"];
 	$to   = $_POST["to"];	
 
@@ -41,14 +41,49 @@ function show_report() {
 
 }
 
-function report_shipments($status, $funding_source, $from, $to) {
+function report_shipments($fund_source, $from, $to) {
 	include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
-    echo ("<br><b>Shipments Report</b>");
-	// 1.  define a function in dbShipments to get all shipments with the given status, funding source, begin and end dates.	
+    echo ("<br><b>Warehouse Shipments Report<br></b> Report date: ".date("F d, Y")."<br>");
+    // 1.  define a function in dbShipments to get all shipments with the given status, funding source, begin and end dates.	
 	// 2.  call that function
 	// 3.  display a table of the results, in order by date (earliest first)
-}
+    if ($fund_source!="")
+    	echo "<br>For funding source ".$fund_source;
+    if ($from!="") {
+        echo "<br>For shipments sent from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
+        if ($to!= "")
+           echo " through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2))); 
+    }
+    else if ($to!="") 
+    	echo "<br>For shipments sent before ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
+    echo "<br><br><table><tr><td width='170px'><b>Product</b></td><td><b>Total Wt.</b></td><td><b>Rec. Date</b></td><td width='200px'><b>Provider</b></td><td><b>Weight</b></td></tr></table>";
+    $items = retrieve_shipments($fund_source,$from,$to);
+    if (count($items)>0) {			            
+        echo '<div id="target" style="overflow: scroll; width: variable; height: 400px">';
+        echo "<table>";
+	    $item = array("","","","");
+	    $total_wt = "";
+	    $display_block = $item[1]."</td><td>".$item[2]."</td><td>".$item[3]."</td></tr>";
+	    foreach ($items as $item_next) {
+	        $item_next = explode(":",$item_next);
+	        if ($item_next[0] == $item[0]) {
+	            $display_block.="<tr><td></td><td></td><td>".$item_next[1]."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
+	            $total_wt += $item_next[3];
+	        }
+	        else {
+	            echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td>".$display_block;
+	            $total_wt = $item_next[3];
+	            $display_block = $item_next[1]."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
+	            $item = $item_next;
+	        }
+	    }
+	    echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td>".$display_block;
+	    echo "</table></div>";
+    }
+    else echo "There were no shipments in the given date range.";
+}    
+
 
 function report_receipts($fund_source, $from, $to) {
     include_once('database/dbContributions.php');

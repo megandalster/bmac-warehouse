@@ -97,6 +97,29 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 	return $theShipments;
 }
 
+// retrieve shipments that match criteria and sort by customer_id and date
+function retrieve_shipments($funds_source, $ship_date1, $ship_date2) { 
+	connect();
+	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$funds_source."%'";
+	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
+	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":23:59"."'"; 
+	$result = mysql_query($query);
+	$thequads = array();
+    $count = 0;	
+	while(($result_row = mysql_fetch_assoc($result)) /*&& $count<100*/){
+		$items = explode(",",$result_row['ship_items']);
+		foreach ($items as $item) {
+			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
+			$thequad = $it[0].":".substr($result_row['ship_date'],0,8).":".$result_row['customer_id'].":".$it[2];
+			$thequads[] = $thequad;
+		}
+	    $count++;
+	}
+	mysql_close();
+	sort($thequads);
+	return $thequads;
+}
+
 function insert_dbShipments($Shipment){
 	if(! $Shipment instanceof Shipment){
 		return false;
