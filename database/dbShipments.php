@@ -154,23 +154,12 @@ function update_dbShipments($Shipment){
 		echo ("Invalid argument for update_dbShipment function call");
 		return false;
 	}
-	if (delete_dbShipments($Shipment->get_customer_id()))
+	if (delete_dbShipmentsDate($Shipment->get_ship_date()))
 	return insert_dbShipments($Shipment);
 	else {
-		echo (mysql_error()."unable to update dbShipments table: ".$Shipment->get_customer_id());
+		echo (mysql_error()."unable to update dbShipments table: ".$Shipment->get_ship_date());
 		return false;
 	}
-}
-
-function delete_dbShipments($customer_id){
-	connect();
-	$result = mysql_query("DELETE FROM dbShipments WHERE customer_id =\"".$customer_id."\"");
-	mysql_close();
-	if (!$result) {
-		echo (mysql_error()." unable to delete from dbShipments: ".$customer_id);
-		return false;
-	}
-	return true;
 }
 
 function delete_dbShipmentsDate($ship_date){

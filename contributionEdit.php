@@ -89,10 +89,7 @@ $(function() {
 			+ '</p>';
 		$("#product-rows").append(new_row);
 	});
-	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
-	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
-
-	$( "#target" ).scroll();
+	$( "#date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 });
 </script>
 		
@@ -109,7 +106,7 @@ $(function() {
 	else {
 		
 	//in this case, the form has been submitted, so validate it
-		$receive_date = $contribution->get_receive_date();
+		$receive_date = $_POST['date'].substr($contribution->get_receive_date(),8);
 		$receive_items = gather_receive_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$provider_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['provider-id']))));
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
@@ -147,7 +144,7 @@ function gather_receive_items($ids, $unit_wts, $units, $wts) {
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
 function process_form($contribution)	{
-	    //try to make the deletion
+		//try to make the deletion
 		if($_POST['submit']=='delete' && $_POST['delete-check']=='delete') {
 			$result = retrieve_dbContributions($contribution->get_receive_date());
 			if (!$result)
@@ -175,10 +172,9 @@ function process_form($contribution)	{
 
 		// try to replace an existing receipt in the database by removing and adding
 		else {
-				$receive_date = $_POST['old_id'];
-				$result = delete_dbContributions($contribution->get_receive_date());
+				$result = delete_dbContributions($_POST['old_id']);
                 if (!$result)
-                   echo ('<p class="error">Unable to update receipt with timestamp ' .$contribution->get_receive_date(). '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update receipt with timestamp ' .$_POST['old_id']. '. <br>Please report this error to the Program manager.');
 				else {
 					$result = insert_dbContributions($contribution);
                 	if (!$result)
@@ -191,10 +187,17 @@ function process_form($contribution)	{
 }
 
 function validate_form($id){
-	if($id=='new' && ($_POST['provider_id']==null || $_POST['provider_id']=='new')) $errors[] = 'Please enter the name of the provider';
-	if($_POST['product-id']==null) $errors[] = 'Please enter the items received';
+	if($id=='new' && $_POST['provider-id']==null || $_POST['provider-id']=='new'
+					 || $_POST['provider-id']=='') $errors[] = 'Please enter the name of the provider';
+	if (!valid_date($_POST['date'])) $errors[] = 'Please enter a valid receipt date';
+	if($_POST['product-id']==null) $errors[] = 'Please enter one or more received';
 	if($_POST['payment_source']==null) $errors[] = 'Please enter the payment source';
 	return $errors;
+}
+function valid_date($date)
+{
+    $d = DateTime::createFromFormat('y-m-d', $date);
+    return $d && $d->format('y-m-d') == $date;
 }
 
 function show_errors($e){

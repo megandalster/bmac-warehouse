@@ -90,8 +90,7 @@ $(function() {
 			+ '</p>';
 		$("#product-rows").append(new_row);
 	});
-	$( "#from" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
-	$( "#to" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
+	$( "#date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
 });
 </script>
 	</head>
@@ -109,7 +108,7 @@ $(function() {
 	//in this case, the form has been submitted, so validate it
 		$customer_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['customer-id']))));
 		$funds_source = $_POST['funds_source'];
-		$ship_date = $shipment->get_ship_date();
+		$ship_date = $_POST['date'].substr($shipment->get_ship_date(),8);
 		$ship_via = $_POST['ship_via'];
 		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$ship_rate = trim(str_replace('\\\'','\'',htmlentities($_POST['ship_rate'])));
@@ -177,10 +176,9 @@ function process_form($post,$shipment)	{
 
 		// try to replace an existing receipt in the database by removing and adding
 		else {
-				$ship_date = $post['old_id'];
-				$result = delete_dbShipmentsDate($shipment->get_ship_date());
+				$result = delete_dbShipmentsDate($post['old_id']);
                 if (!$result)
-                   echo ('<p class="error">Unable to update shipment with timestamp ' .$shipment->get_ship_date(). '. <br>Please report this error to the Program manager.');
+                   echo ('<p class="error">Unable to update shipment with timestamp ' .$post['old_id']. '. <br>Please report this error to the Program manager.');
 				else {
 					$result = insert_dbShipments($shipment);
                 	if (!$result)
@@ -193,10 +191,17 @@ function process_form($post,$shipment)	{
 }
 
 function validate_form($post,$id){
-	if($id=='new' && ($post['customer_id']==null || $post['customer_id']=='new')) $errors[] = 'Please enter the name of the customer';
+	if($id=='new' && $_POST['customer-id']==null || $_POST['customer-id']=='new'
+					 || $_POST['customer-id']=='') $errors[] = 'Please enter the name of the provider';
+	if (!valid_date($_POST['date'])) $errors[] = 'Please enter a valid receipt date';
 	if($post['product-id']==null) $errors[] = 'Please enter the items received';
 	if($post['funds_source']==null) $errors[] = 'Please enter the funds source';
 	return $errors;
+}
+function valid_date($date)
+{
+    $d = DateTime::createFromFormat('y-m-d', $date);
+    return $d && $d->format('y-m-d') == $date;
 }
 
 function show_errors($e){

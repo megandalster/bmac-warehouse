@@ -35,9 +35,11 @@ else {// $_SESSION['access_level']==3
 <p>(<span style="font-size:x-small;color:FF0000">*</span> indicates required information.)
 
 <?php 
-    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Receipt Date: '.$contribution->get_receive_date();
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.
+        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Receipt Date<span style="font-size:x-small;color:FF0000">*</span>: '.
+        '<input type="text" name="date" id="date" width=30 value="'.substr($contribution->get_receive_date(),0,8).'">'.
+        substr($contribution->get_receive_date(),8);
 	echo '<p>Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="40" class="provider-id" name="provider-id" tabindex=1 value="'.$contribution->get_provider_id().'">';
-	// echo '<input type="hidden" name="receive_date" value="'.$contribution->get_receive_date().'">';
 	echo('&nbsp;&nbsp;&nbsp;&nbsp;Payment Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="payment_source">');
     echo('<option value="Donation"');if ($contribution->get_payment_source()=='Donation' || $contribution->get_payment_source()=='') echo (' SELECTED'); echo('>Donation</option>');
