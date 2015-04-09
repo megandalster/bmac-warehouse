@@ -31,8 +31,11 @@ else
 	<input type="hidden" name="_form_submit" value="1">
 <p>(<span style="font-size:x-small;color:FF0000">*</span> indicates required information.)
 <?php    
-    echo '<p>Ship To:<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="40" class="customer-id" name="customer-id" tabindex=1 value="'.$shipment->get_customer_id().'">';
-    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date: '.$shipment->get_ship_date();
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.
+        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ship Date<span style="font-size:x-small;color:FF0000">*</span>: '.
+        '<input type="text" name="date" id="date" width=30 value="'.substr($shipment->get_ship_date(),0,8).'">'.
+        substr($shipment->get_ship_date(),8);
+	echo '<p>Ship To<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="40" class="customer-id" name="customer-id" tabindex=1 value="'.$shipment->get_customer_id().'">';
 	echo('<p>Funds Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="funds_source">');
     echo('<option value="BMAC"');if ($shipment->get_funds_source()=='BMAC') echo (' SELECTED'); echo('>BMAC</option>');

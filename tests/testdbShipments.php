@@ -55,12 +55,12 @@ class testdbShipments extends UnitTestCase {
 		$ship2 = new Shipment ("Gilbert3036645136", "Pond", "2001-03-21:10:45", "BMAC", "", 
         			"3", "45", "20", "2014-02-01", "2", "is a");
 		$this->assertTrue(update_dbShipments($ship2));
-		$this->assertEqual(retrieve_dbShipments($ship2->get_customer_id())->get_funds_source(), "Pond");
+		$this->assertEqual(retrieve_dbShipmentsDate($ship2->get_ship_date())->get_funds_source(), "Pond");
 		
 		//Test Delete
-		$this->assertTrue(delete_dbShipments($ship1->get_customer_id()));
-		$this->assertTrue(delete_dbShipments($ship2->get_customer_id()));
-		$this->assertTrue(delete_dbShipments($ship3->get_customer_id()));
+		$this->assertTrue(delete_dbShipmentsDate($ship1->get_ship_date()));
+		$this->assertTrue(delete_dbShipmentsDate($ship2->get_ship_date()));
+		$this->assertTrue(delete_dbShipmentsDate($ship3->get_ship_date()));
 		$this->assertFalse(retrieve_dbShipments($ship2->get_customer_id()));
 		
 		echo ("testdbShipments complete \n");
