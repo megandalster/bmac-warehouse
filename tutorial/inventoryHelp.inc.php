@@ -27,7 +27,7 @@
 </script>
 
 <p>
-	<strong>How to Add People to the Database</strong>
+	<strong>Updating the Inventory Database</strong>
 <p>
 	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>people:</B>
 	and select <B>add</B>, like this:<BR> <BR> <a

@@ -29,7 +29,7 @@
 </script>
 
 <p>
-	<strong>How to Search for People in the Database</strong>
+	<strong>Searching for Providers</strong>
 <p>
 	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
 	and select <B>search</B>, like this:<BR> <BR> <a
