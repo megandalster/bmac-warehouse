@@ -28,7 +28,7 @@
 </script>
 
 <p>
-	<strong>How to Edit a Person's Information in the Database</strong>
+	<strong>Editing and Adding a New Receipt</strong>
 <p>Editing information in the volunteer database is usually done by the
 	House Manager. There is one exception: a volunteer can view and modify
 	his or her own information in the database (but nobody else's). So this

@@ -32,36 +32,30 @@
 					//help.php with no variable passed through the GET method.
 
 					//basic pages
-					$assocHelp['login.php']='login.inc.php';
-					$assocHelp['index.php']='index.inc.php';
-					$assocHelp['about.php']='index.inc.php';
-
-					//person editing, searching
-					$assocHelp['personSearch.php']='searchPersonHelp.inc.php';
-					$assocHelp['personEdit.php']='editPersonHelp.inc.php';
-					$assocHelp['personAdd.php']='addPersonHelp.inc.php';
-					
-					//calendar managing
-					$assocHelp['calendar.php']='manageCalendarHelp.inc.php';
-					$assocHelp['addWeek.php']='generateWeekHelp.inc.php';
-					$assocHelp['cancelShift.php']='cancelPersonShiftHelp.inc.php';
-					$assocHelp['addSlotToShift.php']='addSlotToShiftHelp.inc.php';
-					$assocHelp['addPersonToShift.php']='addPersonToShiftHelp.inc.php';
-					$assocHelp['subCallList.php']='subCallListHelp.inc.php';
-					$assocHelp['addNotes.php']='calendarNotesHelp.inc.php';
-					$assocHelp['navigateThroughWeeks.php']='navigateThroughWeeksHelp.inc.php';
-					
-					// master schedule managing
-					$assocHelp['viewSchedule.php']='schedulingHelp.inc.php';
-					
-					// other
-					$assocHelp['quickStartGuide.php']='quickStartGuideHelp.inc.php';
-					$assocHelp['reports.php']='reportsHelp.inc.php';
-					$assocHelp['dataExport.inc.php']='dataExportHelp.inc.php';
-
-					//personal home page
+					$assocHelp['login.php']='loginHelp.inc.php';
 					$assocHelp['index.php']='indexHelp.inc.php';
-
+					
+					//staff and product searching and editing, inventory updating
+					$assocHelp['personEdit.php']='personEditHelp.inc.php';
+					$assocHelp['productSearch.php']='productSearchHelp.inc.php';
+					$assocHelp['productEdit.php']='productEditHelp.inc.php';
+					$assocHelp['inventory.php']='inventoryHelp.inc.php';
+					
+					//shipments and receipts
+					$assocHelp['shipmentSearch.php']='shipmentSearchHelp.inc.php';
+					$assocHelp['shipmentEdit.php']='shipmentEditHelp.inc.php';
+					$assocHelp['contributionSearch.php']='contributionSearchHelp.inc.php';
+					$assocHelp['contributionEdit.php']='contributionEditHelp.inc.php';
+					
+					// contributors and customers
+					$assocHelp['providerSearch.php']='providerSearchHelp.inc.php';
+					$assocHelp['providerEdit.php']='providerEditHelp.inc.php';
+					$assocHelp['customerSearch.php']='customerSearchHelp.inc.php';
+					$assocHelp['customerEdit.php']='customerEditHelp.inc.php';
+					
+					// reports
+					$assocHelp['reports.php']='reportsHelp.inc.php';
+					$assocHelp['dataExport.php']='dataExportHelp.inc.php';
 
 					//Now if we have an undefined array value for the key they've passed us
 					//what happens? This means that the page they're looking for help on doesn't have a
@@ -70,7 +64,7 @@
 					if(!$assocHelp[$loc])
 						$assocHelp[$loc]='index.inc.php';
 
-					//now this line actually snags the tutorial data they're requesting and displays it.
+					//this line actually snags the tutorial data they're requesting and displays it.
 					include('tutorial/'.$assocHelp[$loc]);
 				?>
 
