@@ -49,7 +49,7 @@ else {// $_SESSION['access_level']==3
 <fieldset>
 <legend>Product Information</legend>
 	<?php
-	echo('<p>Funding Source<span style="font-size:x-small;color:FF0000">*</span>: ');
+	echo('<br>&nbsp;Funding Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="funding_source">');
     echo('<option value="TFAP"');if ($product->get_funding_source()=='TFAP') echo (' SELECTED'); echo('>TFAP</option>');
 	echo '<option value="CSFP"'; if ($product->get_funding_source()=="CSFP" || $product->get_funding_source()=='2CSFP') echo " SELECTED"; echo '>CSFP or 2CSFP</option>';
@@ -60,6 +60,13 @@ else {// $_SESSION['access_level']==3
 	echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
 	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation" || $product->get_funding_source()=="") echo " SELECTED"; echo '>Donation</option>';
 	echo('</select></p>');
+	$recent_inventory = $product->get_history();
+    if (count($recent_inventory) > 0){
+         $ri = explode(':',end($recent_inventory));
+         $inv_item = pretty_date($ri[0]).": ".$ri[1]." case lots, ".$ri[2]." total pounds.";
+    }
+    else 
+         $inv_item = " N/A";
 	?>
 
 	<table>		<tr><td>Unit Weight<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size=10 name="unit_weight" tabindex=3 value="<?PHP echo($product->get_unit_weight())?>"></td>
@@ -67,13 +74,15 @@ else {// $_SESSION['access_level']==3
 		<tr><td>Initial Stock: <input type="text" size=10 name="initial_stock" tabindex=5 value="<?PHP echo($product->get_initial_stock())?>"></td><td>
 		Initial Date: <input type="text" size=10 name="initial_date" id="initial_date" tabindex=6 value="<?PHP echo($product->get_initial_date())?>"></td></tr><tr><td>
 		Minimum Stock: <input type="text" size=10 name="minimum_stock" tabindex=7 value="<?PHP echo($product->get_minimum_stock())?>"></td></tr>
-		<tr><td>Current Stock: <input type="text" size=10 name="current_stock" tabindex=8 value="<?PHP echo($product->get_current_stock())?>"></td><td>
-		Inventory Date: <input type="text" size=10 name="inventory_date" id="inventory_date" tabindex=9 value="<?PHP echo($product->get_inventory_date())?>"></td></tr>
+		<tr><td>Last Inventory <?PHP echo($inv_item)?></td></tr>
 
 </table>
 </fieldset>
 <?PHP
-    
+    function pretty_date($yy_mm_dd) {
+		return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
+	}
+				
 	echo('<p>Status<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="status">');
     echo('<option value="active"');if ($product->get_status()=='active' || $product->get_status()=='') echo (' SELECTED'); echo('>active</option>');

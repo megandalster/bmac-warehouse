@@ -41,7 +41,7 @@
 								
 						
                         if( !array_key_exists('s_funding_source', $_POST) ) $funding_source = ""; else $funding_source = $_POST['s_funding_source'];
-						echo '<br><br>funding_source:<select name="s_funding_source">';
+						echo '<br><br>Funding Source:<select name="s_funding_source">';
 						echo '<option value=""'; echo " SELECTED"; echo '>--any--</option>';
     echo('<option value="TFAP"'); echo('>TFAP</option>');
 	echo '<option value="CSFP"'; echo '>CSFP or 2CSFP</option>';
@@ -84,15 +84,24 @@
 						if ($status!="") echo ' with status "'.$status.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<div id="target" style="overflow: scroll; width: 600px; height: 200px;">';
-				            echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td><strong>Initial Date</strong></td></tr>';
+							echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
+				            echo '<p><table> <tr><td><strong>Product ID</strong></td><td><strong>Funding Source</strong></td><td><strong>Status</strong></td><td>'.
+				                 '<strong>Unit Wt</strong></td><td><strong>Inventory Date: Units: Total Wt</strong></td></tr>';
                             
                             foreach ($result as $product) {
+                            	$recent_inventory = $product->get_history();
+                            	if (count($recent_inventory) > 0){
+                            		$ri = explode(':',end($recent_inventory));
+                            		$inv_item = pretty_date($ri[0]).": ".$ri[1].": ".$ri[2];
+                            	}
+                            	else 
+                            		$inv_item = "";
 								echo "<tr><td><a href=productEdit.php?id=".urlencode($product->get_product_id())."&fundingsource=".urlencode($product->get_funding_source()).">" . 
 									$product->get_product_id() . "</td><td>" .
 									$product->get_funding_source() . "</td><td>" .  
 									$product->get_status() . "</td><td>" . 
-									$product->get_initial_date() . "</td><td>"; 			
+									$product->get_unit_weight() . "</td><td>" . 
+									$inv_item. "</td><td>"; 			
 								echo "</td></a></tr>";
 							}
 							echo '</table>';
@@ -100,6 +109,10 @@
 						}
 						
 					}
+				function pretty_date($yy_mm_dd) {
+					return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
+				}
+				
 				?>
 				<!-- below is the footer that we're using currently-->
 				
