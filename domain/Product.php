@@ -98,7 +98,12 @@ class Product {
     function is_funding_source($s){
         return $this->funding_source == $s;
     }
-  
+    
+    // add to the product's history the next inventory reading 'yy-mm-dd:units:weight'
+    function add_to_history($yymmddunitsweight) {
+        $this->history[] = $yymmddunitsweight;
+    }
+    
 }
 ?>
     
