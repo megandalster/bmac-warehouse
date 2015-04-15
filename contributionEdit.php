@@ -81,12 +81,11 @@ $(function() {
 
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
-		var new_row = '<p class=ui-widget>'
+		var new_row = '<br class=ui-widget>'
 	    	+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30>&nbsp;&nbsp;&nbsp;&nbsp;'
 		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
 	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
 			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10>'
-			+ '</p>';
 		$("#product-rows").append(new_row);
 	});
 	$( "#date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
