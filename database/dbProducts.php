@@ -124,6 +124,26 @@ function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	mysql_close();
 	return $theProds;
 }
+// retrieve only those Products whose id's begin with a particular string and match the other criteria
+function getproducts_beginningwith($string, $funding_source, $status) {
+	connect();
+	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '".$string."%'" . 
+			 " AND funding_source LIKE '%".$funding_source."%'" . 
+			 "  AND status LIKE '%".$status."%'" ;
+    $query .= " ORDER BY status, product_id";
+	$result = mysql_query($query);
+	$theProds = array();
+		
+		while($result_row = mysql_fetch_assoc($result)){
+		$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
+							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
+							$result_row['notes']);
+		$theProds[] = $theProd;
+	}
+	mysql_close();
+	return $theProds;
+}
+
 
 function insert_dbProducts($Product){
 	if(! $Product instanceof Product){
