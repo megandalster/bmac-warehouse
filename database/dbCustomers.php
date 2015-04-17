@@ -159,4 +159,21 @@ function delete_dbCustomers($customer_id){
 	return true;
 }
 
+// retrieve only those Customers that match the given status
+function getonlythosestatus_dbCustomers($status) {
+	connect();
+	$query = "SELECT * FROM dbCustomers WHERE status LIKE '%".$status."%'" ;
+	$query .= " ORDER BY customer_id";
+	$result = mysql_query($query);
+	$theCustomers = array();
+		
+	while($result_row = mysql_fetch_assoc($result)){
+		$theCustomer = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
+							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
+		$theCustomers[] = $theCustomer;
+	}
+	mysql_close();
+	return $theCustomers;
+}
+
 ?>
