@@ -16,6 +16,8 @@
  */
 
 include_once(dirname(__FILE__).'/../domain/Product.php');
+include_once(dirname(__FILE__).'/../database/dbContributions.php');
+include_once(dirname(__FILE__).'/../database/dbShipments.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
 function create_dbProducts(){
@@ -105,7 +107,7 @@ function getall_dbProduct_ids(){
 	return $the_ids;
 }
 
-// retrieve only those Products that match the criteria given in the arguments array_shift
+// retrieve only those Products that match the criteria given in the arguments
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'" . 
@@ -141,8 +143,6 @@ function getproducts_beginningwith($string, $funding_source, $status) {
 		$theProds[] = $theProd;
 	}
 	mysql_close();
-	if(!$theProds[0])
-		array_shift($theProds);
 	return $theProds;
 }
 
@@ -193,6 +193,58 @@ function insert_dbProducts($Product){
 	
 }
 
+function retrieve_inventory($status, $funding_source, $from, $to){
+	/* from date means beginning of history time period, to date is end 
+	 */
+	$products = getonlythose_dbProducts("", $funding_source, $status);
+	$the_tens = array();
+	if (!$from){
+		$from = date(y-m-d,null);
+	}
+	if (!$to){
+		$to = date(y-m-d,time());
+	}
+	foreach ($products as $product) {
+		$ship_items = count_shipments($product->get_product_id(), $funding_source, $from, $to); //ISSUE: ship and receives are inaccurate from history...
+		$receive_items = count_receipts($product->get_product_id(), $funding_source, $from, $to);
+		$history = $product->get_history(); //last item in array is most recent
+		$history3 = explode(":",$history[0]);
+		if (!$history || $history3[0] > $from){
+			if (!$from && $history){
+				$result = $history3;
+			}
+			else $result = "N/A";
+		}
+		else{
+			$result = $history3;
+			foreach($history as $history3){
+				$history3 = explode(":",$history3);
+				if($history3[0] < $result)
+					$result = $history3;
+			}
+		}
+		//if history3[0] is too far in the past, 
+		$ship_details = explode(':',$ship_items);
+		$receipt_details = explode(':',$receive_items);
+		if($result != "N/A"){
+			$current_weight = $result[2] - $ship_details[1] + $receipt_details[1];
+			$the_ten = $product->get_product_id().":".$funding_source.":".$status.":".$result[0].":".$result[2].":".$ship_details[0].":".$ship_details[1].":".$receipt_details[0].":".$receipt_details[1].":".$current_weight;
+		}
+		else{
+			$current_weight = "N/A";
+			$starting_weight = 0;
+			$the_ten = $product->get_product_id().":".$product->get_funding_source().":".$product->get_status().":".$result.":".$starting_weight.":".$ship_details[0].":".$ship_details[1].":".$receipt_details[0].":".$receipt_details[1].":".$current_weight;
+			//var_dump($the_ten);
+		}
+				$the_tens[] = $the_ten;
+		//use vardump($object or $array);
+		//echo($variable);
+	}
+	sort($the_tens);
+	return $the_tens;
+}
+
+
 function update_dbProducts($Product){
 	if (! $Product instanceof Product) {
 		echo ("Invalid argument for update_dbProduct function call");
@@ -201,7 +253,7 @@ function update_dbProducts($Product){
 	if (delete_dbProducts($Product->get_product_id(),$Product->get_funding_source()))
 	return insert_dbProducts($Product);
 	else {
-		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id().$Product->get_funding_source());
+		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id());
 		return false;
 	}
 }
