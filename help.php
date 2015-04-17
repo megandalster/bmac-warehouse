@@ -30,7 +30,9 @@
 					//to allow us to get them to material somewhere else they might want.
 					//you can guarantee a link to the home site by simply linking to
 					//help.php with no variable passed through the GET method.
-
+//developer templage
+$assocHelp['helpPageTemplate.php']='helpPageTemplate.inc.php';
+				
 					//basic pages
 					$assocHelp['login.php']='loginHelp.inc.php';
 					$assocHelp['index.php']='indexHelp.inc.php';
