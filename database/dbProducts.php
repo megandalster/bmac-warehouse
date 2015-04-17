@@ -105,7 +105,7 @@ function getall_dbProduct_ids(){
 	return $the_ids;
 }
 
-// retrieve only those Products that match the criteria given in the arguments
+// retrieve only those Products that match the criteria given in the arguments array_shift
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'" . 
@@ -141,6 +141,8 @@ function getproducts_beginningwith($string, $funding_source, $status) {
 		$theProds[] = $theProd;
 	}
 	mysql_close();
+	if(!$theProds[0])
+		array_shift($theProds);
 	return $theProds;
 }
 
@@ -199,7 +201,7 @@ function update_dbProducts($Product){
 	if (delete_dbProducts($Product->get_product_id(),$Product->get_funding_source()))
 	return insert_dbProducts($Product);
 	else {
-		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id());
+		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id().$Product->get_funding_source());
 		return false;
 	}
 }
