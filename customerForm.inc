@@ -77,12 +77,13 @@ else // $_SESSION['access_level']==3
 		</select>,
 		<input type="text" name="zip" size="5" tabindex=6 value="<?PHP echo($customer->get_zip())?>"></td></tr>
 		<tr>
+   
 		<?php
-				echo '<td>Primary Phone:</td><td> <input type="text" name="phone" MAXLENGTH=12 tabindex=7 value="'.$customer->get_phone().'"></td>';
-			
+				echo '<td>Primary Phone:</td><td><input type="text" name="phone" MAXLENGTH=12 tabindex=7 value="'.$customer->get_phone().'"></td>';
 		?>
-		<td>Contact Person:</td><td><input type="text" name="contact" MAXLENGTH=12 tabindex=8 value="<?PHP echo $customer->get_contact()?>"></td></tr>
-		<tr><td>Email:</td><td><input type="text" name="email" size="40" tabindex=9 value="<?PHP echo($customer->get_email())?>"></td></tr>
+	   	
+	   	<td>Contact Person:</td><td><input type="text"  name="contact" size="40" tabindex=8 value="<?PHP echo ($customer->get_contact())?>"></td>
+        <tr><td>Email:</td><td><input type="text" name="email" size="40" tabindex=9 value="<?PHP echo($customer->get_email())?>"></tr>
 
 </table>
 </fieldset>
