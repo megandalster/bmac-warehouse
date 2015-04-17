@@ -79,6 +79,25 @@ function getonlythose_dbContributions($provider_id, $receive_date1, $receive_dat
 	return $theCons;
 }
 
+// variation that matches the provider id exactly for use with provider report
+function getonlythose_dbContributions2($provider_id, $receive_date1, $receive_date2) { 
+	connect();
+	$query = "SELECT * FROM dbContributions WHERE provider_id = '".$provider_id."'";
+	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+    $query .= " ORDER BY receive_date DESC";
+    $result = mysql_query($query);
+	$theCons = array();
+		
+	while($result_row = mysql_fetch_assoc($result)){
+		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
+		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
+		$theCons[] = $theCon;
+	}
+	mysql_close();
+	return $theCons;
+}
+
 // retrieve receipts that match criteria and sort by product_id and date
 function retrieve_receipts($payment_source, $receive_date1, $receive_date2) { 
 	connect();

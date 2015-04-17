@@ -17,6 +17,9 @@
 include_once(dirname(__FILE__).'/../domain/Provider.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
+include_once(dirname(__FILE__).'/../domain/Contribution.php');
+include_once(dirname(__FILE__).'/dbContributions.php');
+
 function create_dbProviders(){
 	connect();
 	mysql_query("DROP TABLE IF EXISTS dbProviders");
@@ -104,6 +107,20 @@ function getonlythose_dbProviders($provider_id, $type, $status) {
 	return $theProviders;
 }
 
+function getcontributionsby_dbProviders($status, $from, $to) {
+	$providers = getonlythose_dbProviders(null, null, $status);
+	
+	$providers_and_contributions = array();
+	
+	foreach($providers as $a_provider) {
+		$contributions = getonlythose_dbContributions2($a_provider->get_provider_id(), $from, $to);
+		if(!empty($contributions)) {
+			$providers_and_contributions[] = array("provider" => $a_provider, "contributions" => $contributions); 
+		}
+	}
+	
+	return $providers_and_contributions;
+}
 
 function insert_dbProviders($Provider){
 	if(! $Provider instanceof Provider){

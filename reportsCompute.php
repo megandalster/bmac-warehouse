@@ -35,7 +35,7 @@ function show_report() {
 	 		report_customers($status);
 		}
 		if (in_array('providers', $_POST['report-types'])) {
-			report_providers($status);
+			report_providers($status, $from, $to);
 		}
 	}
 
@@ -130,13 +130,70 @@ function report_customers($status) {
 }
 }
 
-function report_providers($status) {
+function report_providers($status, $from, $to) {
 	include_once('database/dbProviders.php');
     include_once('domain/Provider.php'); 
-    echo ("<br><b>Providers Report</b>");
-	// 1.  define a function in dbProviders to get all providers with the given status
-	// 2.  call that function
-	// 3.  display a table of the results, in order by provider_id
+    
+    echo ("<br><b>Providers Report<br></b> Report date: ".date("F d, Y")."<br>");
+	if ($status != "")
+    	echo "<br>For ".$status." providers";
+    else {
+    	echo "<br>For all providers";
+    }
+    if ($from!="") {
+        echo " with contributions received from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
+        if ($to!= "")
+           echo " through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2))); 
+    }
+    else if ($to!="") {
+    	echo " with contributions received before ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
+    }
+    
+    $data = getcontributionsby_dbProviders($status, $from, $to);
+    
+    echo("<br><br>");
+    echo('<div id="target" style="overflow: scroll; width: variable; height: 400px">');
+    echo("<table>");
+    echo("<tr><td><b>Provider</b></td>
+              <td><b>Date Received</b></td>
+              <td><b>Billed Amount</b></td>
+              <td><b>Total Weight</b></td></tr>");
+    foreach($data as $entry) {
+    	$provider = $entry["provider"];
+    	$contributions = $entry["contributions"];
+    	$total_billed_amt = 0;
+    	$total_weight = 0;
+    	
+    	$first = true;
+    	foreach($contributions as $contr) {
+    		if($first) {
+    			echo("<tr><td>".$provider->get_provider_id()."</td>");
+    			$first = false;
+    		} else {
+    			echo("<tr><td></td>");
+    		}
+    		
+    		$total_billed_amt += floatval($contr->get_billed_amt());
+    		$total_weight     += floatval($contr->get_total_weight());
+    		
+    		echo("<td>".pretty_date($contr->get_receive_date())
+    	   ."</td><td>$".$contr->get_billed_amt()
+    	   ."</td><td>".$contr->get_total_weight()." lbs.</td>");
+    	}
+    	if(count($contributions) > 1) {
+	    	echo('<tr><td></td><td></td>
+	    	          <td style="border-top: 2px solid #000000">$'.$total_billed_amt.'</td>
+	    	          <td style="border-top: 2px solid #000000">'.$total_weight.' lbs.</td></tr>');
+    	}
+    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
+    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
+    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
+    }
+    
+    echo("</table>");
+    echo("</div>");
 }
-
+function pretty_date($yy_mm_dd) {
+	return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
+}
 ?>
