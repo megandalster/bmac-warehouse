@@ -99,11 +99,12 @@ function process_form($customer_id, $customer)	{
 		$state = trim(htmlentities($_POST['state']));
 		$zip = trim(htmlentities($_POST['zip']));
 		$county = trim(htmlentities($_POST['county']));
-		$contact = trim(str_replace(' ','',htmlentities($_POST['contact'])));
+		$contact = trim(str_replace(' ',' ',htmlentities($_POST['contact'])));
 		$clean_contact = preg_replace("/[^0-9]/", "", $contact);
 	    $email = $_POST['email'];
 	    $status = $_POST['status'];
         $notes =  trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
+        
 		
 		
 		$newcustomer = new Customer($customer_id, $code, $address, $city, $state, $zip, 
