@@ -1,12 +1,11 @@
 <?php
 /*
- * Copyright 2015 by Adrienne Beebe, Connor Hargus, Phuong Le, 
- * Xun Wang, and Allen Tucker. This program is part of RMHP-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
- * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
- */
-
+ * Copyright 2014 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is free software.
+ * It comes with absolutely no warranty.  You can redistribute and/or
+ * modify it under the terms of the GNU Public License as published
+ * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
+*/
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
