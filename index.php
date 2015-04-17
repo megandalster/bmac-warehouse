@@ -30,7 +30,8 @@
      				include_once('domain/Shipment.php');
 					include_once('database/dbContributions.php');
      				include_once('domain/Contribution.php');
-						
+					date_default_timezone_set('America/Los_Angeles');
+                	
      				// include_once('database/dbLog.php');
      				if($_SESSION['_id']!="guest"){
      				    $person = retrieve_dbPersons($_SESSION['_id']);
@@ -38,7 +39,7 @@
      					echo "<p>Welcome, ".$first_name.", to <i>BMAC-Warehouse</i>! ";
      				}
      				else
-     				    echo "<p>Welcome to <i>Homerestore</i>! ";
+     				    echo "<p>Welcome to <i>BMAC-Warehouse</i>! ";
      				$today = time();
 					echo "Today is ".date('l F j, Y', $today).".<p>";
 					

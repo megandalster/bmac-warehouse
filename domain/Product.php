@@ -103,6 +103,11 @@ class Product {
     function add_to_history($yymmddunitsweight) {
         $this->history[] = $yymmddunitsweight;
     }
+    // remove the latest inventory reading from the product's history
+    function remove_from_history() {
+    	if (count($this->history)>0)
+    	   array_pop($this->history);
+    }
     
 }
 ?>

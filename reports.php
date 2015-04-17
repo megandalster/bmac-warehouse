@@ -14,7 +14,9 @@
 session_start();
 session_cache_expire(30);
 
-include_once('header.php'); 
+include_once('header.php');
+date_default_timezone_set('America/Los_Angeles');
+                	 
 ?>
 
 <html>
