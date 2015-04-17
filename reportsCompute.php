@@ -17,7 +17,7 @@ if (isset($_POST['_form_submit']) && $_POST['_form_submit'] == 'report') {
 function show_report() {
 
 	$status = $_POST['status'];
-	$fund_source = $_POST['funding-source'];
+	$funding_source = $_POST['funding-source'];
 	$from = $_POST["from"];
 	$to   = $_POST["to"];	
 
@@ -38,24 +38,33 @@ function show_report() {
 			report_providers($status);
 		}
 	}
+
 }
 
-function report_shipments($fund_source, $from, $to) {
+function report_shipments($status, $funding_source, $from, $to) {
 	include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
-    echo ("<br><b>Warehouse Shipments Report<br></b> Report date: ".date("F d, Y")."<br><br>");
-    $items = retrieve_shipments($fund_source,$from,$to);
-    echo ' '.count($items).' items were retrieved';		            
+    echo ("<br><b>Shipments Report</b>");
+	// 1.  define a function in dbShipments to get all shipments with the given status, funding source, begin and end dates.	
+	// 2.  call that function
+	// 3.  display a table of the results, in order by date (earliest first)
+}
+
+function report_receipts($fund_source, $from, $to) {
+    include_once('database/dbContributions.php');
+    include_once('domain/Contribution.php'); 
+    echo ("<br><b>Warehouse Receipts Report<br></b> Report date: ".date("F d, Y")."<br>");
     if ($fund_source!="")
     	echo "<br>For funding source ".$fund_source;
     if ($from!="") {
-        echo "<br>For shipments sent from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
+        echo "<br>For contributions received from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
         if ($to!= "")
            echo " through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2))); 
     }
     else if ($to!="") 
-    	echo "<br>For shipments sent before ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
+    	echo "<br>For contributions received before ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
     echo "<br><br><table><tr><td width='170px'><b>Product</b></td><td><b>Total Wt.</b></td><td><b>Rec. Date</b></td><td width='200px'><b>Provider</b></td><td><b>Weight</b></td></tr></table>";
+    $items = retrieve_receipts($fund_source,$from,$to);
     if (count($items)>0) {			            
         echo '<div id="target" style="overflow: scroll; width: variable; height: 400px">';
         echo "<table>";
@@ -65,60 +74,20 @@ function report_shipments($fund_source, $from, $to) {
 	    foreach ($items as $item_next) {
 	        $item_next = explode(":",$item_next);
 	        if ($item_next[0] == $item[0]) {
-	            $display_block.="<tr><td></td><td></td><td align=right>".pretty_date($item_next[1])."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
+	            $display_block.="<tr><td></td><td></td><td>".$item_next[1]."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
 	            $total_wt += $item_next[3];
 	        }
 	        else {
-	            echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td align=right>".$display_block;
+	            echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td>".$display_block;
 	            $total_wt = $item_next[3];
-	            $display_block = pretty_date($item_next[1])."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
+	            $display_block = $item_next[1]."</td><td>".$item_next[2]."</td><td>".$item_next[3]."</td></tr>";
 	            $item = $item_next;
 	        }
 	    }
 	    echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td>".$display_block;
 	    echo "</table></div>";
     }
-    else echo "There were no shipments in the given date range.";
-}    
-
-
-function report_receipts($fund_source, $from, $to) {
-    include_once('database/dbContributions.php');
-    include_once('domain/Contribution.php'); 
-    echo ("<br><b>Warehouse Receipts Report<br></b> Report date: ".date("F d, Y")."<br><br>");
-    $items = retrieve_receipts($fund_source,$from,$to,"");
-    echo ' '.count($items).' items were retrieved';		            
-    if ($fund_source!="")
-    	echo ", for funding source ".$fund_source;
-    if ($from!="") {
-        echo ", for contributions received from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
-        if ($to!= "")
-           echo " through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2))); 
-    }
-    else if ($to!="") 
-    	echo ", for contributions received before ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
-    if (count($items)>0) {
-    	echo '<div id="target" style="overflow: scroll; width: variable; height: 400px">';
-        echo "<br><table><tr><td><b>Product</b></td><td align=right><b>Total Wt.</b></td><td align=right width=100><b>Rec. Date</b></td><td><b>Provider</b></td><td align=right><b>Weight</b></td></tr>";
-	    $item = array("","","","");
-	    $total_wt = "";
-	    $display_block = $item[1]."</td><td>".$item[2]."</td><td>".$item[3]."</td></tr>";
-	    foreach ($items as $item_next) {
-	        $item_next = explode(":",$item_next);
-	        if ($item_next[0] == $item[0]) {
-	            $display_block.="<tr><td></td><td></td><td align=right>".pretty_date($item_next[1])."</td><td>".$item_next[2]."</td><td align=right>".$item_next[3]."</td></tr>";
-	            $total_wt += $item_next[3];
-	        }
-	        else {
-	            echo "<tr><td>".$item[0]."</td><td align=right>".$total_wt."</td><td align=right>".$display_block;
-	            $total_wt = $item_next[3];
-	            $display_block = pretty_date($item_next[1])."</td><td>".$item_next[2]."</td><td align=right>".$item_next[3]."</td></tr>";
-	            $item = $item_next;
-	        }
-	    }
-	    echo "<tr><td>".$item[0]."</td><td>".$total_wt."</td><td>".$display_block;
-	    echo "</table></div>";
-    }
+    else echo "There were no contributions in the given date range.";
 }
 
 function report_inventory($status, $funding_source, $from, $to) {
@@ -130,13 +99,37 @@ function report_inventory($status, $funding_source, $from, $to) {
 	// 3.  display a table of the results, in order by product_id
 }
 function report_customers($status) {
-	include_once('database/dbContributions.php');
-    include_once('domain/Contribution.php'); 
+	include_once('database/dbCustomers.php');
+    include_once('domain/Customer.php'); 
     echo ("<br><b>Customers Report</b>");
 	// 1.  define a function in dbCustomers to get all customers with the given status.	
+	//     The function is written in dbCustomers with the name "getonlythosestatus_dbCustomers($status)"
 	// 2.  call that function
+	$resultcustomers =  getonlythosestatus_dbCustomers($status);
 	// 3.  display a table of the results, in order by customer_id
+    if ($status!="") echo ' with status like "'.$status.'"'; 
+    
+    if (sizeof($resultcustomers)>0) {
+							
+							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>Contact Person</strong></td><td><strong>Address</strong></td><td><strong>City</strong></td><td><strong>State</strong></td><td><strong>Zip Code</strong></td></tr>';
+                            $allEmails = array(); // for printing all emails
+                            foreach ($resultcustomers as $customer) {
+								echo "<tr><td><a href=customerEdit.php?id=".urlencode($customer->get_customer_id()).">" .
+								    $customer->get_customer_id() . "</a></td><td>" .
+									$customer->get_phone() . "</td><td>" . 
+									$customer->get_contact() . "</td><td>" .
+									$customer->get_address() . "</td><td>" .
+									$customer->get_city() . "</td><td>" .
+									$customer->get_state() . "</td><td>" .
+									$customer->get_zip() . "</td><td>" ;	
+									
+									
+								echo "</td></a></tr>";
+                            }
+							echo '</table>';  
 }
+}
+
 function report_providers($status) {
 	include_once('database/dbProviders.php');
     include_once('domain/Provider.php'); 
@@ -145,7 +138,5 @@ function report_providers($status) {
 	// 2.  call that function
 	// 3.  display a table of the results, in order by provider_id
 }
-function pretty_date($yy_mm_dd) {
-	return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
-}
+
 ?>
