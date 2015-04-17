@@ -17,6 +17,9 @@ session_cache_expire(30);
 	<p>
 		<strong>BMAC-Warehouse Help Pages</strong>
 	</p>
+	<p>
+	    <a href="?helpPage=rmhp-homebase/helpPageTemplate.php">Help Page Template</a>
+	</p>
 	<ol>
 		<li><a href="?helpPage=bmac-warehouse/login.php">Signing in and out of the System</a>
 		</li>
