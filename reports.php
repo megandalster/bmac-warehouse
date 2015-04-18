@@ -117,8 +117,7 @@ $(function() {
 	To view the report <p>Hit <input type="submit" value="submit" id ="report-submit" class ="btn"></p>
 	</td>
 	<td>
-	To save the report <p>Hit <input type="submit" value="PDF" id ="report-pdf" class ="btn">
-						&nbsp;&nbsp;&nbsp;&nbsp;or <input type="submit" value="CSV" id ="report-csv" class ="btn">
+	To save the report <p>Hit <input type="submit" value="CSV" id ="report-csv" class ="btn">
 	</p>
 	</td>
 	</tr>
