@@ -132,7 +132,7 @@ function getproducts_beginningwith($string, $funding_source, $status) {
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '".$string."%'" . 
 			 " AND funding_source LIKE '%".$funding_source."%'" . 
 			 "  AND status LIKE '%".$status."%'" ;
-    $query .= " ORDER BY status, product_id";
+    $query .= " ORDER BY status, product_id, funding_source";
 	$result = mysql_query($query);
 	$theProds = array();
 		
