@@ -61,14 +61,21 @@ date_default_timezone_set('America/Los_Angeles');
 	 		$products[$index] -> remove_from_history();
 	 		update_dbProducts($products[$index]);
 	 	}
-	 	for ($i=0; $i<count($products);$i++) {
+	 	for ($i=0; $i<count($products);++$i) {
 	 		$product = $products[$i];
 	 		$pcl = $_POST['current_case_lots'][$i];
 	 		$pwt = $_POST['current_weight'][$i];
 	 		if ($pcl!="" || $pwt!="") {
+	 			// calculate case lots or total wt if possible -- otherwise, accept whatever is entered
+	 			if ($pcl=="" && $product->get_unit_weight()>0)
+	 				$pcl = intval($pwt / $product->get_unit_weight());
+	 			elseif ($pwt=="" && $product->get_unit_weight()>0)
+	 				$pwt = intval($pcl * $product->get_unit_weight());
 	 			$new_entry = $today.":".$pcl.":".$pwt;
 	 			$product->add_to_history($new_entry);
 	 			update_dbProducts($product);
+	 			$_POST['current_case_lots'][$i] = "";
+	 			$_POST['current_weight'][$i] = "";
 	 		}
 	 	}
 	 	echo "<p> Inventory datebase has been updated (see above).";
@@ -102,8 +109,10 @@ date_default_timezone_set('America/Los_Angeles');
 		 	echo '<td><input type = "checkbox" name="undo_it[]" value="'.$list_index.'"></td>';
 		 	echo "<td width=20 align='right'>".$ship_items[0] ."</td><td width=40 align='right'>".$ship_items[1] ."</td>".
 		 		 "<td width=40 align='right'>".$receive_items[0]  ."</td><td width=40 align='right'>".$receive_items[1] ."</td>".
-		 		 '<td width=60 align="right"><input type = "text" style="width:50px;" name="current_case_lots[]"></td>' .
-		 		 '<td width=20 ><input type = "text" style="width:50px;" name="current_weight[]" value =""></td>';
+		 		 '<td width=60 align="right"><input type = "text" style="width:50px;" name="current_case_lots[]" value="'.
+		 				$_POST['current_case_lots'][$list_index].'"></td>' .
+		 		 '<td width=20 ><input type = "text" style="width:50px;" name="current_weight[]" value="'.
+		 				$_POST['current_weight'][$list_index].'"></td>';
 		 	     
 		    echo "</tr>";
 		    $list_index++;
