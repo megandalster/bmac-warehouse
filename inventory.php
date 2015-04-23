@@ -50,7 +50,7 @@ date_default_timezone_set('America/Los_Angeles');
 	 echo '<p style="font-size:12pt">Show all active products with names that begin with: ' ;
 	 echo '<input type="text" style="width:100px;font-size:12pt" name="s_product_id" value="' . $product_id . '">';
 	 
-	 $products = getproducts_beginningwith($product_id,"","active");
+	 $products = getproducts_beginningwith($product_id);
 	 $today = date('y-m-d');	 					
      
 	  // now update the $history of the products
@@ -84,7 +84,8 @@ date_default_timezone_set('America/Los_Angeles');
 	 	if ($changesw) 
 	 		echo "<p style='font-size:12pt'> Inventory database has been updated (see changes below).";			
 	 }
-	     $products = getproducts_beginningwith($product_id,"","active");	
+	     $products = getproducts_beginningwith($product_id);	
+	     echo "<p style='font-size:12pt'>".count($products)." products are listed below (scroll to see all of them).";	
 	     echo "<p><table class='inventable'><tr><td></td><td>Funding</td><td>Unit</td>".
 		      "<td colspan=4 width=180>Last Inventory</td><td colspan=2 width=80>Shipments</td><td colspan=2 width=80>Receipts</td><td colspan=2>Current Stock</td></tr>";
 		 echo "<tr><td width=150>Product</td><td>Source</td><td>Weight</td><td>Date</td><td>Units</td><td>Wt</td><td>Undo</td>".
