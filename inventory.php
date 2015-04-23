@@ -43,21 +43,23 @@ date_default_timezone_set('America/Los_Angeles');
 			<?PHP include('header.php');?>
 			<div id="content">
 <?php
-     echo "<p><b>Current Inventory Worksheet</b><br> Today's date: ".date('F d, Y')."<br>";
+     echo "<p style='font-size:12pt'><b>Current Inventory Worksheet</b><br> Today's date: ".date('F d, Y')."<br>";
 	 echo '<form method ="post">';
 	 
 	 if( !array_key_exists('s_product_id', $_POST) ) $product_id = "a"; else $product_id = $_POST['s_product_id'];
-	 echo '<p>Work on inventory for all active products with names that begin with: ' ;
-	 echo '<input type="text" style="width:100px;" name="s_product_id" value="' . $product_id . '">';
+	 echo '<p style="font-size:12pt">Show all active products with names that begin with: ' ;
+	 echo '<input type="text" style="width:100px;font-size:12pt" name="s_product_id" value="' . $product_id . '">';
 	 
 	 $products = getproducts_beginningwith($product_id,"","active");
 	 $today = date('y-m-d');	 					
      
 	  // now update the $history of the products
-	 if ( $_POST['s_update_box'] == "s_update_checked" ) {
+	 if ( $_POST['s_update'] ) {
 	 	$today = date('y-m-d');
-	 	$undo = $_POST['undo_it'];
+	 	if ($_POST['undo_it']) $undo=$_POST['undo_it']; else $undo=array();
+	 	$changesw = false;
 	 	foreach($undo as $index) {
+	 		$changesw = true;
 	 		$products[$index] -> remove_from_history();
 	 		update_dbProducts($products[$index]);
 	 	}
@@ -66,6 +68,7 @@ date_default_timezone_set('America/Los_Angeles');
 	 		$pcl = $_POST['current_case_lots'][$i];
 	 		$pwt = $_POST['current_weight'][$i];
 	 		if ($pcl!="" || $pwt!="") {
+	 			$changesw = true;
 	 			// calculate case lots or total wt if possible -- otherwise, accept whatever is entered
 	 			if ($pcl=="" && $product->get_unit_weight()>0)
 	 				$pcl = intval($pwt / $product->get_unit_weight());
@@ -78,17 +81,17 @@ date_default_timezone_set('America/Los_Angeles');
 	 			$_POST['current_weight'][$i] = "";
 	 		}
 	 	}
-	 	echo "<p> Inventory datebase has been updated (see above).";
-	 	$_POST['s_update_box'] = "";				
+	 	if ($changesw) 
+	 		echo "<p style='font-size:12pt'> Inventory database has been updated (see changes below).";			
 	 }
 	     $products = getproducts_beginningwith($product_id,"","active");	
-	     echo "<p><table><tr><td></td><td>Funding</td><td>Unit</td>".
+	     echo "<p><table class='inventable'><tr><td></td><td>Funding</td><td>Unit</td>".
 		      "<td colspan=4 width=180>Last Inventory</td><td colspan=2 width=80>Shipments</td><td colspan=2 width=80>Receipts</td><td colspan=2>Current Stock</td></tr>";
 		 echo "<tr><td width=150>Product</td><td>Source</td><td>Weight</td><td>Date</td><td>Units</td><td>Wt</td><td>Undo</td>".
 		      "<td>No</td><td>Total Wt</td><td>No</td><td>Total Wt</td>".
-		      "<td width=20>Units</td><td>Weight</td></tr></table>";
-		 echo '<div id="target" style="overflow: scroll; width: variable; height: 300px;">';
-		 echo "<p><table>";
+		      "<td>Units</td><td>Weight</td></tr></table>";
+		 echo '<div id="target" style="overflow: scroll; width: variable; height: 250px;">';
+		 echo "<p><table class='inventable'>";
 		 $list_index = 0;
 		 foreach ($products as $product){
 		 	echo "<tr>";
@@ -100,18 +103,18 @@ date_default_timezone_set('America/Los_Angeles');
 		 	$receive_items = explode(":",count_receipts($product->get_product_id(), $product->get_funding_source(),$last_inventory[0],"")); // the array [number,weight]
 		    $estimated_stock = $last_inventory[2] + $receive_items[1] - $ship_items[1];
 		 	// display a line in the table
-		 	echo "<td width=150>".$product->get_product_id() . "</td>".
+		 	echo "<td class='inventable' width=150>".$product->get_product_id() . "</td>".
 		 		 "<td width=20>".$product->get_funding_source(). "</td>".
 		 		 "<td width=40 align='right'>".$product->get_unit_weight(). "</td>". 
 		 		 "<td width=40 align='right'>".pretty_date($last_inventory[0]) .
 		 		     "</td><td width=20 align='right'>".$last_inventory[1] .
 		 		     "</td><td width=40 align='right'>".$last_inventory[2] ."</td>";
-		 	echo '<td><input type = "checkbox" name="undo_it[]" value="'.$list_index.'"></td>';
+		 	echo '<td><input type = "checkbox" style="font-size:12pt" name="undo_it[]" value="'.$list_index.'"></td>';
 		 	echo "<td width=20 align='right'>".$ship_items[0] ."</td><td width=40 align='right'>".$ship_items[1] ."</td>".
 		 		 "<td width=40 align='right'>".$receive_items[0]  ."</td><td width=40 align='right'>".$receive_items[1] ."</td>".
-		 		 '<td width=60 align="right"><input type = "text" style="width:50px;" name="current_case_lots[]" value="'.
+		 		 '<td width=60 align="right"><input type = "text" style="width:50px;font-size:12pt" name="current_case_lots[]" value="'.
 		 				$_POST['current_case_lots'][$list_index].'"></td>' .
-		 		 '<td width=20 ><input type = "text" style="width:50px;" name="current_weight[]" value="'.
+		 		 '<td width=20 ><input type = "text" style="width:50px;font-size:12pt" name="current_weight[]" value="'.
 		 				$_POST['current_weight'][$list_index].'"></td>';
 		 	     
 		    echo "</tr>";
@@ -119,9 +122,8 @@ date_default_timezone_set('America/Los_Angeles');
 		 }
 		 echo '</table></div>';
 		 
-		 echo '<p>When finished, check this box ';
-	     echo '<input type="checkbox" name="s_update_box" value="s_update_checked"> and then hit ' .
-		  '<input type="submit" name="s_update" value="Update"> to update the inventory with your changes.';
+		 echo '<p style="font-size:12pt">When finished, hit ' .
+		  '<input type="submit" name="s_update" style="font-size:12pt" value="Update"> to update the inventory with your changes.</p>';
 		 
 	     echo '</form>';
 	 

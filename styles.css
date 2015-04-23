@@ -20,6 +20,9 @@ td {border: none; font-size:12px; padding:5px; }
 table.searchResults{ border-collapse:collapse;vertical-align:middle; font-family:verdana, arial, sans-serif; padding-left:15px;}
 td.searchResults {border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
 
+.inventable tbody td { font-size:12pt; }	
+
+
 table.warningTable{border-collapse:collapse; font-family:verdana, arial, sans-serif; padding-left:0px;}
 td.warningTable{border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
 
