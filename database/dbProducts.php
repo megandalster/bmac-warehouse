@@ -126,13 +126,12 @@ function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	mysql_close();
 	return $theProds;
 }
-// retrieve only those Products whose id's begin with a particular string and match the other criteria
-function getproducts_beginningwith($string, $funding_source, $status) {
+// retrieve only those active Products whose id's begin with a particular string
+function getproducts_beginningwith($string) {
 	connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '".$string."%'" . 
-			 " AND funding_source LIKE '%".$funding_source."%'" . 
-			 "  AND status LIKE '%".$status."%'" ;
-    $query .= " ORDER BY status, product_id, funding_source";
+			 "  AND status = 'active'" ;
+    $query .= " ORDER BY product_id, funding_source";
 	$result = mysql_query($query);
 	$theProds = array();
 		
