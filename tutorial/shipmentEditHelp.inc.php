@@ -1,14 +1,11 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
- * This program is part of RMH Homebase, which is free software.  It comes with
- * absolutely no warranty. You can redistribute and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- *
- */
+ * Copyright 2014 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is free software.
+ * It comes with absolutely no warranty.  You can redistribute and/or
+ * modify it under the terms of the GNU Public License as published
+ * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
+*/
 ?>
 
 <script src="lib/jquery-1.9.1.js"></script>
@@ -29,13 +26,13 @@
 
 <p>
 	<strong>Editing and Adding a New Shipment</strong>
-<p>Editing information in the volunteer database is usually done by the
-	House Manager. There is one exception: a volunteer can view and modify
-	his or her own information in the database (but nobody else's). So this
-	tutorial is mainly for the House Manager.
+<p>
+	Editing and adding information in the shipment database is usually done by the warehouse manager, or 
+	at his discretion.  Therefore, this tutorial is mainly intended for the manager, but is recommended 
+	reading for all members of the BMAC warehouse team. 
 <p>
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
-	the person whose information you want to edit. <BR> <BR> <a
+	the shipment whose information you want to edit. <BR> <BR> <a
 		href="tutorial/screenshots/editpersonstep1.png" class="image"
 		title="editpersonstep1.png"
 		target="tutorial/screenshots/editpersonstep1.png">
