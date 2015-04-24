@@ -8,16 +8,12 @@
  */
 /*
  * inventory worksheet for BMAC Warehouse
- * @author Luis Munguia
+ * @author Luis Munguia and Allen Tucker
  * @version 3/13/2015
  */
 	session_start();
 	session_cache_expire(30);
 	
-include_once('database/dbContributions.php');
-include_once('domain/Contribution.php');
-include_once('database/dbShipments.php');
-include_once('domain/Shipment.php'); 
 include_once('database/dbProducts.php');
 include_once('domain/Product.php'); 
 date_default_timezone_set('America/Los_Angeles');
@@ -87,11 +83,11 @@ date_default_timezone_set('America/Los_Angeles');
 	     $products = getproducts_beginningwith($product_id);	
 	     echo "<p style='font-size:12pt'>".count($products)." products are listed below (scroll to see all of them).";	
 	     echo "<p><table class='inventable'><tr><td></td><td>Funding</td><td>Unit</td>".
-		      "<td colspan=4 width=180>Last Inventory</td><td colspan=2 width=80>Shipments</td><td colspan=2 width=80>Receipts</td><td colspan=2>Current Stock</td></tr>";
+		      "<td colspan=4 width=180>Last Inventory</td>".
+		      "<td colspan=2>Current Stock</td></tr>";
 		 echo "<tr><td width=150>Product</td><td>Source</td><td>Weight</td><td>Date</td><td>Units</td><td>Wt</td><td>Undo</td>".
-		      "<td>No</td><td>Total Wt</td><td>No</td><td>Total Wt</td>".
 		      "<td>Units</td><td>Weight</td></tr></table>";
-		 echo '<div id="target" style="overflow: scroll; width: variable; height: 250px;">';
+		 echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';
 		 echo "<p><table class='inventable'>";
 		 $list_index = 0;
 		 foreach ($products as $product){
@@ -100,9 +96,6 @@ date_default_timezone_set('America/Los_Angeles');
 		 		$last_inventory = explode(":",end($product->get_history()));  // the array [date,caselots,weight]
 		 	else 
 		 		$last_inventory = explode(":","::") ;
-		 	$ship_items = explode(":",count_shipments($product->get_product_id(), $product->get_funding_source(),$last_inventory[0],""));   // the array [number,weight]
-		 	$receive_items = explode(":",count_receipts($product->get_product_id(), $product->get_funding_source(),$last_inventory[0],"")); // the array [number,weight]
-		    $estimated_stock = $last_inventory[2] + $receive_items[1] - $ship_items[1];
 		 	// display a line in the table
 		 	echo "<td class='inventable' width=150>".$product->get_product_id() . "</td>".
 		 		 "<td width=20>".$product->get_funding_source(). "</td>".
@@ -111,9 +104,7 @@ date_default_timezone_set('America/Los_Angeles');
 		 		     "</td><td width=20 align='right'>".$last_inventory[1] .
 		 		     "</td><td width=40 align='right'>".$last_inventory[2] ."</td>";
 		 	echo '<td><input type = "checkbox" style="font-size:12pt" name="undo_it[]" value="'.$list_index.'"></td>';
-		 	echo "<td width=20 align='right'>".$ship_items[0] ."</td><td width=40 align='right'>".$ship_items[1] ."</td>".
-		 		 "<td width=40 align='right'>".$receive_items[0]  ."</td><td width=40 align='right'>".$receive_items[1] ."</td>".
-		 		 '<td width=60 align="right"><input type = "text" style="width:50px;font-size:12pt" name="current_case_lots[]" value="'.
+		 	echo '<td width=60 align="right"><input type = "text" style="width:50px;font-size:12pt" name="current_case_lots[]" value="'.
 		 				$_POST['current_case_lots'][$list_index].'"></td>' .
 		 		 '<td width=20 ><input type = "text" style="width:50px;font-size:12pt" name="current_weight[]" value="'.
 		 				$_POST['current_weight'][$list_index].'"></td>';
