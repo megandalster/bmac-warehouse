@@ -41,7 +41,7 @@
 					echo('<p><a href="'.$path.'shipmentEdit.php?id=new">Add new shipment</a>');
 					echo('<form method="post">');
 						echo('<p><strong>Search for shipments:</strong>');
-                        
+                        echo('<br></br>');
 						// Lay out the three search boxes
 						
 						$ship_date1 = $_POST['s_ship_date1'];	
