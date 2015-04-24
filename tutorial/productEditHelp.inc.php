@@ -1,14 +1,11 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
- * This program is part of RMH Homebase, which is free software.  It comes with
- * absolutely no warranty. You can redistribute and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- *
- */
+ * Copyright 2014 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is free software.
+ * It comes with absolutely no warranty.  You can redistribute and/or
+ * modify it under the terms of the GNU Public License as published
+ * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
+*/
 ?>
 
 <script src="lib/jquery-1.9.1.js"></script>
@@ -29,80 +26,78 @@
 
 <p>
 	<strong>Adding and Updating Products</strong>
-<p>Editing information in the volunteer database is usually done by the
-	House Manager. There is one exception: a volunteer can view and modify
-	his or her own information in the database (but nobody else's). So this
-	tutorial is mainly for the House Manager.
+<p>This page will help you add, update, or delete products in the database.
+<p><strong>Updating an Existing Product</strong>
 <p>
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
-	the person whose information you want to edit. <BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep1.png" class="image"
-		title="editpersonstep1.png"
-		target="tutorial/screenshots/editpersonstep1.png">
+	the product whose information you want to edit. <BR> <BR> <a
+		href="tutorial/screenshots/ProductHeader.png" class="image"
+		title="ProductHeader.png"
+		target="tutorial/screenshots/ProductHeader.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep1.png"
+		src="tutorial/screenshots/ProductHeader.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductHeader.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
+		href="?helpPage=productSearchHelp.php">click here</a>.
 </p>
 
 <p>
-	<strong>Step 2:</strong> After finding that person, <strong> click on </strong>
-	his/her name. You will now see a page with all of the person's
+	<strong>Step 2:</strong> After finding that product, <strong> click on </strong>
+	its name. You will now see a page with all of the product's
 	information, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep2.png" class="image"
-		title="editpersonstep2.png"
-		target="tutorial/screenshots/editpersonstep2.png">
+		href="tutorial/screenshots/ProductInfo.png" class="image"
+		title="ProductInfo.png"
+		target="tutorial/screenshots/ProductInfo.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep2.png"
+		src="tutorial/screenshots/ProductInfo.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductInfo.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<strong>Step 3:</strong> To change any of the person's information,
-	just retype or reselect it. For instance, to change Availability,
-	select one of the unchecked (checked) boxes and it will become checked
-	(unchecked). <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
+	<strong>Step 3:</strong> To change any of the product's information,
+	just retype or reselect it. For instance, to change its Funding Source,
+	select one of the funding sources from the drop down list. <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
 		color="#FF0000">*</font> can be left blank.
 </p>
 
 <p>
 	<strong>Step 4:</strong> When you finish making changes, select <strong>Submit</strong>
 	at the bottom of the page:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep4.png" class="image"
-		title="editpersonstep4.png"
-		target="tutorial/screenshots/editpersonstep4.png">
+		href="tutorial/screenshots/ProductSubmit.png" class="image"
+		title="ProductSubmit.png"
+		target="tutorial/screenshots/ProductSubmit.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep4.png" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep4.png" width="10%"
+		src="tutorial/screenshots/ProductSubmit.png" rel="popover"
+		data-img="tutorial/screenshots/ProductSubmit.png" width="10%"
 		border="1px" align="middle"> </a>
 </p>
 
 <p>
 	<B>Step 5:</B> If errors occur, <font color=#FF0000>red</font> warnings
 	will tell you what you need to correct, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep5.png" class="image"
-		title="editpersonstep5.png"
-		target="tutorial/screenshots/editpersonstep5.png"
+		href="tutorial/screenshots/ProductError.png" class="image"
+		title="ProductError.png"
+		target="tutorial/screenshots/ProductError.png"
 		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep5.png" width="10%"
+		src="tutorial/screenshots/ProductError.png" width="10%"
 		border="1px" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep5.png" align="middle"> </a>
+		data-img="tutorial/screenshots/ProductError.png" align="middle"> </a>
 	<BR>&nbsp&nbsp&nbsp *After you have make these corrections, repeat <B>Step
 		4</B>.
 <p>
 	<B>Step 6:</B> If you have no errors or omissions, you will see a page
 	telling you the edit was successful, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep6.png" class="image"
-		title="editpersonstep6.png"
-		target="tutorial/screenshots/editpersonstep6.png"
+		href="tutorial/screenshots/ProductEditSuccess.png" class="image"
+		title="ProductEditSuccess.png"
+		target="tutorial/screenshots/ProductEditSuccess.png"
 		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep6.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep6.png"
+		src="tutorial/screenshots/ProductEditSuccess.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductEditSuccess.png"
 		border="1px" align="middle"> </a>
 <p>
 	<B>Step 7:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
+

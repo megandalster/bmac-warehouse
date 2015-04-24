@@ -139,11 +139,11 @@ function report_inventory($status, $funding_source, $from, $to) {
     }
     else if ($to!="") 
     	echo "<br>For inventory as of ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
-   	echo "<p><table><tr><td></td><td width=40>Funding</td><td width=90>Status</td>".
-		      "<td colspan=2 width=80>Last Inventory</td><td colspan=2 width=80>Shipments</td><td colspan=2 width=80>Receipts</td><td>Current Stock</td></tr>";
-    echo "<tr><td width=140>Product</td><td>Source</td><td></td><td width=80>Date</td><td>Weight</td>".
-		      "<td width=30>No</td><td>Total Wt</td><td width=30>No</td><td>Total Wt</td>".
-		      "<td>Weight</td></tr></table>";
+   	echo "<p><table><tr><td></td><td width=40><b>Funding</b></td><td></td>".
+		      "<td colspan=2 width=80><b>Last Inventory</b></td><td colspan=2 width=80><b>Shipments</b></td><td colspan=2 width=80><b>Receipts</b></td><td><b>Current Stock</b></td></tr>";
+    echo "<tr><td width=140><b>Product</b></td><td><b>Source</b></td><td><b>Status</b></td><td width=50><b>Date</b></td><td><b>Weight</b></td>".
+		      "<td width=30><b>No</b></td><td><b>Total Wt</b></td><td width=30><b>No</b></td><td><b>Total Wt</b></td>".
+		      "<td><b>Weight</b></td></tr></table>";
     $items = retrieve_inventory($status, $funding_source, $from, $to);
     echo '<br>'.count($items).' items were retrieved';		            
     if (count($items)>0) {			            
@@ -154,7 +154,7 @@ function report_inventory($status, $funding_source, $from, $to) {
 	    $display_block = "";
 	    foreach ($items as $item_next) {
 	        $item_next = explode(":",$item_next);
-	        $display_block.="<tr><td width=160>".$item_next[0]."</td><td width=40>".$item_next[1]."</td><td width=90>".$item_next[2].
+	        $display_block.="<tr><td width=160>".$item_next[0]."</td><td width=40>".$item_next[1]."</td><td width=50>".$item_next[2].
 	            "</td><td colspan=2 width=85>".pretty_date($item_next[3])."</td><td width=30>".$item_next[4]."</td><td width=30>".$item_next[5].
 	            "</td><td width=50>".$item_next[6]."</td><td width=30>".$item_next[7]."</td><td width=50>".$item_next[8]."</td><td>".$item_next[9].
 	            "</td><td>".$item_next[10]."</td></tr>"; 
