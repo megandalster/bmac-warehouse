@@ -25,80 +25,89 @@
 </script>
 
 <p>
-	<strong>Editing and Adding a New Shipment</strong>
-<p>
-	Editing and adding information in the shipment database is usually done by the warehouse manager, or 
-	at his discretion.  Therefore, this tutorial is mainly intended for the manager, but is recommended 
-	reading for all members of the BMAC warehouse team. 
+	<strong>Adding and Updating Shipments</strong>
+<p>This page will help you add, update, or delete shipments in the database.
+<p><strong>Updating an Existing Shipment</strong>
 <p>
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
 	the shipment whose information you want to edit. <BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep1.png" class="image"
-		title="editpersonstep1.png"
-		target="tutorial/screenshots/editpersonstep1.png">
+		href="tutorial/screenshots/shipmentEditHeader.png" class="image"
+		title="shipmentEditHeader.png"
+		target="tutorial/screenshots/shipmentEditHeader.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep1.png"
+		src="tutorial/screenshots/shipmentEditHeader.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditHeader.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
+		href="?helpPage=shipmentSearchHelp.php">click here</a>.
 </p>
 
 <p>
-	<strong>Step 2:</strong> After finding that person, <strong> click on </strong>
-	his/her name. You will now see a page with all of the person's
+	<strong>Step 2:</strong> After finding that shipment, <strong> click on </strong>
+	its name. You will now see a page with all of the shipment's
 	information, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep2.png" class="image"
-		title="editpersonstep2.png"
-		target="tutorial/screenshots/editpersonstep2.png">
+		href="tutorial/screenshots/shipmentEditInfo.png" class="image"
+		title="shipmentEditInfo.png"
+		target="tutorial/screenshots/shipmentEditInfo.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep2.png"
+		src="tutorial/screenshots/shipmentEditInfo.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditInfo.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<strong>Step 3:</strong> To change any of the person's information,
-	just retype or reselect it. For instance, to change Availability,
-	select one of the unchecked (checked) boxes and it will become checked
-	(unchecked). <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
+	<strong>Step 3:</strong> To change any of the shipment
+	's information,
+	just retype or reselect it. For instance, to change its Funding Source,
+	select one of the funding sources from the drop down list.  To add more items to the shipment, 
+	use the "add more" button at the bottom of the table. <br><i>REMEMBER:</i> No fields marked by <font
 		color="#FF0000">*</font> can be left blank.
 </p>
 
 <p>
 	<strong>Step 4:</strong> When you finish making changes, select <strong>Submit</strong>
-	at the bottom of the page:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep4.png" class="image"
-		title="editpersonstep4.png"
-		target="tutorial/screenshots/editpersonstep4.png">
+	at the bottom of the page.  You will see a page like this:<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditSubmit.png" class="image"
+		title="shipmentEditSubmit.png"
+		target="tutorial/screenshots/shipmentEditSubmit.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep4.png" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep4.png" width="10%"
+		src="tutorial/screenshots/shipmentEditSubmit.png" rel="popover"
+		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
+		border="1px" align="middle"> </a>
+		<br></br>
+		Or, if you want to delete a shipment, check the box and hit delete.  You will see a page like this:
+		<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditDelete.png" class="image"
+		title="shipmentEditDelete.png"
+		target="tutorial/screenshots/shipmentEditDelete.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditDelete.png" rel="popover"
+		data-img="tutorial/screenshots/shipmentEditDelete.png" width="10%"
 		border="1px" align="middle"> </a>
 </p>
 
 <p>
 	<B>Step 5:</B> If errors occur, <font color=#FF0000>red</font> warnings
 	will tell you what you need to correct, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep5.png" class="image"
-		title="editpersonstep5.png"
-		target="tutorial/screenshots/editpersonstep5.png"
+		href="tutorial/screenshots/shipmentEditError.png" class="image"
+		title="shipmentEditError.png"
+		target="tutorial/screenshots/shipmentEditError.png"
 		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep5.png" width="10%"
+		src="tutorial/screenshots/shipmentEditError.png" width="10%"
 		border="1px" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep5.png" align="middle"> </a>
+		data-img="tutorial/screenshots/shipmentEditError.png" align="middle"> </a>
 	<BR>&nbsp&nbsp&nbsp *After you have make these corrections, repeat <B>Step
 		4</B>.
 <p>
 	<B>Step 6:</B> If you have no errors or omissions, you will see a page
 	telling you the edit was successful, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep6.png" class="image"
-		title="editpersonstep6.png"
-		target="tutorial/screenshots/editpersonstep6.png"
+		href="tutorial/screenshots/shipmentEditSuccess.png" class="image"
+		title="shipmentEditSuccess.png"
+		target="tutorial/screenshots/shipmentEditSuccess.png"
 		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep6.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep6.png"
+		src="tutorial/screenshots/shipmentEditSuccess.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditSuccess.png"
 		border="1px" align="middle"> </a>
 <p>
 	<B>Step 7:</B> When you finish, you can return to any other function by
