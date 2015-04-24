@@ -41,9 +41,10 @@
 					echo('<p><a href="'.$path.'contributionEdit.php?id=new">Add new receipt</a>');  #Is this alright?
 					echo('<form method="post">');
 					echo('<p><strong>Search for receipts</strong>');
+					echo('<br></br>');
 					$receive_date1 = $_POST['s_receive_date1'];	
 					$receive_date2 = $_POST['s_receive_date2'];
-                        echo '&nbsp;&nbsp;&nbsp;&nbsp;Date Range from: ' ;
+                        echo 'Date Range from: ' ;
 						echo '<input type="text" name="s_receive_date1" value="' . $receive_date1 . '" id="from">';
 						echo '&nbsp;&nbsp;to: <input type="text" name="s_receive_date2" value="' . $receive_date2 . '" id="to"></p>';
 					$provider_id = $_POST['s_provider_id'];
