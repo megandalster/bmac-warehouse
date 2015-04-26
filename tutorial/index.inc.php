@@ -59,12 +59,7 @@ session_cache_expire(30);
 		<br>
 		<li><a href="?helpPage=bmac-warehouse/reports.php">Generating Reports</a> (Office Staff and Director)</li>
 		<br>
-		<ul><li><strong>The Current Inventory Report</strong></li>
-		</ul><ul><li><strong>The Inventory Shipments Report </strong></li>
-		</ul><ul><li><strong>The Inventory Receipts Report</strong></li>
-		</ul><ul><li><strong>The Current Customers Report</strong></li>
-		</ul><ul><li><strong>The Current Providers Report</strong></li>
-		</ul><ul><li><a href="?helpPage=bmac-warehouse/dataExport.php">Exporting Report Data (CSV for Excel)</a></li>
+		<ul><li><a href="?helpPage=bmac-warehouse/dataExport.php">Exporting Report Data (CSV for Excel)</a></li>
 		</ul>
 	</ol>
 	<p>
