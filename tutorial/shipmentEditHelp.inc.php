@@ -26,7 +26,7 @@
 
 <p>
 	<strong>Adding and Updating Shipments</strong>
-<p>This page will help you add, update, or delete shipments in the database.
+<p>This page will help you add and/or update shipments in the database.
 <p><strong>Updating an Existing Shipment</strong>
 <p>
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
@@ -112,3 +112,49 @@
 <p>
 	<B>Step 7:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
+<p><strong>Adding a New Shipment</strong>
+<p>
+	<strong>Step 1:</strong> First, <strong> click on </strong>
+	the "Add new shipment" option.  You will now see an empty shipment information
+	page that looks like this:
+	<!--fix this stuff.  Change the screenshots-->
+	<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditInfo.png" class="image"
+		title="shipmentEditInfo.png"
+		target="tutorial/screenshots/shipmentEditInfo.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditInfo.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditInfo.png"
+		border="1px" align="middle"> </a>
+</p>
+<p>
+	<strong>Step 2:</strong> To change any of the shipment
+	's information,
+	<!--fix this stuff.  Add some screenshots-->
+	just retype or reselect it. For instance, to change its Funding Source,
+	select one of the funding sources from the drop down list.  To add more items to the shipment, 
+	use the "add more" button at the bottom of the table. <br><i>REMEMBER:</i> No fields marked by <font
+		color="#FF0000">*</font> can be left blank.
+</p>
+<p>
+	<strong>Step 3:</strong> When you finish making changes, select <strong>Submit</strong>
+	at the bottom of the page.  You will see a page like this:<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditSubmit.png" class="image"
+		title="shipmentEditSubmit.png"
+		target="tutorial/screenshots/shipmentEditSubmit.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditSubmit.png" rel="popover"
+		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
+		border="1px" align="middle"> </a>
+		<br></br>
+		Or, if you want to delete a shipment, check the box and hit delete.  You will see a page like this:
+		<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditDelete.png" class="image"
+		title="shipmentEditDelete.png"
+		target="tutorial/screenshots/shipmentEditDelete.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditDelete.png" rel="popover"
+		data-img="tutorial/screenshots/shipmentEditDelete.png" width="10%"
+		border="1px" align="middle"> </a>
+</p>
+		

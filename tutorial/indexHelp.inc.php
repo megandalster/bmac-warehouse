@@ -26,10 +26,11 @@
 
 <p>
 	<strong>Information about Your Personal Home Page</strong>
-<p>Whenever you log into BMAC-Warehouse, some usefu information will
+<p>Whenever you log into BMAC-Warehouse, some useful information will
 	appear.
 <p>
 	<B>If you are the Foodbank Director</B>, you should see a menu bar and welcome message that look like this: 
+		<BR> </BR>
 		<a href="tutorial/screenshots/indexhelp.managermenu.png"
 		class="image" title="indexhelp.managermenu.png"
 		target="tutorial/screenshots/indexhelp.managermenu.png">
@@ -39,8 +40,10 @@
 		data-img="tutorial/screenshots/indexhelp.managermenu.png"
 		border="1px" align="center"> </a> <br> The menu bar leads you to all the actions that are
 		available with this software.
+</p>
 <p>
 	<B>If you are a warehouse staff member</B>, you should see a menu bar and welcome message that look like this:
+		<BR> </BR>
 		<a href="tutorial/screenshots/indexhelp.warehousemenu.png" class="image"
 		title="indexhelp.warehousemenu.png"
 		target="tutorial/screenshots/indexhelp.warehousemenu.png">
@@ -50,9 +53,10 @@
 		data-img="tutorial/screenshots/indexhelp.warehousemenu.png"
 		border="1px" align="center"> </a> <br> The menu bar leads you to all the actions that you need to
 		process daily shipments, receipts, and the food inventory itself.
-		
+</p>		
 <p>
     <B>If you are an office staff member</B>, you should see a menu bar and welcome message that look like this:
+		<BR> </BR>
 		<a href="tutorial/screenshots/indexhelp.officemenu.png" class="image"
 		title="indexhelp.officemenu.png"
 		target="tutorial/screenshots/indexhelp.officemenu.png">
@@ -62,9 +66,10 @@
 		data-img="tutorial/screenshots/indexhelp.officemenu.png"
 		border="1px" align="center"> </a> <br> The menu bar leads you to all the actions that you need to
 		view current customers, contributors, and reports on current warehouse activity.
-	
+</p>	
 <p>
     A summary of <B>recent shipment and receipt activity</B> over the last 30 days should also appear on your home page:
+		<BR> </BR>
 		<a href="tutorial/screenshots/indexhelp.recentsummary.png" class="image"
 		title="indexhelp.recentsummary.png"
 		target="tutorial/screenshots/indexhelp.recentsummary.png">
@@ -73,10 +78,10 @@
 		rel="popover"
 		data-img="tutorial/screenshots/indexhelp.recentsummary.png"
 		border="1px" align="center"> </a> <br> You may select any one of these shipments or receipts to view all of its details.
-	
+</p>	
 <p>
 	Finally, <B>If you you've never changed
-	your password</B>, you will see the following display: <BR> <BR> <a
+	your password</B>, you will see the following display: <BR> </BR> <a
 		href="tutorial/screenshots/homeHelp2.png" class="image"
 		title="homeHelp2.png" target="tutorial/screenshots/homeHelp2.png">
 		&nbsp;&nbsp;&nbsp;&nbsp;<img src="tutorial/screenshots/homeHelp2.png"
@@ -87,4 +92,4 @@
 	known only to you. If you forget your password, please contact the
 	<a href="mailto:jmathias@bmacww.org">Foodbank Director</a>. Until you change your password, this display continue to
 	appear here.
-	
+</p>	
