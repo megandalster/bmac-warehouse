@@ -1,13 +1,11 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
- * This program is part of RMH Homebase, which is free software.  It comes with
- * absolutely no warranty. You can redistribute and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- *
+ * Copyright 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is 
+ * free software.  It comes with absolutely no warranty. You can redistribute and/or 
+ * modify it under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * 
  */
 ?>
 
@@ -31,88 +29,66 @@
 <p>
 	<strong>Searching for Customers</strong>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
-	and select <B>search</B>, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep1.png" class="image"
-		title="searchpersonstep1.png"
-		target="tutorial/screenshots/searchpersonstep1.png">
+	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>the Customers tab</B>
+	and select it:<BR> <BR> <a
+		href="tutorial/screenshots/searchcustomerstep1.png" class="image"
+		title="searchcustomerstep1.png"
+		target="tutorial/screenshots/searchcustomerstep1.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep1.png"
+		src="tutorial/screenshots/searchcustomerstep1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchcustomerstep1.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 2:</B> You can enter any part of a person's first name or last
+	<B>Step 2:</B> You can enter any part of a customer's first name or last
 	name as a search criterion. For example, a search for "ann" would
 	return <B>Ann</B>, <B>Ann</B>a, Di<B>ann</B>e, etc.
 <p>
-	You can also search for all persons with a particular status, like
-	"Active" or "on Applicant".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2.png" class="image"
-		title="searchpersonstep2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2.png">
+	You can also search for all customers with a particular status, like
+	"Active" or "Inactive" or both status by selecting "All".<BR> <BR> <a
+		href="tutorial/screenshots/searchcustomerstep2.png" class="image"
+		title="searchcustomerstep2.png" horizontalalign="center"
+		target="tutorial/screenshots/searchcustomerstep2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2.png"
-		border="1px" align="middle"> </a>
-</p>
-<p>
-	Another option is to search for a particular type of people, like "Sub"
-	or "Guest Chef".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-2.png" class="image"
-		title="searchpersonstep2-2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-2.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-2.png"
-		border="1px" align="middle"> </a>
-</p>
-<p>
-	Yet another option is to search by availability. Remember, you can
-	always search with more than one criterion. <BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-3.png" class="image"
-		title="searchpersonstep2-3.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-3.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-3.png"
+		src="tutorial/screenshots/searchcustomerstep2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchcustomerstep2.png"
 		border="1px" align="middle"> </a>
 </p>
 
 <p>
-	<B>Step 3:</B> After typing your criteria in the appropriate box,
+	<B>Step 3:</B> After typing a cutomer's name or part of a customer's name in the "Customer Name" box,
 	select the <B>Search</B> button, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep3.png" class="image"
-		title="searchpersonstep3.png"
-		target="tutorial/screenshots/searchpersonstep3.png">
+		href="tutorial/screenshots/searchcustomerstep3.png" class="image"
+		title="searchcustomerstep3.png"
+		target="tutorial/screenshots/searchcustomerstep3.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep3.png"
+		src="tutorial/screenshots/searchcustomerstep3.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchcustomerstep3.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 4:</B> Now you will see a list of the names in the database
+	<B>Step 4:</B> Now you will see a list of the customer names in the database
 	that match your search criteria, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep4.png" class="image"
-		title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4.png">
+		href="tutorial/screenshots/searchcustomerstep4.png" class="image"
+		title="searchcustomerstep4.png"
+		target="tutorial/screenshots/searchcustomerstep4.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4.png"
+		src="tutorial/screenshots/searchcustomerstep4.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchcustomerstep4.png"
 		border="1px" align="middle"> </a>
 <p>
-	Note that the person's phone number will appear next to his/her name: <BR>
-	<BR> <a href="tutorial/screenshots/searchpersonstep4-2.png"
-		class="image" title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4-2.png">
+	Note that the customer's phone number and email will appear next to his/her name: <BR>
+	<BR> <a href="tutorial/screenshots/searchcustomerstep42.png"
+		class="image" title="searchcustomerstep42.png"
+		target="tutorial/screenshots/searchcustomerstep42.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4-2.png"
+		src="tutorial/screenshots/searchcustomerstep42.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchcustomerstep42.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	If you see the person you want to view or edit, then <B>click on</B>
-	that person's name. <br>
+	If you see the customer you want to view or edit, then <B>click on</B>
+	that customer's name. <br>
 <p>
 	<B>Step 5:</B> If you don't see what you were looking for, you can try
 	again by repeating <B>Step 2</B>. <BR> <BR>
