@@ -39,29 +39,29 @@
 				<?PHP
 				// display the search form
 					echo('<p><a href="'.$path.'contributionEdit.php?id=new">Add new receipt</a>');  #Is this alright?
-					echo('<form method="post">');
+					echo('<form method="GET">');
 					echo('<p><strong>Search for receipts</strong>');
 					echo('<br></br>');
-					$receive_date1 = $_POST['s_receive_date1'];	
-					$receive_date2 = $_POST['s_receive_date2'];
+					$receive_date1 = $_GET['s_receive_date1'];	
+					$receive_date2 = $_GET['s_receive_date2'];
                         echo 'Date Range from: ' ;
 						echo '<input type="text" name="s_receive_date1" value="' . $receive_date1 . '" id="from">';
 						echo '&nbsp;&nbsp;to: <input type="text" name="s_receive_date2" value="' . $receive_date2 . '" id="to"></p>';
-					$provider_id = $_POST['s_provider_id'];
+					$provider_id = $_GET['s_provider_id'];
 					echo '<p>Provider name: ' ;
 						echo '<input type="text" name="s_provider_id" value="' . $provider_id . '">';
-					$receive_items = $_POST['s_receive_items'];  
+					$receive_items = $_GET['s_receive_items'];  
                         echo '&nbsp;&nbsp;&nbsp;&nbsp;Received items: ' ;
 						echo '<input type="text" name="s_receive_items" value="' . $receive_items . '"></p>';
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
 					
 				// if user hit "Search"  button, query the database and display the results
-					if( array_key_exists('s_submitted', $_POST) ){
-						$provider_id = $_POST['s_provider_id'];
-						$receive_date1 = $_POST['s_receive_date1'];
-						$receive_date2 = $_POST['s_receive_date2'];
-                        $receive_items = $_POST['s_receive_items'];  
+					if( array_key_exists('s_submitted', $_GET) ){
+						$provider_id = $_GET['s_provider_id'];
+						$receive_date1 = $_GET['s_receive_date1'];
+						$receive_date2 = $_GET['s_receive_date2'];
+                        $receive_items = $_GET['s_receive_items'];  
                         // now go after the persons that fit the search criteria
                         include_once('database/dbContributions.php');
                         include_once('domain/Contribution.php');
