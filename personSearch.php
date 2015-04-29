@@ -30,9 +30,9 @@
 				<?PHP
 				// display the search form
 					echo('<p><a href="'.$path.'personEdit.php?id=new">Add new staff</a>');
-					echo('<form method="post">');
+					echo('<form method="GET">');
 						echo('<p><strong>Search for staff:</strong>');
-                        if( !array_key_exists('s_type', $_POST) ) $type = ""; else $type = $_POST['s_type'];
+                        if( !array_key_exists('s_type', $_GET) ) $type = ""; else $type = $_GET['s_type'];
 						echo '<br><br>Type:<select name="s_type">';
 							echo '<option value=""'; if ($type=="") echo " SELECTED"; echo '>--all--</option>'; 
 							echo '<option value="staff"'; if ($type=="staff") echo " SELECTED"; echo '>Warehouse Staff</option>'; 
@@ -40,7 +40,7 @@
 							echo '<option value="manager"'; if ($type=="manager") echo " SELECTED"; echo '>Foodbank Director</option>'; 
                         echo '</select>';
                         
-                        if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
+                        if( !array_key_exists('s_status', $_GET) ) $status = ""; else $status = $_GET['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>Active</option>';
@@ -48,20 +48,20 @@
                             echo '<option value="former"';      if ($status=="former")      echo " SELECTED"; echo '>Former</option>';
                         echo '</select>';
                         
-						if( !array_key_exists('s_name', $_POST) ) $name = ""; else $name = $_POST['s_name'];
+						if( !array_key_exists('s_name', $_GET) ) $name = ""; else $name = $_GET['s_name'];
 						echo '&nbsp;&nbsp;Name: ' ;
 						echo '<input type="text" name="s_name" value="' . $name . '">';
 						
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
                         
-                        //print_r( $_POST );
+                        //print_r( $_GET );
 					
 				// if user hit "Search"  button, query the database and display the results
-					if( array_key_exists('s_submitted', $_POST) ){
-						$type = $_POST['s_type'];
-						$status = $_POST['s_status'];
-                        $name = trim(str_replace('\'','&#39;',htmlentities($_POST['s_name'])));
+					if( array_key_exists('s_submitted', $_GET) ){
+						$type = $_GET['s_type'];
+						$status = $_GET['s_status'];
+                        $name = trim(str_replace('\'','&#39;',htmlentities($_GET['s_name'])));
                         
                         // now go after the persons that fit the search criteria
                         include_once('database/dbPersons.php');

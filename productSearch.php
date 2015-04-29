@@ -31,30 +31,30 @@
 				// display the search form
 					echo('<p><a href="'.$path.'productEdit.php?id=new">Add new product</a>');
 					echo('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="'.$path.'inventory.php">Work on inventory</a>');
-					echo('<form method="post">');
+					echo('<form method="GET">');
 						echo('<p><strong>Search for products:</strong>');
 						
-						if( !array_key_exists('s_product_id', $_POST) ) $product_id = ""; else $product_id = $_POST['s_product_id'];
-						echo '&nbsp;&nbsp;Name: ' ;
+						if( !array_key_exists('s_product_id', $_GET) ) $product_id = ""; else $product_id = $_GET['s_product_id'];
+						echo '&nbsp;&nbsp;Name: ';
 						echo '<input type="text" name="s_product_id" value="' . $product_id . '">';
 						
 								
 						
-                        if( !array_key_exists('s_funding_source', $_POST) ) $funding_source = ""; else $funding_source = $_POST['s_funding_source'];
+                        if( !array_key_exists('s_funding_source', $_GET) ) $funding_source = ""; else $funding_source = $_GET['s_funding_source'];
 						echo '<br><br>Funding Source:<select name="s_funding_source">';
-						echo '<option value=""'; echo " SELECTED"; echo '>--any--</option>';
-    echo('<option value="TFAP"'); echo('>TFAP</option>');
-	echo '<option value="CSFP"'; echo '>CSFP or 2CSFP</option>';
-	echo '<option value="INK"'; echo '>INK</option>';
-	echo '<option value="AFF"'; echo '>AFF</option>';
-	echo '<option value="FC"'; echo '>FC</option>';
-	echo '<option value="F.D."'; echo '>F.D.</option>';
-	echo '<option value="SP"'; echo '>SP</option>';
+						echo '<option value=""'; 		if($funding_source == "")  	  echo " SELECTED"; echo '>--any--</option>';
+					    echo('<option value="TFAP"'); 	if($funding_source == "TFAP") echo " SELECTED"; echo '>TFAP</option>';
+						echo '<option value="CSFP"'; 	if($funding_source == "CSFP") echo " SELECTED"; echo '>CSFP or 2CSFP</option>';
+						echo '<option value="INK"'; 	if($funding_source == "INK")  echo " SELECTED"; echo '>INK</option>';
+						echo '<option value="AFF"'; 	if($funding_source == "AFF")  echo " SELECTED"; echo '>AFF</option>';
+						echo '<option value="FC"'; 		if($funding_source == "FC")   echo " SELECTED"; echo '>FC</option>';
+						echo '<option value="F.D."'; 	if($funding_source == "F.D.") echo " SELECTED"; echo '>F.D.</option>';
+						echo '<option value="SP"'; 		if($funding_source == "SP")   echo " SELECTED"; echo '>SP</option>';
 						echo '</select>';
                         
                        //should create a datepicker java-thingy here for initial date search.
                         
-						 if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
+						if( !array_key_exists('s_status', $_GET) ) $status = ""; else $status = $_GET['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>active</option>';
@@ -64,13 +64,13 @@
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');	                        
                         
-                        //print_r( $_POST );
+                        //print_r( $_GET );
 					
 				// if user hit "Search"  button, query the database and display the results
-					if( array_key_exists('s_submitted', $_POST) ){
-						$funding_source = $_POST['s_funding_source'];
-						$status = $_POST['s_status'];
-                        $product_id = $_POST['s_product_id'];
+					if( array_key_exists('s_submitted', $_GET) ){
+						$funding_source = $_GET['s_funding_source'];
+						$status = $_GET['s_status'];
+                        $product_id = $_GET['s_product_id'];
                         
                         // now go after the products that fit the search criteria
                         include_once('database/dbProducts.php');

@@ -30,17 +30,17 @@
 				<?PHP
 				// display the search form
 					echo('<p><a href="'.$path.'customerEdit.php?id=new">Add new customer</a>');
-					echo('<form method="post">');
+					echo('<form method="GET">');
 						echo('<p><strong>Search for customers:</strong><p>');
                         
-                        if( !array_key_exists('s_status', $_POST) ) $status = ""; else $status = $_POST['s_status'];
+                        if( !array_key_exists('s_status', $_GET) ) $status = ""; else $status = $_GET['s_status'];
 						echo '&nbsp;&nbsp;Status:<select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>active</option>';
 							echo '<option value="inactive"';    if ($status=="inactive")    echo " SELECTED"; echo '>inactive</option>';
                         echo '</select>';
                         
-                      //  if( !array_key_exists('s_customer_id', $_POST) ) $customer_id = ""; else $cutomer_id = $_POST['s_customer_id'];
+                      //  if( !array_key_exists('s_customer_id', $_GET) ) $customer_id = ""; else $cutomer_id = $_GET['s_customer_id'];
 					//	echo '&nbsp;&nbsp; Customer ID: ' ;
 					//	echo '<input type="text" name="s_customer_id" value="' . $customer_id . '">';
 						
@@ -48,20 +48,20 @@
 				//		echo('</form></p>');
                                                 
                         
-						if( !array_key_exists('s_name', $_POST) ) $name = ""; else $name = $_POST['s_name'];
+						if( !array_key_exists('s_name', $_GET) ) $name = ""; else $name = $_GET['s_name'];
 						echo '&nbsp;&nbsp; Customer Name: ' ;
 						echo '<input type="text" name="s_name" value="' . $name . '">';
 						
 						echo('<p><input type="hidden" name="s_submitted" value="1"><input type="submit" name="Search" value="Search">');
 						echo('</form></p>');
                         
-                        //print_r( $_POST );
+                        //print_r( $_GET );
 					
 				// if user hit "Search"  button, query the database and display the results
-					if( array_key_exists('s_submitted', $_POST) ){
+					if( array_key_exists('s_submitted', $_GET) ){
 						
-						$status = $_POST['s_status'];
-                        $name = trim(str_replace('\'','&#39;',htmlentities($_POST['s_name'])));
+						$status = $_GET['s_status'];
+                        $name = trim(str_replace('\'','&#39;',htmlentities($_GET['s_name'])));
                         
                         // now go after the customers that fit the search criteria
                         include_once('database/dbCustomers.php');
