@@ -41,7 +41,7 @@
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=shipmentSearchHelp.php">click here</a>.
+		href="?helpPage=bmac-warehouse/shipmentSearch.php">click here</a>.
 </p>
 
 <p>
