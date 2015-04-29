@@ -126,9 +126,9 @@ function retrieve_receipts($payment_source, $receive_date1, $receive_date2) {
 function count_receipts($product_id, $payment_source, $receive_date1, $receive_date2) { 
 	connect();
 	$query = "SELECT * FROM dbContributions WHERE payment_source LIKE '%".$payment_source."%'";
-  //  $query.= " AND items LIKE '".$product_id."' ";
-	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
-	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+    $query.= " AND receive_items LIKE '%".$product_id."%' ";
+	if($receive_date1!="") $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
+	if($receive_date2!="") $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
 	$result = mysql_query($query);
 	$total_weight = 0;
 	$item_count = 0;
@@ -136,10 +136,10 @@ function count_receipts($product_id, $payment_source, $receive_date1, $receive_d
 		$items = explode(",",$result_row['receive_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
-			if ($it[0]!=$product_id) 
-			    continue;
-			$total_weight += $it[2];
-			$item_count ++;
+			if ($it[0]==$product_id) {
+				$total_weight += $it[2];
+				$item_count ++;
+			}
 		}
 	}
 	mysql_close();

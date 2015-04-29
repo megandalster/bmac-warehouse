@@ -101,7 +101,6 @@ $(function() {
 		</td>
 		<td class = "search-description" valign="top"> Status:
 		    <p id="status-input"> <select name="status" id = "report-status">
-	  		<option value="">--any--</option>
 	  		<option value="active">Active</option>
 	  		<option value="inactive">Inactive/Discontinued</option>
 		</td>
@@ -113,12 +112,13 @@ $(function() {
 	  		<option value="INK">INK</option>
 	  		<option value="donation">Donation</option>
 		</td>
-	</tr> <tr> <td></td><td></td><td>
-	To view the report <p>Hit <input type="submit" value="submit" id ="report-submit" class ="btn"></p>
+	</tr> 
+	<tr>
+	<td valign="top">
+	<p>To view report, hit <input type="submit" value="Submit" id ="report-submit" class ="btn">.</p>
 	</td>
-	<td>
-	To save the report <p>Hit <input type="submit" value="CSV" id ="report-csv" class ="btn">
-	</p>
+	<td colspan=3 valign="top">
+	<p>* To save report, check here <input type="checkbox" name="export" value="export">, hit 'Submit' again, and browse to 'export.csv'.</p>
 	</td>
 	</tr>
 	</table>

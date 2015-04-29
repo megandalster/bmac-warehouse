@@ -101,8 +101,8 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 function retrieve_shipments($funds_source, $ship_date1, $ship_date2) { 
 	connect();
 	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$funds_source."%'";
-	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
-	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":23:59"."'"; 
+	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
+	if($ship_date2!="") $query.=	" AND ship_date <= '".$ship_date2.":23:59"."'"; 
 	$result = mysql_query($query);
 	$thequads = array();
     $count = 0;	
@@ -178,8 +178,9 @@ function delete_dbShipmentsDate($ship_date){
 function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2) { 
 	connect();
 	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$payment_source."%'";
-  	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
-	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":23:59"."'"; 
+  	$query.= " AND ship_items LIKE '%".$product_id."%' ";
+	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
+	if($ship_date2!="") $query.= " AND ship_date <= '".$ship_date2.":23:59"."'"; 
 	$result = mysql_query($query);
 	$total_weight = 0;
 	$item_count = 0;
@@ -187,10 +188,10 @@ function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2)
 		$items = explode(",",$result_row['ship_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
-			if ($it[0]!=$product_id) 
-			    continue;
-			$total_weight += $it[2];
-			$item_count ++;
+			if ($it[0]==$product_id) {
+			    $total_weight += $it[2];
+				$item_count ++;
+			}
 		}
 	}
 	mysql_close();

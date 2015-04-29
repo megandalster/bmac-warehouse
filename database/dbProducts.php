@@ -110,10 +110,10 @@ function getall_dbProduct_ids(){
 // retrieve only those Products that match the criteria given in the arguments
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	connect();
-	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'" . 
-			 " AND funding_source LIKE '%".$funding_source."%'" . 
-			 "  AND status LIKE '%".$status."%'" ;
-    $query .= " ORDER BY status, product_id";
+	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'"; 
+	if ($funding_source!="")
+		$query .=		 " AND funding_source LIKE '%".$funding_source."%'"; 
+    $query .= "  AND status LIKE '%".$status."%' ORDER BY status, product_id";
 	$result = mysql_query($query);
 	$theProds = array();
 		
@@ -192,52 +192,25 @@ function insert_dbProducts($Product){
 	
 }
 
-function retrieve_inventory($status, $funding_source, $from, $to){
+function retrieve_inventory($status, $funding_source){
 	/* from date means beginning of history time period, to date is end 
 	 */
 	$products = getonlythose_dbProducts("", $funding_source, $status);
 	$the_tens = array();
-	if (!$from){
-		$from = date(y-m-d,null);
-	}
-	if (!$to){
-		$to = date(y-m-d,time());
-	}
 	foreach ($products as $product) {
-		$ship_items = count_shipments($product->get_product_id(), $funding_source, $from, $to); //ISSUE: ship and receives are inaccurate from history...
-		$receive_items = count_receipts($product->get_product_id(), $funding_source, $from, $to);
-		$history = $product->get_history(); //last item in array is most recent
-		$history3 = explode(":",$history[0]);
-		if (!$history || $history3[0] > $from){
-			if (!$from && $history){
-				$result = $history3;
-			}
-			else $result = "N/A";
-		}
-		else{
-			$result = $history3;
-			foreach($history as $history3){
-				$history3 = explode(":",$history3);
-				if($history3[0] < $result)
-					$result = $history3;
-			}
-		}
-		//if history3[0] is too far in the past, 
+		if (count($product->get_history())>0) // pull the most recent history for this product
+			$last = end($product->get_history());
+		else 
+			$last = "00-01-01:0:0";              // if none, go back to the beginning of time and assume nothing on shelf
+		$result = explode(":",$last);			// make an array
+		$ship_items = count_shipments($product->get_product_id(), $funding_source, substr($last,0,8), ""); //ISSUE: ship and receives are inaccurate from history...
+		$receive_items = count_receipts($product->get_product_id(), $funding_source, substr($last,0,8), "");
 		$ship_details = explode(':',$ship_items);
 		$receipt_details = explode(':',$receive_items);
-		if($result != "N/A"){
-			$current_weight = $result[2] - $ship_details[1] + $receipt_details[1];
-			$the_ten = $product->get_product_id().":".$funding_source.":".$status.":".$result[0].":".$result[2].":".$ship_details[0].":".$ship_details[1].":".$receipt_details[0].":".$receipt_details[1].":".$current_weight;
-		}
-		else{
-			$current_weight = "N/A";
-			$starting_weight = 0;
-			$the_ten = $product->get_product_id().":".$product->get_funding_source().":".$product->get_status().":".$result.":".$starting_weight.":".$ship_details[0].":".$ship_details[1].":".$receipt_details[0].":".$receipt_details[1].":".$current_weight;
-			//var_dump($the_ten);
-		}
-				$the_tens[] = $the_ten;
-		//use vardump($object or $array);
-		//echo($variable);
+		$current_weight = $result[2] - $ship_details[1] + $receipt_details[1];
+		$the_ten = $product->get_product_id().":".$product->get_funding_source().":".$product->get_status().":".$result[0].":".$result[2].":".
+			$ship_details[0].":".$ship_details[1].":".$receipt_details[0].":".$receipt_details[1].":".$current_weight;
+		$the_tens[] = $the_ten;
 	}
 	sort($the_tens);
 	return $the_tens;
