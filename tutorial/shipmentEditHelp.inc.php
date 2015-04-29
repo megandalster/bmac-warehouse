@@ -41,12 +41,12 @@
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=shipmentSearchHelp.php">click here</a>.
+		href="?helpPage=bmac-warehouse/shipmentSearch.php">click here</a>.
 </p>
 
 <p>
-	<strong>Step 2:</strong> After finding that shipment, <strong> click on </strong>
-	its name. You will now see a page with all of the shipment's
+	<strong>Step 2:</strong> After finding that shipment, click on
+	its <b>Ship Date</b>. You will now see a page with all of the shipment's
 	information, like this:<BR> <BR> <a
 		href="tutorial/screenshots/shipmentEditInfo.png" class="image"
 		title="shipmentEditInfo.png"
@@ -76,7 +76,7 @@
 		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
 		border="1px" align="middle"> </a>
 		<br></br>
-		Or, if you want to delete a shipment, check the box and hit delete.  You will see a page like this:
+		Or, if you want to delete a shipment, check the box and hit <b>delete</b>.  You will see a page like this:
 		<BR> <BR> <a
 		href="tutorial/screenshots/shipmentEditDelete.png" class="image"
 		title="shipmentEditDelete.png"
@@ -97,7 +97,7 @@
 		src="tutorial/screenshots/shipmentEditError.png" width="10%"
 		border="1px" rel="popover"
 		data-img="tutorial/screenshots/shipmentEditError.png" align="middle"> </a>
-	<BR>&nbsp&nbsp&nbsp *After you have make these corrections, repeat <B>Step
+	<BR></BR>*After you have make these corrections, repeat <B>Step
 		4</B>.
 <p>
 	<B>Step 6:</B> If you have no errors or omissions, you will see a page
@@ -119,20 +119,43 @@
 	page that looks like this:
 	<!--fix this stuff.  Change the screenshots-->
 	<BR> <BR> <a
-		href="tutorial/screenshots/shipmentEditInfo.png" class="image"
-		title="shipmentEditInfo.png"
-		target="tutorial/screenshots/shipmentEditInfo.png">
+		href="tutorial/screenshots/shipmentEditEmpty.png" class="image"
+		title="shipmentEditEmpty.png"
+		target="tutorial/screenshots/shipmentEditEmpty.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/shipmentEditInfo.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/shipmentEditInfo.png"
+		src="tutorial/screenshots/shipmentEditEmpty.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditEmpty.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<strong>Step 2:</strong> To change any of the shipment
-	's information,
-	<!--fix this stuff.  Add some screenshots-->
-	just retype or reselect it. For instance, to change its Funding Source,
-	select one of the funding sources from the drop down list.  To add more items to the shipment, 
+	<strong>Step 2:</strong> Each shipment must have a Ship Date, a Ship To and Funding Source,
+	a Ship Via, and at least one Product.  These are "autocomplete" fields, which means that a list of choices
+	will appear when you being typing.  For example, to select Helpline as the Ship To customer, begin typing 
+	"hel", and then select Helpline from the list below.  
+		<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditShipTo.png" class="image"
+		title="shipmentEditShipTo.png"
+		target="tutorial/screenshots/shipmentEditShipTo.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditShipTo.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditShipTo.png"
+		border="1px" align="middle"> </a>
+ <p>
+	This is the same with products.  To add Apple Sauce to the list of products, being typing "app", and then pick
+	the item that you want off the list. 
+		<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditNewProduct.png" class="image"
+		title="shipmentEditNewProduct.png"
+		target="tutorial/screenshots/shipmentEditNewProduct.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/shipmentEditNewProduct.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditEmpty.png"
+		border="1px" align="middle"> </a>
+
+	<p>
+	Note that for each product you select for a shipment, a unit weight may appear.  You must also enter either
+	the number of units (noted as Case Lots) to get the total weight of that product.
+	To add more items to the shipment, 
 	use the "add more" button at the bottom of the table. <br><i>REMEMBER:</i> No fields marked by <font
 		color="#FF0000">*</font> can be left blank.
 </p>
@@ -147,14 +170,5 @@
 		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
 		border="1px" align="middle"> </a>
 		<br></br>
-		Or, if you want to delete a shipment, check the box and hit delete.  You will see a page like this:
-		<BR> <BR> <a
-		href="tutorial/screenshots/shipmentEditDelete.png" class="image"
-		title="shipmentEditDelete.png"
-		target="tutorial/screenshots/shipmentEditDelete.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/shipmentEditDelete.png" rel="popover"
-		data-img="tutorial/screenshots/shipmentEditDelete.png" width="10%"
-		border="1px" align="middle"> </a>
 </p>
 		
