@@ -34,7 +34,7 @@
 		href="tutorial/screenshots/shipmentEditHeader.png" class="image"
 		title="shipmentEditHeader.png"
 		target="tutorial/screenshots/shipmentEditHeader.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditHeader.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/shipmentEditHeader.png"
 		border="1px" align="middle"> </a>
@@ -51,7 +51,7 @@
 		href="tutorial/screenshots/shipmentEditInfo.png" class="image"
 		title="shipmentEditInfo.png"
 		target="tutorial/screenshots/shipmentEditInfo.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditInfo.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/shipmentEditInfo.png"
 		border="1px" align="middle"> </a>
@@ -71,7 +71,7 @@
 		href="tutorial/screenshots/shipmentEditSubmit.png" class="image"
 		title="shipmentEditSubmit.png"
 		target="tutorial/screenshots/shipmentEditSubmit.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditSubmit.png" rel="popover"
 		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
 		border="1px" align="middle"> </a>
@@ -81,7 +81,7 @@
 		href="tutorial/screenshots/shipmentEditDelete.png" class="image"
 		title="shipmentEditDelete.png"
 		target="tutorial/screenshots/shipmentEditDelete.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditDelete.png" rel="popover"
 		data-img="tutorial/screenshots/shipmentEditDelete.png" width="10%"
 		border="1px" align="middle"> </a>
@@ -93,7 +93,7 @@
 		href="tutorial/screenshots/shipmentEditError.png" class="image"
 		title="shipmentEditError.png"
 		target="tutorial/screenshots/shipmentEditError.png"
-		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
+		horizontalalign="center"> &nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditError.png" width="10%"
 		border="1px" rel="popover"
 		data-img="tutorial/screenshots/shipmentEditError.png" align="middle"> </a>
@@ -105,7 +105,7 @@
 		href="tutorial/screenshots/shipmentEditSuccess.png" class="image"
 		title="shipmentEditSuccess.png"
 		target="tutorial/screenshots/shipmentEditSuccess.png"
-		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
+		horizontalalign="center"> &nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditSuccess.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/shipmentEditSuccess.png"
 		border="1px" align="middle"> </a>
@@ -122,7 +122,7 @@
 		href="tutorial/screenshots/shipmentEditEmpty.png" class="image"
 		title="shipmentEditEmpty.png"
 		target="tutorial/screenshots/shipmentEditEmpty.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditEmpty.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/shipmentEditEmpty.png"
 		border="1px" align="middle"> </a>
@@ -136,7 +136,7 @@
 		href="tutorial/screenshots/shipmentEditShipTo.png" class="image"
 		title="shipmentEditShipTo.png"
 		target="tutorial/screenshots/shipmentEditShipTo.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditShipTo.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/shipmentEditShipTo.png"
 		border="1px" align="middle"> </a>
@@ -147,9 +147,9 @@
 		href="tutorial/screenshots/shipmentEditNewProduct.png" class="image"
 		title="shipmentEditNewProduct.png"
 		target="tutorial/screenshots/shipmentEditNewProduct.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditNewProduct.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/shipmentEditEmpty.png"
+		rel="popover" data-img="tutorial/screenshots/shipmentEditNewProduct.png"
 		border="1px" align="middle"> </a>
 
 	<p>
@@ -165,7 +165,7 @@
 		href="tutorial/screenshots/shipmentEditSubmit.png" class="image"
 		title="shipmentEditSubmit.png"
 		target="tutorial/screenshots/shipmentEditSubmit.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/shipmentEditSubmit.png" rel="popover"
 		data-img="tutorial/screenshots/shipmentEditSubmit.png" width="10%"
 		border="1px" align="middle"> </a>
