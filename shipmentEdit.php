@@ -17,6 +17,8 @@
 	session_cache_expire(30);
     include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
+    include_once('database/dbCustomers.php');
+    include_once('domain/Customer.php'); 
     include_once('database/dbProducts.php');
     include_once('domain/Product.php'); 
     
@@ -31,7 +33,9 @@
 		if (!$shipment) {
 	         echo('<p id="error">Error: there\'s no shipment from this date in the database</p>'. $ship_date);
 		     die();
-        }  
+        }
+        else 
+        	$customer = retrieve_dbCustomers($shipment->get_customer_id());
 	}
 	$ship_date = $shipment->get_ship_date();
 ?>
@@ -83,11 +87,10 @@ $(function() {
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
 		var new_row = '<br class=ui-widget>'
-			+ '<br>'
-	    	+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30>&nbsp;&nbsp;'
-		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
-	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
-			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10>'
+			+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20>&nbsp;&nbsp;'
+		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=6>&nbsp;&nbsp;&nbsp;&nbsp;'
+	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=6>&nbsp;&nbsp;&nbsp;&nbsp;'
+			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=6>'
 		$("#product-rows").append(new_row);
 	});
 	$( "#date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
@@ -192,10 +195,11 @@ function process_form($post,$shipment)	{
 
 function validate_form($post,$id){
 	if($id=='new' && $_POST['customer-id']==null || $_POST['customer-id']=='new'
-					 || $_POST['customer-id']=='') $errors[] = 'Please enter the name of the provider';
-	if (!valid_date($_POST['date'])) $errors[] = 'Please enter a valid receipt date';
-	if($post['product-id']==null) $errors[] = 'Please enter the items received';
+					 || $_POST['customer-id']=='') $errors[] = 'Please enter the name of the customer';
+	if (!valid_date($_POST['date'])) $errors[] = 'Please enter a valid ship date';
+	if($post['product-id']==null) $errors[] = 'Please enter the items shipped';
 	if($post['funds_source']==null) $errors[] = 'Please enter the funds source';
+	if($post['ship_via']==null) $errors[] = 'Please enter the ship via';
 	return $errors;
 }
 function valid_date($date)
