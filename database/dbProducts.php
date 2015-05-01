@@ -151,6 +151,7 @@ function insert_dbProducts($Product){
 		return false;
 	}
 	connect();
+	/*
 	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
@@ -158,15 +159,14 @@ function insert_dbProducts($Product){
 		mysql_close();
 		return false;   // never insert a new item with the same product code
 	}
-	/*
-	$query = "SELECT * FROM dbProducts WHERE product_id = '".$product->get_product_id() . 
-			 "' AND funding_source = '".$product->get_funding_source() . "'";	
+	*/
+	$query = "SELECT * FROM dbProducts WHERE product_id = '".$Product->get_product_id() . 
+			 "' AND funding_source = '".$Product->get_funding_source() . "'";	
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
-		delete_dbProducts ($Product->get_product_id(),$product->get_funding_source());
+		delete_dbProducts ($Product->get_product_id(),$Product->get_funding_source());
 		connect();     // when a product with the same name and funding source is there, replace it
-	}
-	*/   
+	}   
 	$query = "INSERT INTO dbProducts VALUES ('".
 				$Product->get_product_id()."','" .
 				$Product->get_product_code()."','".
@@ -232,8 +232,7 @@ function update_dbProducts($Product){
 
 function delete_dbProducts($product_id, $funding_source){
 	connect();
-	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . 
-			 "' AND funding_source = '".$funding_source . "'";
+	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . "' AND funding_source = '".$funding_source . "'";
 	$result = mysql_query($query);
 	mysql_close();
 	if (!$result) {

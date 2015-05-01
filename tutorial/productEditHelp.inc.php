@@ -100,4 +100,45 @@
 <p>
 	<B>Step 7:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
+	
+	<p><strong>Adding a New Product</strong>
+<p>
+	<strong>Step 1:</strong> First, <strong> click on </strong>
+	the "Add new Product" link located at the top of the search menu.
+	<BR> <BR> <a
+		href="tutorial/screenshots/ProductAdd.png" class="image"
+		title="ProductAdd.png"
+		target="tutorial/screenshots/ProductAdd.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ProductAdd.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductAdd.png"
+		border="1px" align="middle"> </a>
+</p>
+<p>
+	<strong>Step 2:</strong> To change any of the Product
+	's information,
+	just retype or reselect it. For instance, to change its Funding Source,
+	select one of the funding sources from the drop down list.
+	<br><i>REMEMBER:</i> No fields marked by <font
+		color="#FF0000">*</font> can be left blank.
+			<BR> <BR> <a
+		href="tutorial/screenshots/ProductNew.png" class="image"
+		title="ProductNew.png"
+		target="tutorial/screenshots/ProductNew.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ProductNew.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductNew.png"
+		border="1px" align="middle"> </a>
+</p>
+<p>
+	<strong>Step 3:</strong> When you finish making changes, select <strong>Submit</strong>
+	at the bottom of the page.  You will see a page like this:<BR> <BR> <a
+		href="tutorial/screenshots/ProductSubmit.png" class="image"
+		title="ProductSubmit.png"
+		target="tutorial/screenshots/ProductSubmit.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ProductSubmit.png" rel="popover"
+		data-img="tutorial/screenshots/ProductSubmit.png" width="10%"
+		border="1px" align="middle"> </a>
+</p>
 

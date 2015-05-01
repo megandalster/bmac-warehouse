@@ -120,7 +120,7 @@ function process_form($id, $product)	{
         
 	//step two: try to make the deletion, addition, or change
 		if($_POST['submit']=="delete" && $_POST['delete-check']=='delete'){
-			$result = retrieve_dbProducts($product_id);
+			$result = retrieveWithFunding_dbProducts($product_id, $funding_source);
 			if (!$result)
 				echo('<p>Unable to delete. ' .$product_id. ' is not in the database.');
 			else {

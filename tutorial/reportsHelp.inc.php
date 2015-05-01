@@ -30,135 +30,121 @@
 	<strong>Generating Reports</strong>
 <p>
 	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>reports</B>
-	, like this:<BR> <BR> <a href="tutorial/screenshots/reportsstep1.png"
-		class="image" title="reportsstep1.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep1.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep1.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep1.png" border="1px"
+	, like this:<BR> <BR> <a href="tutorial/screenshots/ReportsHelp1.png"
+		class="image" title="ReportsHelp1.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp1.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp1.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp1.png" border="1px"
 		align="center"> </a> <BR>
 	<BR>Click on it and you should see the following page: <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep1-2.png" class="image"
-		title="reportsstep1-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep1-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep1-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep1-2.png"
-		border="1px" align="center"> </a>
-<p>
-	<B>Step 2:</B> If you wish to view total volunteer hours or shifts
-	staffed/vacancies, skip this step and go to <B>Step 3</B>. <BR>
-	<BR>If you wish to see a report on a specific volunteer, select
-	"Volunteer Names (and total hours)." Then under "Volunteer name(s)",
-	enter the volunteer's name. <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep2.png" class="image"
-		title="reportsstep2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep2.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep2.png" border="1px"
+	<BR> <a href="tutorial/screenshots/ReportsHelp2.png" class="image"
+		title="ReportsHelp2.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp2.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp2.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp2.png" border="1px"
 		align="center"> </a> <BR>
-	<BR> Note that when you type in a few letters, a box should appear with
-	names containing those letters. You can choose the name by clicking it.
-	<BR>
-	<BR> <a href="tutorial/screenshots/reportsstep2-2.png" class="image"
-		title="reportsstep2-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep2-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep2-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep2-2.png"
-		border="1px" align="center"> </a> <BR>
-	<BR>If you wish to look at more than one volunteer, you can either
-	press the "Enter" key to add more rows or click on the "add more"
-	button. <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep2-3.png" class="image"
-		title="reportsstep2-3.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep2-3.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep2-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep2-3.png"
-		border="1px" align="center"> </a>
 <p>
-	<B>Step 3:</B> To view total volunteer hours, select "Volunteer Hours
-	(by day)": <BR>
+	<B>Step 2:</B>		
+		Here you can specifty which report you want to run.
+		<BR>
+		<BR>
+		To select a report to run, <b>click on</b> one of the reports on the menu like so:
+		<BR>
 	<BR>
-	<a href="tutorial/screenshots/reportsstep3.png" class="image"
-		title="reportsstep3.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep3.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep3.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep3.png" border="1px"
+	<a href="tutorial/screenshots/ReportsHelp3.png" class="image"
+		title="ReportsHelp3.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp3.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp3.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp3.png" border="1px"
 		align="center"> </a> <BR>
-	<BR>To view shifts staffed and vacancies, select "Shifts Staffed/Vacant
-	(by day)": <BR>
 	<BR>
-	<a href="tutorial/screenshots/reportsstep3-2.png" class="image"
-		title="reportsstep3-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep3-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep3-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep3-2.png"
-		border="1px" align="center"> </a>
 <p>
-	<B>Step 4:</B> If you wish to view the entire history, skip this step
-	and go to <B>Step 5</B>. <BR>
-	<BR>If you wish to look at only last week's or last month's data, click
-	on the corresponding option, like this: <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep4.png" class="image"
-		title="reportsstep4.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep4.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep4.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep4.png" border="1px"
-		align="center"> </a> <BR>
-	<BR>If you wish to view hours during a specific date range, select the
-	Date Range option and the following should appear: <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep4-2.png" class="image"
-		title="reportsstep4-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep4-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep4-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep4-2.png"
-		border="1px" align="center"> </a> <BR>
-	<BR>Now if you click on the text box next to "from:" or "to:", a
-	calendar should appear:<BR>
-	<BR> <a href="tutorial/screenshots/reportsstep4-3.png" class="image"
-		title="reportsstep4-3.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep4-3.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep4-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep4-3.png"
-		border="1px" align="center"> </a> <BR> You can either enter the date
-	in the format month/day/year or select a date on this calendar.
+<b>Note:</b> Steps 3-5 apply to only certain reports. Depending on the report you are
+running, you can skip steps 3, 4, or 5.
 <p>
-	<B>Step 5:</B> Then select the <B>Submit</B> button, like this:<BR> <BR>
-	<a href="tutorial/screenshots/reportsstep5.png" class="image"
-		title="reportsstep5.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep5.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep5.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep5.png" border="1px"
+	<B>Step 3:</B> Once you have clicked on a report, you can now specify the time period of the report:
+	<BR>This step only applies to:<BR>&nbsp&nbsp-Inventory Shipments<BR>&nbsp&nbsp-Inventory Receipts<BR>&nbsp&nbsp-Current Inventory<BR>&nbsp&nbsp-Current Providers
+	<BR><BR> <a href="tutorial/screenshots/ReportsHelp41.png" class="image"
+		title="ReportsHelp41.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp41.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp41.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp41.png" border="1px"
+		align="center"> </a> <BR><BR>
+Using the Date Picker which will appear when clicking on the field: <BR>
+&nbsp&nbsp-Fill in the "From" date with the first report dates you wish to see. <BR>
+&nbsp&nbsp-Fill in the "To" date with the last report dates you wish to see.	
+<BR><BR>
+<b>Note:</b> If you want to view all reports, regardless of date, you can leave this field blank. <BR>
+&nbsp&nbsp-If you want to see all reports from a given date to present, only fill in the "From" date. <BR>
+&nbsp&nbsp-If you want to see all reports up to a given date, only fill in the "To" date. <BR>
+
+<p>
+	<B>Step 4:</B> Specifying the Status:
+	<BR>This step only applies to:<BR>&nbsp&nbsp-Current Inventory<BR>&nbsp&nbsp-Current Customers<BR>&nbsp&nbsp-Current Providers
+	<BR><BR> <a href="tutorial/screenshots/ReportsHelp42.png" class="image"
+		title="ReportsHelp42.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp42.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp42.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp42.png" border="1px"
+		align="center"> </a> <BR><BR>
+Using the Drop down menu which will appear when clicking on the field: <BR>
+&nbsp&nbsp-Select the name of the funding source for which you want to filter the results. <BR>
+<BR>
+<b>Note:</b> If you leave this field set to "any", all funding sources will appear in the results. <BR>
+
+<p>
+	<B>Step 5:</B> Specifying the Funding Source:
+	<BR>This step only applies to:<BR>&nbsp&nbsp-Inventory Shipments<BR>&nbsp&nbsp-Inventory Receipts<BR>&nbsp&nbsp-Current Inventory
+	<BR><BR> <a href="tutorial/screenshots/ReportsHelp43.png" class="image"
+		title="ReportsHelp43.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp43.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp43.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp43.png" border="1px"
+		align="center"> </a> <BR><BR>
+Using the Drop down menu which will appear when clicking on the field: <BR>
+&nbsp&nbsp-Select the status for which you want to filter the results. <BR>
+<BR>
+<b>Note:</b> The default selection, "Active" will automatically filter the results. <BR>
+<p>
+	<B>Step 6:</B> Then select the <B>Submit</B> button, like this:<BR> <BR>
+	<a href="tutorial/screenshots/ReportsHelp5.png" class="image"
+		title="ReportsHelp5.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp5.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp5.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp5.png" border="1px"
 		align="center"> </a> <BR> Note that if you wish to view the entire
 	history, you don't have to choose a date - just select <B>Submit</B>.
 <p>
-	<B>Step 6:</B> <BR>The report for <B>Volunteer Names</B> (and total
-	hours) may look like this:<BR> <BR> <a
-		href="tutorial/screenshots/reportsstep6.png" class="image"
-		title="reportsstep6.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep6.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep6.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep6.png" border="1px"
-		align="center"> </a> <BR>The number under a day (eg. Mon) indicates
-	the total hours worked on that day. In our example, Amy Jones did not
-	work any hours from 11/03/2013 - 12/09/2013. <BR>
-	<BR>The report for <B>Volunteer Hours</B> (by day) may look like this:
+	<B>Step 6:</B> <BR>The report for <B>Inventory Shipments</B> or <B>Inventory Receipts</B> may look like this: <BR>
+		<BR> <a href="tutorial/screenshots/ReportsHelp61.png" class="image"
+		title="ReportsHelp61.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp61.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp61.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ReportsHelp61.png"
+		border="1px" align="center"> </a> <BR><BR>
+	The report for <B>Current Providers</B> may look like this:<BR> <BR> 
+	<a	href="tutorial/screenshots/ReportsHelp6.png" class="image"
+		title="ReportsHelp6.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp6.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp6.png" width="10%" rel="popover"
+		data-img="tutorial/screenshots/ReportsHelp6.png" border="1px"
+		align="center"> </a> <BR>Note that the report sums up a provider's billed amount & total weight after the bolded line. <BR>
+	<BR>The report for <B>Current Inventory</B> may look like this:
 	<BR>
-	<BR> <a href="tutorial/screenshots/reportsstep6-2.png" class="image"
-		title="reportsstep6-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep6-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep6-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep6-2.png"
-		border="1px" align="center"> </a> <BR>
-	<BR>And the report for <B>Shifts Staffed/Vacant</B> (by day) may look
+	<BR> <a href="tutorial/screenshots/ReportsHelp62.png" class="image"
+		title="ReportsHelp62.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp62.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp62.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ReportsHelp62.png"
+		border="1px" align="center"> </a> <BR>Note that the current stock weight is computed by subtracting shipment weight and adding receipts weight to the last inventory weight.<BR>
+	<BR>And the report for <B>Current Customers</B> may look
 	like this: <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep6-3.png" class="image"
-		title="reportsstep6-3.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep6-3.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep6-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep6-3.png"
-		border="1px" align="center"> </a> <BR>For example, "Thu - Early
-	Afternoon - 5/2" says that on Thursdays 12-3pm from 10/01/2013 to
-	11/01/2013, there were 5 completely staffed shifts and 2 vacancies
-	total.
+	<BR> <a href="tutorial/screenshots/ReportsHelp63.png" class="image"
+		title="ReportsHelp63.png" horizontalalign="center"
+		target="tutorial/screenshots/ReportsHelp63.png"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ReportsHelp63.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ReportsHelp63.png"
+		border="1px" align="center"> </a> <BR>Note that clicking on a customer leads to that customer's information page.
 <p>
 	<B>Step 7:</B> When you finish, you can generate a new report by
 	refreshing the page and following the steps above or return to any
