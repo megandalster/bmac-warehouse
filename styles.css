@@ -1,4 +1,4 @@
-/* 	Homerestore CSS GENERAL STYLES */
+/* 	BMAC-Warehouse CSS GENERAL STYLES */
 body{
 	/* background:#001460; */
 	background:#FFFFDD;
@@ -155,9 +155,45 @@ p.error {color: #FF0000;}
 	border-top:2px solid #264576;
 	border-right:2px solid #264576;
 	padding: 0px;
-	background:url("images/Header3.gif") #ffffff;
+	background:url("images/Header3.gif") #f5f5f6;
 	background-repeat:no-repeat;
 	background-position:top left;
+	overflow:hidden;
+}
+
+#shiplabelheader{
+	height: 92px;
+	width: 500px;
+	border-left:2px solid #264576;
+	border-top:2px solid #264576;
+	border-right:2px solid #264576;
+	padding: 10px;
+	background:url("images/HeaderShippingLabel.jpg") #f5f5f6;
+	background-repeat:no-repeat;
+	background-position:top left;
+	overflow:hidden;
+}
+
+#shipinvoiceheader{
+	height: 92px;
+	border-left:2px solid #264576;
+	border-top:2px solid #264576;
+	border-right:2px solid #264576;
+	padding: 0px;
+	background:url("images/HeaderShipmentInvoice.jpg") #f5f5f6;
+	background-repeat:no-repeat;
+	background-position:top left;
+	overflow:hidden;
+}
+
+#shippinglabelcontent{
+	width: 500px;
+	border-left:2px solid #264576;
+	border-bottom:2px solid #264576;
+	border-right:2px solid #264576;
+	align:center;
+	padding: 10px;
+	background:#f5f5f6;
 	overflow:hidden;
 }
 
@@ -166,7 +202,7 @@ p.error {color: #FF0000;}
 	border-left:2px solid #264576;
 	border-right:2px solid #264576;
 	padding-left : 25px;
-	background:#ffffff;
+	background:#f5f5f6;
 }
 
 #content{
@@ -175,6 +211,6 @@ p.error {color: #FF0000;}
 	border-right:2px solid #264576;
 	align:center;
 	padding: 10px;
-	background:#ffffff;
+	background:#f5f5f6;
 	overflow:hidden;
 }
