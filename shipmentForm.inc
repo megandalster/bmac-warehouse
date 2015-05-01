@@ -96,11 +96,11 @@ else
 		  
 	echo('<input type="hidden" name="_submit_type" value="submit"><p>');
 		  if ($id=="new")
-		     echo('Hit <input type="submit" value="submit" name="submit"> to add this new shipment.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit"> to add this new shipment. ');
 		  else
-		     echo('Hit <input type="submit" value="submit" name="submit"> to complete these changes.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit"> to complete these changes. ');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
-			echo ('<input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
+			echo ('<p><input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
 				'<input type="submit" value="delete" name="submit"> to delete this shipment from the database.');
 	}
 ?>
