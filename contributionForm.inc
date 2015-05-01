@@ -53,9 +53,9 @@ else {// $_SESSION['access_level']==3
 ?>
 <fieldset>
 <legend>Items received</legend>
-<table><tr><td width="0px"></td><td width="250px">Product <span style="font-size:x-small;color:FF0000">*</span></td>
-<td width="110px">Unit Wt</td>
-<td width="110px">Case Lots <span style="font-size:x-small;color:FF0000">*</span></td>
+<table><tr><td width="0px"></td><td width="160px">Product <span style="font-size:x-small;color:FF0000">*</span></td>
+<td width="80px">Unit Wt</td>
+<td width="80px">Case Lots <span style="font-size:x-small;color:FF0000">*</span></td>
 <td>Total Wt. <span style="font-size:x-small;color:FF0000">*</span></td></tr></table>
 		
 	<?php
@@ -72,15 +72,15 @@ else {// $_SESSION['access_level']==3
 				$details[2] = $unit_weight*$details[1];
 		} 
 		else $unit_weight = "";
-		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30 value="'. $details[0] . '">';
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10 value="'.$unit_weight.'">';
-	    echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10 value="'. $details[1] . '">';
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10 value="'. $details[2] . '">';
+		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20 value="'. $details[0] . '">';
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=6 value="'.$unit_weight.'">';
+	    echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-units[]" class="product-units" tabindex=3 size=6 value="'. $details[1] . '">';
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=6 value="'. $details[2] . '"><br>';
 		$total1 += $details[1];
 		$total2 += $details[2];
     }
     echo '</p>';
-	echo '<table><tr><td width="0px"></td><td width="250px"><button id="add-more">add more</button></td><td width="110px">Totals:</td><td width="110px">'.$total1.'</td><td>'.$total2.'</td></tr></table>';
+	echo '<table><tr><td width="0px"></td><td width="190px"><button id="add-more">add more</button></td><td width="80px">Totals:</td><td width="80px">'.$total1.'</td><td>'.$total2.'</td></tr></table>';
 	
     echo '</fieldset>';
 	echo '<p>Amount billed<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="8" name="billed_amt" tabindex=1 value="'.$contribution->get_billed_amt().'"></p>';

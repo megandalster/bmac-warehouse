@@ -17,6 +17,8 @@
 	session_cache_expire(30);
     include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
+    include_once('database/dbCustomers.php');
+    include_once('domain/Customer.php'); 
     include_once('database/dbProducts.php');
     include_once('domain/Product.php'); 
     
@@ -31,7 +33,9 @@
 		if (!$shipment) {
 	         echo('<p id="error">Error: there\'s no shipment from this date in the database</p>'. $ship_date);
 		     die();
-        }  
+        }
+        else 
+        	$customer = retrieve_dbCustomers($shipment->get_customer_id());
 	}
 	$ship_date = $shipment->get_ship_date();
 ?>
@@ -83,11 +87,10 @@ $(function() {
 	$("#add-more").on('click', function(e) {
 		e.preventDefault();
 		var new_row = '<br class=ui-widget>'
-			+ '<br>'
-	    	+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=30>&nbsp;&nbsp;'
-		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
-	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=10>&nbsp;&nbsp;&nbsp;&nbsp;'
-			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=10>'
+			+ '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20>&nbsp;&nbsp;'
+		 	+ '<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=6>&nbsp;&nbsp;&nbsp;&nbsp;'
+	    	+ '<input type="text" name="product-units[]" class="product-units" tabindex=3 size=6>&nbsp;&nbsp;&nbsp;&nbsp;'
+			+ '<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=6>'
 		$("#product-rows").append(new_row);
 	});
 	$( "#date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true});
@@ -112,11 +115,10 @@ $(function() {
 		$ship_via = $_POST['ship_via'];
 		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$ship_rate = trim(str_replace('\\\'','\'',htmlentities($_POST['ship_rate'])));
-		$total_weight = trim(str_replace('\\\'','\'',htmlentities($_POST['total_wt'])));
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
 		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
-		$shipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items, 
-			$ship_rate, $total_weight, $billed_amt, substr($ship_date,0,8), "", $notes);
+		$shipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items[0], 
+			$ship_rate, $ship_items[1], $billed_amt, substr($ship_date,0,8), "", $notes);
 		$errors = validate_form($_POST,$shipment); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
@@ -125,23 +127,37 @@ $(function() {
 			include('shipmentForm.inc');
 		}
 		// this was a successful form submission; update the database and exit
-		else
+		else {
 			process_form($_POST, $shipment);
+			if ($_POST['submit']!="delete")
+				echo ' To view an invoice and shipping label, click <a href="'.$path.
+				     'shipmentInvoice.php?id='.$shipment->get_ship_date().'" target="_BLANK"><b>here</b></a>.';
+			include('shipmentForm.inc');
+		}
 		include('footer.inc');
 		echo('</div></div></body></html>');
 		die();
 	}
 
 function gather_ship_items($ids, $unit_wts, $units, $wts) {
-	$ship_items = ""; 
+	$ship_items = "";
+	$total_wt = 0; 
 	for ($i=0;$i<count($ids);$i++) 
 	    if ($ids[$i]!="") {
-	    	if ($unit_wts[$i]!="")
+	    	if ($unit_wts[$i]!="") {
+	    		if ($wts[$i]=="" && $units[$i]!="") {
+	    			$wts[$i] = $units[$i] * $unit_wts[$i];
+	    		}
+	    		else if ($wts[$i]!="") {
+	    			$units[$i] = intval($wts[$i] / $unit_wts[$i]);
+	    		}
 	    	    $ship_items .= ",".$ids[$i].";".$unit_wts[$i].":".$units[$i].":".$wts[$i];
+	    	}
 		    else 
-		        $ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+		    	$ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
+		    $total_wt += $wts[$i];
 	    }
-	return substr($ship_items,1);
+	return array(substr($ship_items,1),$total_wt);
 }
 	
 /**
@@ -170,7 +186,7 @@ function process_form($post,$shipment)	{
 					if (!$result)
                         echo ('<p class="error">Unable to add the shipment for "' .$shipment->get_customer_id(). '" to the database. <br>Please report this error to the Program manager.');
 					else echo("<p>You have successfully added a shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
-								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.</p>");
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.");
 				}
 		}
 
@@ -184,18 +200,25 @@ function process_form($post,$shipment)	{
                 	if (!$result)
                    		echo ('<p class="error">Unable to update shipment with timestamp ' .$shipment->get_ship_date(). '. <br>Please report this error to the Foodbank Director.');
 					else echo("<p>You have successfully updated the shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
-								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.</p>");
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.");
 //					add_log_entry('<a href=\"viewContribution.php?id='.$provider_id.'\">'.'</a>\'s database entry has been updated.');
 				}
 		}
 }
 
-function validate_form($post,$id){
-	if($id=='new' && $_POST['customer-id']==null || $_POST['customer-id']=='new'
-					 || $_POST['customer-id']=='') $errors[] = 'Please enter the name of the provider';
-	if (!valid_date($_POST['date'])) $errors[] = 'Please enter a valid receipt date';
-	if($post['product-id']==null) $errors[] = 'Please enter the items received';
+function validate_form($post,$shipment){
+	if($post['customer-id']==null || $post['customer-id']=='new'
+			|| $post['customer-id']=='') $errors[] = 'Please enter the name of the customer';
+	if (!valid_date($post['date'])) $errors[] = 'Please enter a valid ship date';
+	$items = $shipment->get_ship_items();
+	if(count($items)==0) $errors[] = 'Please enter at least one product';
+	else for ($i=0;$i<count($items); $i++) {
+		$ith_item = $items[$i];
+		if (strrpos($ith_item,":")==strlen($ith_item)-1)  // no total weight was computed
+			$errors[] = "Please enter either a total weight or number of case lots";
+	}
 	if($post['funds_source']==null) $errors[] = 'Please enter the funds source';
+	if($post['ship_via']==null) $errors[] = 'Please enter the ship via';
 	return $errors;
 }
 function valid_date($date)
