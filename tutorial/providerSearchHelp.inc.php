@@ -31,88 +31,69 @@
 <p>
 	<strong>Searching for Providers</strong>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
-	and select <B>search</B>, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep1.png" class="image"
-		title="searchpersonstep1.png"
-		target="tutorial/screenshots/searchpersonstep1.png">
+	<B>Step 1:</B> On the navigation bar at the top of the page, click on <B>providers:</B>
+	<BR> <BR> <a href="tutorial/screenshots/searchproviderstep1.png"
+		class="image" title="searchproviderstep1.png"
+		target="tutorial/screenshots/searchproviderstep1.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep1.png"
+		src="tutorial/screenshots/searchproviderstep1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchproviderstep1.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 2:</B> You can enter any part of a person's first name or last
-	name as a search criterion. For example, a search for "ann" would
-	return <B>Ann</B>, <B>Ann</B>a, Di<B>ann</B>e, etc.
+	<B>Step 2:</B> You can enter any part of a provider's name as a search criterion. 
+	For example, a search for "Vin" would
+	return <B>Vin</B>eyards, Coffee Cra<B>vin</b>gs, St. <B>Vin</b>cents, etc.
 <p>
-	You can also search for all persons with a particular status, like
-	"Active" or "on Applicant".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2.png" class="image"
-		title="searchpersonstep2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2.png"
-		border="1px" align="middle"> </a>
+	You can also search for all providers with a particular status, like
+	"Active" or "Inactive".<BR> <BR>
 </p>
 <p>
-	Another option is to search for a particular type of people, like "Sub"
-	or "Guest Chef".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-2.png" class="image"
-		title="searchpersonstep2-2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-2.png">
+	Another option is to search for a particular type of people, like "Food" or "Funds".
+	<BR> <BR> <a
+		href="tutorial/screenshots/searchproviderstep2.png" class="image"
+		title="searchproviderstep2.png" horizontalalign="center"
+		target="tutorial/screenshots/searchproviderstep2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-2.png"
+		src="tutorial/screenshots/searchproviderstep2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchproviderstep2.png"
 		border="1px" align="middle"> </a>
 </p>
-<p>
-	Yet another option is to search by availability. Remember, you can
-	always search with more than one criterion. <BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-3.png" class="image"
-		title="searchpersonstep2-3.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-3.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-3.png"
-		border="1px" align="middle"> </a>
-</p>
-
 <p>
 	<B>Step 3:</B> After typing your criteria in the appropriate box,
 	select the <B>Search</B> button, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep3.png" class="image"
-		title="searchpersonstep3.png"
-		target="tutorial/screenshots/searchpersonstep3.png">
+		href="tutorial/screenshots/searchproviderstep3.png" class="image"
+		title="searchproviderstep3.png"
+		target="tutorial/screenshots/searchproviderstep3.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep3.png"
+		src="tutorial/screenshots/searchproviderstep3.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchproviderstep3.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 4:</B> Now you will see a list of the names in the database
+	<B>Step 4:</B> Now you will see a list of the providers in the database
 	that match your search criteria, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep4.png" class="image"
-		title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4.png">
+		href="tutorial/screenshots/searchproviderstep4.png" class="image"
+		title="searchproviderstep4.png"
+		target="tutorial/screenshots/searchproviderstep4.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4.png"
+		src="tutorial/screenshots/searchproviderstep4.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchproviderstep4.png"
 		border="1px" align="middle"> </a>
 <p>
-	Note that the person's phone number will appear next to his/her name: <BR>
-	<BR> <a href="tutorial/screenshots/searchpersonstep4-2.png"
-		class="image" title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4-2.png">
+	Note that the provider's phone number and email will appear next to their name if 
+	that information is in the database: <BR>
+	<BR> <a href="tutorial/screenshots/searchproviderstep4-2.png"
+		class="image" title="searchproviderstep4.png"
+		target="tutorial/screenshots/searchproviderstep4-2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4-2.png"
+		src="tutorial/screenshots/searchproviderstep4-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchproviderstep4-2.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	If you see the person you want to view or edit, then <B>click on</B>
-	that person's name. <br>
+	If you see the provider you want to view or edit, then <B>click on</B>
+	that provider's name. <br>
 <p>
 	<B>Step 5:</B> If you don't see what you were looking for, you can try
 	again by repeating <B>Step 2</B>. <BR> <BR>

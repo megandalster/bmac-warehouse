@@ -39,22 +39,22 @@
 				<?PHP
 				// display the search form
 					echo('<p><a href="'.$path.'shipmentEdit.php?id=new">Add new shipment</a>');
-					echo('<form method="post">');
+					echo('<form method="GET">');
 						echo('<p><strong>Search for shipments:</strong>');
                         echo('<br></br>');
 						// Lay out the three search boxes
 						
-						$ship_date1 = $_POST['s_ship_date1'];	
-					    $ship_date2 = $_POST['s_ship_date2'];
+						$ship_date1 = $_GET['s_ship_date1'];	
+					    $ship_date2 = $_GET['s_ship_date2'];
                         echo '&nbsp;&nbsp;&nbsp;&nbsp;Date Range from: ' ;
 						echo '<input type="text" name="s_ship_date1" value="' . $ship_date1 . '" id="from">';
-						echo '&nbsp;&nbsp;to: <input type="text" name="s_ship_date2" value="' . $ship_date2 . '" id="to">';if( !array_key_exists('s_ship_date', $_POST) ) $ship_date = ""; else $ship_date = $_POST['s_ship_date'];
+						echo '&nbsp;&nbsp;to: <input type="text" name="s_ship_date2" value="' . $ship_date2 . '" id="to">';if( !array_key_exists('s_ship_date', $_GET) ) $ship_date = ""; else $ship_date = $_GET['s_ship_date'];
 						
-						$customer_id = $_POST['s_customer_id'];
+						$customer_id = $_GET['s_customer_id'];
 						echo '<p>&nbsp;&nbsp;&nbsp;&nbsp;Customer Name: ' ;
 						//Change this to whatever I want displayed in text area
 						echo '<input type="text" name="s_customer_id" value="' . $customer_id . '">';
-						$ship_items = $_POST['s_ship_items'];
+						$ship_items = $_GET['s_ship_items'];
 						echo '&nbsp;&nbsp;&nbsp;&nbsp;Product: ';
 						echo '<input type="text" name="s_ship_items" value="' . $ship_items . '">';
 						
@@ -62,11 +62,11 @@
 						echo('</form></p>');
 					
 				// if user hit "Search"  button, query the database and display the results
-					if( array_key_exists('s_submitted', $_POST) ){
-						$customer_id = $_POST['s_customer_id'];
-						$ship_date1 = $_POST['s_ship_date1'];
-						$ship_date2 = $_POST['s_ship_date2'];
-						$ship_items = $_POST['s_ship_items'];
+					if( array_key_exists('s_submitted', $_GET) ){
+						$customer_id = $_GET['s_customer_id'];
+						$ship_date1 = $_GET['s_ship_date1'];
+						$ship_date2 = $_GET['s_ship_date2'];
+						$ship_items = $_GET['s_ship_items'];
                        
                         // now go after the persons that fit the search criteria
                         include_once('database/dbShipments.php');
