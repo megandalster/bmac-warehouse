@@ -142,3 +142,19 @@
 		border="1px" align="middle"> </a>
 </p>
 
+	<p><strong>Deleting a Product</strong>
+<p>
+	<strong>Step 1:</strong> navigate to the product you wish to edit, as you would when editting a product.
+<p>
+	<strong>Step 2:</strong> Second, <strong> click on </strong>
+	the checkbox located at bottom of a product's information page. Once the checkbox is checked, you can hit the delete button and remove the product from the database.
+	<BR> <BR> <a
+		href="tutorial/screenshots/ProductDelete.png" class="image"
+		title="ProductDelete.png"
+		target="tutorial/screenshots/ProductDelete.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/ProductDelete.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/ProductDelete.png"
+		border="1px" align="middle"> </a>
+</p>
+<p>

@@ -45,7 +45,7 @@
 		align="center"> </a> <BR>
 <p>
 	<B>Step 2:</B>		
-		Here you can specifty which report you want to run.
+		Here you can specify which report you want to run.
 		<BR>
 		<BR>
 		To select a report to run, <b>click on</b> one of the reports on the menu like so:
@@ -88,10 +88,9 @@ Using the Date Picker which will appear when clicking on the field: <BR>
 		data-img="tutorial/screenshots/ReportsHelp42.png" border="1px"
 		align="center"> </a> <BR><BR>
 Using the Drop down menu which will appear when clicking on the field: <BR>
-&nbsp&nbsp-Select the name of the funding source for which you want to filter the results. <BR>
+&nbsp&nbsp-Select the name of the status for which you want to filter the results. <BR>
 <BR>
-<b>Note:</b> If you leave this field set to "any", all funding sources will appear in the results. <BR>
-
+<b>Note:</b> The default selection, "Active" will automatically filter the results. <BR>
 <p>
 	<B>Step 5:</B> Specifying the Funding Source:
 	<BR>This step only applies to:<BR>&nbsp&nbsp-Inventory Shipments<BR>&nbsp&nbsp-Inventory Receipts<BR>&nbsp&nbsp-Current Inventory
@@ -104,7 +103,7 @@ Using the Drop down menu which will appear when clicking on the field: <BR>
 Using the Drop down menu which will appear when clicking on the field: <BR>
 &nbsp&nbsp-Select the status for which you want to filter the results. <BR>
 <BR>
-<b>Note:</b> The default selection, "Active" will automatically filter the results. <BR>
+<b>Note:</b> If you leave this field set to "any", all funding sources will appear in the results. <BR>
 <p>
 	<B>Step 6:</B> Then select the <B>Submit</B> button, like this:<BR> <BR>
 	<a href="tutorial/screenshots/ReportsHelp5.png" class="image"
