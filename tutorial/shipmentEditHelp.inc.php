@@ -57,10 +57,22 @@
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<strong>Step 3:</strong> To change any of the shipment
-	's information,
+	<strong>Step 3:</strong> 
+	To change any of the shipment's information,
 	just retype or reselect it. For instance, to change its Funding Source,
-	select one of the funding sources from the drop down list.  To add more items to the shipment, 
+	select one of the funding sources from the drop down list.  Each shipment must have a Ship Date, a Ship To and Funding Source,
+	a Ship Via, and at least one Product.  
+	<BR> <BR> <a
+		href="tutorial/screenshots/shipmentEditHelpRetype.png" class="image"
+		title="shipmentEditHelpRetype.png"
+		target="tutorial/screenshots/shipmentEditHelpRetype.png">
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
+		src="tutorial/screenshots/shipmentEditHelpRetype.png" rel="popover"
+		data-img="tutorial/screenshots/shipmentEditHelpRetype.png" width="10%"
+		border="1px" align="middle"> </a>
+	<br></br>
+	These are "autocomplete" fields, which means that a list of choices
+	will appear when you being typing.  To add more items to the shipment, 
 	use the "add more" button at the bottom of the table. <br><i>REMEMBER:</i> No fields marked by <font
 		color="#FF0000">*</font> can be left blank.
 </p>
