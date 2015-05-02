@@ -175,7 +175,7 @@ p.error {color: #FF0000;}
 }
 
 #shipinvoiceheader{
-	height: 92px;
+	height: 100px;
 	border-left:2px solid #264576;
 	border-top:2px solid #264576;
 	border-right:2px solid #264576;
@@ -187,7 +187,7 @@ p.error {color: #FF0000;}
 }
 
 #shippinglabelcontent{
-	width: 500px;
+	width: 500px; height: 200px;
 	border-left:2px solid #264576;
 	border-bottom:2px solid #264576;
 	border-right:2px solid #264576;
@@ -195,6 +195,17 @@ p.error {color: #FF0000;}
 	padding: 10px;
 	background:#f5f5f6;
 	overflow:hidden;
+	font-size:24px; font-family: times; font-style: italic;  color:#005190; font-weight:bold;
+}
+#shippinginvoicecontent{
+	border-left:2px solid #264576;
+	border-bottom:2px solid #264576;
+	border-right:2px solid #264576;
+	align:center;
+	padding: 20px;
+	background:#f5f5f6;
+	overflow:hidden;
+	font-size:16px; font-family: times; font-style: italic;  color:#005190; 
 }
 
 #navigationLinks{
