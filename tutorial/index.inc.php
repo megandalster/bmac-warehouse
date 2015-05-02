@@ -59,8 +59,7 @@ session_cache_expire(30);
 		<br>
 		<li><a href="?helpPage=bmac-warehouse/reports.php">Generating Reports</a> (Office Staff and Director)</li>
 		<br>
-		<ul><li><a href="?helpPage=bmac-warehouse/dataExport.php">Exporting Report Data (CSV for Excel)</a></li>
-		</ul>
+		
 	</ol>
 	<p>
 		If these help pages don't answer your questions, please contact the <a
