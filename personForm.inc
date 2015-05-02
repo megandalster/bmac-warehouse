@@ -51,7 +51,7 @@ else // $_SESSION['access_level']==3
 ?>
 <fieldset>
 <legend>Contact Information</legend>
-	<table>		<tr><td>Address<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="40" name="address" tabindex=3 value="<?PHP echo($person->get_address())?>"></td></tr>
+	<table>		<tr><td>Address<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" size="30" name="address" tabindex=3 value="<?PHP echo($person->get_address())?>"></td></tr>
 		<tr><td>City<span style="font-size:x-small;color:FF0000">*</span>:</td><td> <input type="text" name="city" tabindex=4 value="<?PHP echo($person->get_city())?>"></td></tr>
 		<tr><td>State, Zip<span style="font-size:x-small;color:FF0000">*</span>:</td>
 		<td><select name="state" tabindex=5>
@@ -77,8 +77,8 @@ else // $_SESSION['access_level']==3
 			else 
 				echo '<td>Primary Phone:</td><td>'.$person->get_phone1().'</td>';
 		?>
-		<td>Secondary Phone:</td><td><input type="text" name="phone2" MAXLENGTH=12 tabindex=8 value="<?PHP echo $person->get_phone2()?>"></td></tr>
-		<tr><td>Email:</td><td><input type="text" name="email" size="40" tabindex=9 value="<?PHP echo($person->get_email())?>"></td></tr>
+		<tr><td>Secondary Phone:</td><td><input type="text" name="phone2" MAXLENGTH=12 tabindex=8 value="<?PHP echo $person->get_phone2()?>"></td></tr>
+		<tr><td>Email:</td><td><input type="text" name="email" size="30" tabindex=9 value="<?PHP echo($person->get_email())?>"></td></tr>
 
 </table>
 </fieldset>
