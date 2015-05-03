@@ -30,94 +30,51 @@
 
 <p>
 	<strong>Searching for Receipts</strong>
+</p>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
-	and select <B>search</B>, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep1.png" class="image"
-		title="searchpersonstep1.png"
-		target="tutorial/screenshots/searchpersonstep1.png">
+Here you can search for the receipts of contributions received. You can search by the date range in which receipts were made, by the name of the provider, and by the name of the
+received item. You can view the products received per contribution, their amount in case lots, and weight of each product. It also includes total weight of contribution and the amount
+billed for the receipt. You can also select individual receipts to edit them.
+</p>
+<p>
+	<B>Step 1:</B> On the navigation bar at the top of the page, click on the date range boxes and select the dates you want to search on by clicking on the day box:<BR> <BR><a
+		href="tutorial/screenshots/contributionSearchHelp1.png" class="image"
+		title="contributionSearchHelp1.png"
+		target="tutorial/screenshots/contributionSearchHelp1.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep1.png"
+		src="tutorial/screenshots/contributionSearchHelp1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp1.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 2:</B> You can enter any part of a person's first name or last
-	name as a search criterion. For example, a search for "ann" would
-	return <B>Ann</B>, <B>Ann</B>a, Di<B>ann</B>e, etc.
-<p>
-	You can also search for all persons with a particular status, like
-	"Active" or "on Applicant".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2.png" class="image"
-		title="searchpersonstep2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2.png">
+	Afterwards, click on the <b>Provider name: </b>box and type the first letters of the provider in the receipt. You can also select
+	the <b>Receive items:</b> box and type in the first letters of the product whose receipts you are looking for. Afterwards, hit <b>Search</b>. <BR> <BR> <a
+		href="tutorial/screenshots/contributionSearchHelp1-2.png" class="image"
+		title="contributionSearchHelp1-2.png"
+		target="tutorial/screenshots/contributionSearchHelp1-2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2.png"
+		src="tutorial/screenshots/contributionSearchHelp1-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp1-2.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	Another option is to search for a particular type of people, like "Sub"
-	or "Guest Chef".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-2.png" class="image"
-		title="searchpersonstep2-2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-2.png">
+	<B>Step 2:</B> The list of receipts that match your search parameters will be shown in chronological order by date of receipt. The receipt includes the products received, 
+	amount in case lots, and weight per case. It also includes the total weight of the items received, and amount billed. Scroll down to see all the results. <BR> <BR><a
+		href="tutorial/screenshots/contributionSearchHelp2.png" class="image"
+		title="contributionSearchHelp2.png"
+		target="tutorial/screenshots/contributionSearchHelp2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-2.png"
+		src="tutorial/screenshots/contributionSearchHelp2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp2.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	Yet another option is to search by availability. Remember, you can
-	always search with more than one criterion. <BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-3.png" class="image"
-		title="searchpersonstep2-3.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-3.png">
+	<B>Step 3:</B> Click on the date of any receipt to edit it. <b><a href="help.php?helpPage=bmac-warehouse/contributionEdit.php">Editing a receipt</a></b> <BR> <BR><a
+		href="tutorial/screenshots/contributionSearchHelp3.png" class="image"
+		title="contributionSearchHelp3.png"
+		target="tutorial/screenshots/contributionSearchHelp3.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-3.png"
+		src="tutorial/screenshots/contributionSearchHelp3.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp2.png"
 		border="1px" align="middle"> </a>
 </p>
-
-<p>
-	<B>Step 3:</B> After typing your criteria in the appropriate box,
-	select the <B>Search</B> button, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep3.png" class="image"
-		title="searchpersonstep3.png"
-		target="tutorial/screenshots/searchpersonstep3.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep3.png"
-		border="1px" align="middle"> </a>
-</p>
-<p>
-	<B>Step 4:</B> Now you will see a list of the names in the database
-	that match your search criteria, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep4.png" class="image"
-		title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4.png"
-		border="1px" align="middle"> </a>
-<p>
-	Note that the person's phone number will appear next to his/her name: <BR>
-	<BR> <a href="tutorial/screenshots/searchpersonstep4-2.png"
-		class="image" title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4-2.png">
-		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4-2.png"
-		border="1px" align="middle"> </a>
-</p>
-<p>
-	If you see the person you want to view or edit, then <B>click on</B>
-	that person's name. <br>
-<p>
-	<B>Step 5:</B> If you don't see what you were looking for, you can try
-	again by repeating <B>Step 2</B>. <BR> <BR>
-</p>
-
-<p>
-	<B>Step 6:</B> When you finish, you can return to any other function by
-	selecting it on the navigation bar.
