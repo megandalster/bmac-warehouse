@@ -29,80 +29,133 @@
 
 <p>
 	<strong>Editing and Adding a New Receipt</strong>
-<p>Editing information in the volunteer database is usually done by the
-	House Manager. There is one exception: a volunteer can view and modify
-	his or her own information in the database (but nobody else's). So this
-	tutorial is mainly for the House Manager.
+	</p>
+<p>This tutorial is compromised of two parts: Adding a new receipt into the database, and editing an existing receipt. 
+</p>
+<p><b>Adding a new receipt</b></p>
 <p>
-	<strong>Step 1:</strong> First you need to <strong>search</strong> for
-	the person whose information you want to edit. <BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep1.png" class="image"
-		title="editpersonstep1.png"
-		target="tutorial/screenshots/editpersonstep1.png">
+	<strong>Step 1:</strong>First, select the <b>Receipt Date box</b> and pick the date of the receipt by clicking on the calendar day. The date of the 
+	receipt is set to the current date by default.
+	This will be the unique identifier for the receipt to be made. 
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp1.png" class="image"
+		title="contributionEditHelp1.png"
+		target="tutorial/screenshots/contributionEditHelp1.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep1.png"
+		src="tutorial/screenshots/contributionEditHelp1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp1.png"
 		border="1px" align="middle"> </a>
+		
 </p>
 <p>
-	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
-</p>
-
-<p>
-	<strong>Step 2:</strong> After finding that person, <strong> click on </strong>
-	his/her name. You will now see a page with all of the person's
-	information, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep2.png" class="image"
-		title="editpersonstep2.png"
-		target="tutorial/screenshots/editpersonstep2.png">
+	Click on the <b>Provider</b> box and type in the name of the provider. Then select a <b>Payment Source</b> option from the box 
+	to the right. Both fields are required:
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp1-2.png" class="image"
+		title="contributionEditHelp1-2.png"
+		target="tutorial/screenshots/contributionEditHelp1-2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep2.png"
+		src="tutorial/screenshots/contributionEditHelp1-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp1-2.png"
 		border="1px" align="middle"> </a>
+		
 </p>
 <p>
-	<strong>Step 3:</strong> To change any of the person's information,
-	just retype or reselect it. For instance, to change Availability,
-	select one of the unchecked (checked) boxes and it will become checked
-	(unchecked). <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
-		color="#FF0000">*</font> can be left blank.
-</p>
-
-<p>
-	<strong>Step 4:</strong> When you finish making changes, select <strong>Submit</strong>
-	at the bottom of the page:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep4.png" class="image"
-		title="editpersonstep4.png"
-		target="tutorial/screenshots/editpersonstep4.png">
+	<strong>Step 2:</strong>If any, add the products that you received by filling in the appropiate boxes per individual product. If you are adding products, 
+	you must add the name of the <b>provider</b>, the amount received in <b>case lots</b>, and the <b>total weight</b> of the product. Optionally, you may also 
+	add the <b>individual</b> weight per case. 
+	
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp2.png" class="image"
+		title="contributionEditHelp2.png"
+		target="tutorial/screenshots/contributionEditHelp2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep4.png" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep4.png" width="10%"
+		src="tutorial/screenshots/contributionEditHelp2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp2.png"
 		border="1px" align="middle"> </a>
+		
 </p>
-
 <p>
-	<B>Step 5:</B> If errors occur, <font color=#FF0000>red</font> warnings
-	will tell you what you need to correct, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep5.png" class="image"
-		title="editpersonstep5.png"
-		target="tutorial/screenshots/editpersonstep5.png"
-		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep5.png" width="10%"
-		border="1px" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep5.png" align="middle"> </a>
-	<BR>&nbsp&nbsp&nbsp *After you have make these corrections, repeat <B>Step
-		4</B>.
-<p>
-	<B>Step 6:</B> If you have no errors or omissions, you will see a page
-	telling you the edit was successful, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep6.png" class="image"
-		title="editpersonstep6.png"
-		target="tutorial/screenshots/editpersonstep6.png"
-		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep6.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/editpersonstep6.png"
+	If you are adding more than one product, make sure to click <b>add more</b> every time you want to add another product. A new row will appear 
+	where you can keep adding more information. 
+	
+	<BR> <BR><b>1.</b> <a
+		href="tutorial/screenshots/contributionEditHelp2-1.png" class="image"
+		title="contributionEditHelp2-1.png"
+		target="tutorial/screenshots/contributionEditHelp2-1.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp2-1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp2-1.png"
 		border="1px" align="middle"> </a>
+	<BR> <BR><b>2.</b> <a
+		href="tutorial/screenshots/contributionEditHelp2-2.png" class="image"
+		title="contributionEditHelp2-2.png"
+		target="tutorial/screenshots/contributionEditHelp2-2.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp2-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp2-2.png"
+		border="1px" align="middle"> </a>
+		
+</p>
 <p>
-	<B>Step 7:</B> When you finish, you can return to any other function by
-	selecting it on the navigation bar.
+	<strong>Step 3: </strong>In the <b>Amount billed</b> box, enter the amount billed. This box is required.
+	
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp3.png" class="image"
+		title="contributionEditHelp3.png"
+		target="tutorial/screenshots/contributionEditHelp3.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp3.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp3.png"
+		border="1px" align="middle"> </a>
+		
+</p>
+<p>
+	<strong>Step 4: </strong>In the <b>Notes</b> box, you may add information about the receipt that is otherwise not specified. This box is optional.
+	
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp4.png" class="image"
+		title="contributionEditHelp4.png"
+		target="tutorial/screenshots/contributionEditHelp4.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp4.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp4.png"
+		border="1px" align="middle"> </a>
+		
+</p>
+<p>
+	<strong>Step 5: </strong>When you're done, hit <b>Submit</b>. 
+	
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp5.png" class="image"
+		title="contributionEditHelp5.png"
+		target="tutorial/screenshots/contributionEditHelp5.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp5.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp5.png"
+		border="1px" align="middle"> </a>
+		
+</p>
+<p>
+	<strong>Step 6: </strong>If you missed a required field, a warning will pop up. In this case, the <b>provider name</b> was left blank. 
+	
+	<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp6.png" class="image"
+		title="contributionEditHelp6.png"
+		target="tutorial/screenshots/contributionEditHelp6.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp6.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp6.png"
+		border="1px" align="middle"> </a>
+		
+</p>
+<p>If you didn't make any mistakes, you will be shown a page like this:
+<BR> <BR> <a
+		href="tutorial/screenshots/contributionEditHelp6-2.png" class="image"
+		title="contributionEditHelp6-2.png"
+		target="tutorial/screenshots/contributionEditHelp6-2.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/contributionEditHelp6-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/contributionEditHelp6-2.png"
+		border="1px" align="middle"> </a>
+<p>This means you're done!</p>
