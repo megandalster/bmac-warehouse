@@ -1,14 +1,11 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
- * This program is part of RMH Homebase, which is free software.  It comes with
- * absolutely no warranty. You can redistribute and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- *
- */
+ * Copyright 2014 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis Munguia Orta,
+ * David Quennoz, and Allen Tucker. This program is part of BMAC-Warehouse, which is free software.
+ * It comes with absolutely no warranty.  You can redistribute and/or
+ * modify it under the terms of the GNU Public License as published
+ * by the Free Software Foundation (see <http://www.gnu.org/licenses/).
+*/
 ?>
 
 <script src="lib/jquery-1.9.1.js"></script>
@@ -29,13 +26,14 @@
 
 <p>
 	<strong>Adding and Editing Staff Records</strong>
-<p>Editing information in the volunteer database is usually done by the
-	House Manager. There is one exception: a volunteer can view and modify
-	his or her own information in the database (but nobody else's). So this
-	tutorial is mainly for the House Manager.
+<p>Editing staff login and contact information in the database is done by the 
+Foodbank Director. He can add new staff logins for anyone needing to access the system. 
+That person will have the type "office", "warehouse", or "manager" depending on the
+level of access needed.
 <p>
-	<strong>Step 1:</strong> First you need to <strong>search</strong> for
-	the person whose information you want to edit. <BR> <BR> <a
+	<strong>Step 1:</strong> To <strong>search</strong> for
+	a staff member whose information you want to edit, select <b>staff</b> in the
+	top menu bar and then hit Search on the page that appears, like this: <BR> <BR> <a
 		href="tutorial/screenshots/editpersonstep1.png" class="image"
 		title="editpersonstep1.png"
 		target="tutorial/screenshots/editpersonstep1.png">
@@ -44,13 +42,9 @@
 		rel="popover" data-img="tutorial/screenshots/editpersonstep1.png"
 		border="1px" align="middle"> </a>
 </p>
-<p>
-	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
-</p>
 
 <p>
-	<strong>Step 2:</strong> After finding that person, <strong> click on </strong>
+	<strong>Step 2:</strong> After finding that person in the list that appears, <strong> click on </strong>
 	his/her name. You will now see a page with all of the person's
 	information, like this:<BR> <BR> <a
 		href="tutorial/screenshots/editpersonstep2.png" class="image"
@@ -62,10 +56,8 @@
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<strong>Step 3:</strong> To change any of the person's information,
-	just retype or reselect it. For instance, to change Availability,
-	select one of the unchecked (checked) boxes and it will become checked
-	(unchecked). <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
+	<strong>Step 3:</strong> To change any of this information,
+	just retype or reselect it. <BR>&nbsp&nbsp REMEMBER: No fields marked by <font
 		color="#FF0000">*</font> can be left blank.
 </p>
 
@@ -83,15 +75,7 @@
 
 <p>
 	<B>Step 5:</B> If errors occur, <font color=#FF0000>red</font> warnings
-	will tell you what you need to correct, like this:<BR> <BR> <a
-		href="tutorial/screenshots/editpersonstep5.png" class="image"
-		title="editpersonstep5.png"
-		target="tutorial/screenshots/editpersonstep5.png"
-		horizontalalign="center"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/editpersonstep5.png" width="10%"
-		border="1px" rel="popover"
-		data-img="tutorial/screenshots/editpersonstep5.png" align="middle"> </a>
-	<BR>&nbsp&nbsp&nbsp *After you have make these corrections, repeat <B>Step
+	will tell you what you need to correct.  After you have make these corrections, repeat <B>Step
 		4</B>.
 <p>
 	<B>Step 6:</B> If you have no errors or omissions, you will see a page
@@ -104,5 +88,26 @@
 		rel="popover" data-img="tutorial/screenshots/editpersonstep6.png"
 		border="1px" align="middle"> </a>
 <p>
-	<B>Step 7:</B> When you finish, you can return to any other function by
+	<B>Step 7:</B> On the page shown in <b>Step 4</b>, notice that you can also reset a
+	person's password to default, or even completely remove a person from the
+	database if he/she is no longer authorized to access this system.
+<p>
+	<B>Step 8:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
+<p>
+	<B>Note:</B> You can also add a new person to the database by selecting 
+	"Add New Staff" in the display shown in <b>Step 1</b>. This will give you a blank form
+	that looks like this:
+	<BR> <BR> <a
+		href="tutorial/screenshots/editpersonstep7.png" class="image"
+		title="editpersonstep7.png"
+		target="tutorial/screenshots/editpersonstep7.png">
+		&nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/editpersonstep7.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/editpersonstep7.png"
+		border="1px" align="middle"> </a>
+	<br><br>
+	After filling in the person's contact information and selecting his/her type,
+	select "Submit" at the bottom of the page.  This will create a now login
+	for that person with the default password.  When that person logs in for
+	the first time, he/she may change that password to something more secure.

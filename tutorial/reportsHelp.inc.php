@@ -45,10 +45,10 @@
 		align="center"> </a> <BR>
 <p>
 	<B>Step 2:</B>		
-		Here you can specify which report you want to run.
+		Here you can select which report you want to run.
 		<BR>
 		<BR>
-		To select a report to run, <b>click on</b> one of the reports on the menu like so:
+		To select a report, <b>click on</b> one of the reports on the menu like so:
 		<BR>
 	<BR>
 	<a href="tutorial/screenshots/ReportsHelp3.png" class="image"
@@ -60,7 +60,7 @@
 	<BR>
 <p>
 <b>Note:</b> Steps 3-5 apply to only certain reports. Depending on the report you are
-running, you can skip steps 3, 4, or 5.
+running, you can skip step 3, 4, or 5.
 <p>
 	<B>Step 3:</B> Once you have clicked on a report, you can now specify the time period of the report:
 	<BR>This step only applies to:<BR>&nbsp&nbsp-Inventory Shipments<BR>&nbsp&nbsp-Inventory Receipts<BR>&nbsp&nbsp-Current Inventory<BR>&nbsp&nbsp-Current Providers
@@ -71,15 +71,15 @@ running, you can skip steps 3, 4, or 5.
 		data-img="tutorial/screenshots/ReportsHelp41.png" border="1px"
 		align="center"> </a> <BR><BR>
 Using the Date Picker which will appear when clicking on the field: <BR>
-&nbsp&nbsp-Fill in the "From" date with the first report dates you wish to see. <BR>
-&nbsp&nbsp-Fill in the "To" date with the last report dates you wish to see.	
+&nbsp&nbsp-Fill in the "From" date with the starting date for your report. <BR>
+&nbsp&nbsp-Fill in the "To" date with the ending date for your report.	
 <BR><BR>
-<b>Note:</b> If you want to view all reports, regardless of date, you can leave this field blank. <BR>
-&nbsp&nbsp-If you want to see all reports from a given date to present, only fill in the "From" date. <BR>
-&nbsp&nbsp-If you want to see all reports up to a given date, only fill in the "To" date. <BR>
+<b>Note:</b> If you want to view a report over all time, you can leave "From" and "To" blank. <BR>
+&nbsp&nbsp-If you want to report all activity from a given date to to present, only fill in the "From" date. <BR>
+&nbsp&nbsp-If you want to report all activity up to a given date, only fill in the "To" date. <BR>
 
 <p>
-	<B>Step 4:</B> Specifying the Status:
+	<B>Step 4:</B> Limiting the report to a particular Status:
 	<BR>This step only applies to:<BR>&nbsp&nbsp-Current Inventory<BR>&nbsp&nbsp-Current Customers<BR>&nbsp&nbsp-Current Providers
 	<BR><BR> <a href="tutorial/screenshots/ReportsHelp42.png" class="image"
 		title="ReportsHelp42.png" horizontalalign="center"
@@ -87,10 +87,9 @@ Using the Date Picker which will appear when clicking on the field: <BR>
 		src="tutorial/screenshots/ReportsHelp42.png" width="10%" rel="popover"
 		data-img="tutorial/screenshots/ReportsHelp42.png" border="1px"
 		align="center"> </a> <BR><BR>
-Using the Drop down menu which will appear when clicking on the field: <BR>
-&nbsp&nbsp-Select the name of the status for which you want to filter the results. <BR>
+By default, these reports only apply to products, customers, and providers with active status.  To obtain
+these reports for inactive/discontinued products, customers, or providers, select "Inactive/Discontinued" in the Status drop-down menu:<BR>
 <BR>
-<b>Note:</b> The default selection, "Active" will automatically filter the results. <BR>
 <p>
 	<B>Step 5:</B> Specifying the Funding Source:
 	<BR>This step only applies to:<BR>&nbsp&nbsp-Inventory Shipments<BR>&nbsp&nbsp-Inventory Receipts<BR>&nbsp&nbsp-Current Inventory
@@ -103,18 +102,17 @@ Using the Drop down menu which will appear when clicking on the field: <BR>
 Using the Drop down menu which will appear when clicking on the field: <BR>
 &nbsp&nbsp-Select the status for which you want to filter the results. <BR>
 <BR>
-<b>Note:</b> If you leave this field set to "any", all funding sources will appear in the results. <BR>
+<b>Note:</b> If you leave this field set to "any", your report will cover all funding sources. <BR>
 <p>
-	<B>Step 6:</B> Then select the <B>Submit</B> button, like this:<BR> <BR>
+	<B>Step 6:</B> To generate your report, select the <B>Submit</B> button, like this:<BR> <BR>
 	<a href="tutorial/screenshots/ReportsHelp5.png" class="image"
 		title="ReportsHelp5.png" horizontalalign="center"
 		target="tutorial/screenshots/ReportsHelp5.png"> &nbsp&nbsp&nbsp&nbsp<img
 		src="tutorial/screenshots/ReportsHelp5.png" width="10%" rel="popover"
 		data-img="tutorial/screenshots/ReportsHelp5.png" border="1px"
-		align="center"> </a> <BR> Note that if you wish to view the entire
-	history, you don't have to choose a date - just select <B>Submit</B>.
+		align="center"> </a>
 <p>
-	<B>Step 6:</B> <BR>The report for <B>Inventory Shipments</B> or <B>Inventory Receipts</B> may look like this: <BR>
+	<BR>The report for <B>Inventory Shipments</B> or <B>Inventory Receipts</B> may look like this: <BR>
 		<BR> <a href="tutorial/screenshots/ReportsHelp61.png" class="image"
 		title="ReportsHelp61.png" horizontalalign="center"
 		target="tutorial/screenshots/ReportsHelp61.png"> &nbsp&nbsp&nbsp&nbsp<img
@@ -145,6 +143,14 @@ Using the Drop down menu which will appear when clicking on the field: <BR>
 		rel="popover" data-img="tutorial/screenshots/ReportsHelp63.png"
 		border="1px" align="center"> </a> <BR>Note that clicking on a customer leads to that customer's information page.
 <p>
-	<B>Step 7:</B> When you finish, you can generate a new report by
-	refreshing the page and following the steps above or return to any
+	<B>Step 7:</B> You may export your report to a CSV file for further processing as a spreadsheet.  
+	To do this, check the box to the right of the "Submit" button and hit that button again.  Your report
+	will be saved as the file "export.csv", which you can download by pointing your browser to it.  
+	<br><br>That is,
+	go to the URL in your browser and change the phrase that begins "reports.php" to "export.csv" and hit
+	enter.  The file "export.csv" should now appear in your computer's Downloads folder and can be immediately
+	opened in Excel.
+<p>	
+	<B>Step 8:</B> When you finish, you can generate a new report by
+	refreshing the page and following the steps above.  Or else you may return to any
 	other function by selecting it on the navigation bar.
