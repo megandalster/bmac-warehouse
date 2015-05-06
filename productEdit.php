@@ -69,7 +69,7 @@
 				$product_id = $product->get_product_id();
 				$unit_weight = $product->get_unit_weight();
 		}
-		$product = new Product($product_id, $_POST['product_code'], $_POST['funding_source'], $_POST['unit_weight'], $_POST['unit_price'], $_POST['initial_date'], $_POST['initial_stock'],
+		$product = new Product($product_id, $_POST['product_code'], $funding_source, $_POST['unit_weight'], $_POST['unit_price'], $_POST['initial_date'], $_POST['initial_stock'],
 								 $_POST['minimum_stock'], $_POST['history'], $_POST['current_stock'], $_POST['status'], $_POST['inventory_date'], $_POST['notes']);
 		$errors = validate_form($id); 	//step one is validation.
         // errors array lists problems on the form submitted

@@ -57,7 +57,7 @@ else {// $_SESSION['access_level']==3
 	echo '<option value="AFF"'; if ($product->get_funding_source()=="AFF") echo " SELECTED"; echo '>AFF</option>';
 	echo '<option value="FC"'; if ($product->get_funding_source()=="FC") echo " SELECTED"; echo '>FC or F.D.</option>';
 	echo '<option value="SP"'; if ($product->get_funding_source()=="SP") echo " SELECTED"; echo '>SP</option>';
-	echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
+	//echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
 	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation" || $product->get_funding_source()=="") echo " SELECTED"; echo '>Donation</option>';
 	echo('</select></p>');
 	$recent_inventory = $product->get_history();
