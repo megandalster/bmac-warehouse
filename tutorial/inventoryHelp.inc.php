@@ -26,12 +26,11 @@
 <p>
 	<strong>Using the Inventory Worksheet</strong>
 </p>
-<p> Here you can view the products that the warehouse has currently in stock, their history, and you can also update their current stock.<br>
-	You can also undo recent changes to products if the information you input was erroneous.
+<p> Here you can view the products that are currently in stock, update their current stock levels, and correct past recording errors. 
 </p>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>Work on inventory for all active products with names that begin with:</B>
-	and type in the search box the initial letters of the products you want to review. Then, press enter or update:<BR> <BR> <a
+	<B>Step 1:</B> On the navigation bar at the top of the page, hit <b>products</b> and then select <B>Work on inventory</b>. You should see a 
+	page that looks like this:<BR> <BR><a
 		href="tutorial/screenshots/inventoryHelp1.png" class="image"
 		title="inventoryHelp1.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp1.png">
@@ -39,65 +38,65 @@
 		src="tutorial/screenshots/inventoryHelp1.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp1.png"
 		border="1px" align="center"> </a>
+	<BR> <BR>In the box labeled "Show all active products with names that begin with" type the first few letters of a group of products that you want to 
+	inventory ("a" is there by default, and all the products that begin with a are listed by default). <BR> <BR> Note: You may need to scroll down to see the full list.  
 </p>
 <p>
-	<B>Step 2:</B> You should now see a long list of all products that match your search parameters:<BR> <BR> <a
+	<B>Step 2:</B> For example, if you type "cheese" in that box and then hit "Update", you should see a list of all products that match what you typed, as shown below: <BR> <BR><a
 		href="tutorial/screenshots/inventoryHelp2.png" class="image"
 		title="inventoryHelp2.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
 		src="tutorial/screenshots/inventoryHelp2.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp2.png"
-		border="1px" align="center"> </a><BR> You can scroll down to see the full list. <br>(NOTE:&nbsp All fields marked
-		by <font color="#FF0000">*</font> are required before a person can be
-	added to the database.)
+		border="1px" align="center"> </a>
 </p>
 
 <p>
-	<B>Step 3:</B> There will be two boxes at the right of each product information, where you can edit their <B>Current Stock in case lots</B> and
-	their <B>Current Stock in total weight</B> by typing them in the box and hitting update.<BR> <BR> <b>1.</b><a
+	<B>Step 3:</B> Each product line shows its funding source, unit weight, data from when the last inventory was taken, and two boxes on the right where you
+	can enter the current stock -- units (case lots) and/or total weight -- as shown in <b>a.</b> below.  When you hit "Update", the result will appear
+	as shown in <b>b.</b> below.<BR> <BR> <b>a.</b><a
 		href="tutorial/screenshots/inventoryHelp3.png" class="image"
 		title="inventoryHelp3.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp3.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/inventoryHelp3.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp3.png"
 		border="1px" align="center"> </a>
-		<BR> <BR> <b>2.</b><a
+		&nbsp;&nbsp;&nbsp;&nbsp;<b>b.</b><a
 		href="tutorial/screenshots/inventoryHelp3-2.png" class="image"
 		title="inventoryHelp3-2.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp3-2.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/inventoryHelp3-2.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp3-2.png"
 		border="1px" align="center"> </a>
 
 </p>
 <p>
-	<B>Step 4:</B> If you leave either box blank, it will be automatically computed given the last inventory check of the product, plus its recent shipments and receipts, like so:<BR> <BR> <b>1.</b><a
+	<B>Step 4:</B> If you leave the total weight or units box blank, it will be automatically computed from the unit weight, as shown in <b>a.</b> and <b>b.</b> below:<BR> <BR> 
+	    <b>a.</b><a
 		href="tutorial/screenshots/inventoryHelp4.png" class="image"
 		title="inventoryHelp4.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp4.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/inventoryHelp4.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp4.png"
 		border="1px" align="center"> </a>
-		<BR> <BR> <b>2.</b><a
+		&nbsp;&nbsp;&nbsp;&nbsp; <b>b.</b><a
 		href="tutorial/screenshots/inventoryHelp4-2.png" class="image"
 		title="inventoryHelp4-2.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp4-2.png">
-		&nbsp&nbsp&nbsp&nbsp<img
+		&nbsp;&nbsp;&nbsp;&nbsp;<img
 		src="tutorial/screenshots/inventoryHelp4-2.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp4-2.png"
 		border="1px" align="center"> </a>
 
-</p>
-		
-		
-		
+</p>	
 		
 <p>
-	<B>Step 5:</B> If you make a mistake or omit a required field, check the <b>Undo</b> box and hit update on the product you wish to revert changes:<BR> <BR> <a
+	<B>Step 5:</B> If you make a mistake, you can always "undo" it by checking the <b>Undo</b> box for that product and then hitting Update, as shown in <b>a.</b> and <b>b.</b> below:<BR> <BR> 
+	    <b>a.</b><a
 		href="tutorial/screenshots/inventoryHelp5.png" class="image"
 		title="inventoryHelp5.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp5.png">
@@ -105,7 +104,7 @@
 		src="tutorial/screenshots/inventoryHelp5.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp5.png"
 		border="1px" align="center"> </a>
-		<BR> <BR> <b>2.</b><a
+		&nbsp;&nbsp;&nbsp;&nbsp; <b>b.</b><a
 		href="tutorial/screenshots/inventoryHelp5-2.png" class="image"
 		title="inventoryHelp5-2.png" horizontalalign="center"
 		target="tutorial/screenshots/inventoryHelp5-2.png">
@@ -113,10 +112,11 @@
 		src="tutorial/screenshots/inventoryHelp5-2.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/inventoryHelp5-2.png"
 		border="1px" align="center"> </a>
+		
+<br><br> Now the Last Inventory entry for that product shows its prior level and you can repeat Step 3 or 4 to get it right.
 
 </p>
 
 <p>
-	<B>Step 6:</B> When you finish, you can return to any other function by
-	selecting it on the navigation bar. 
-</p>
+	<B>Step 6:</B> You may repeat these steps for as many products that you want to inventory today.<p>When you finish, you can return to any other activity by
+	selecting it on the navigation bar at the top of the page. 
