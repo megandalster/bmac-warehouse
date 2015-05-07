@@ -32,12 +32,13 @@
 	<strong>Searching for Receipts</strong>
 </p>
 <p>
-Here you can search for the receipts of contributions received. You can search by the date range in which receipts were made, by the name of the provider, and by the name of the
-received item. You can view the products received per contribution, their amount in case lots, and weight of each product. It also includes total weight of contribution and the amount
-billed for the receipt. You can also select individual receipts to edit them, or add a new receipt.
+Here you can search for the receipts of contributions received. You can limit the search by specifying the date range in which receipts were made, 
+the name of the provider, and/or the name of the received product. 
+<p>
+From this page, you can also select an individual receipt for editing its details, or else add an entirely new receipt.
 </p>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, click on the date range boxes and select the dates you want to search on by clicking on the day box:<BR> <BR><a
+	<B>Step 1:</B> On the navigation bar at the top of the page, you may click on the date range boxes to select a date range, like this:<BR> <BR><a
 		href="tutorial/screenshots/contributionSearchHelp1.png" class="image"
 		title="contributionSearchHelp1.png"
 		target="tutorial/screenshots/contributionSearchHelp1.png">
@@ -47,8 +48,8 @@ billed for the receipt. You can also select individual receipts to edit them, or
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	Afterwards, click on the <b>Provider name: </b>box and type the first letters of the provider in the receipt. You can also select
-	the <b>Receive items:</b> box and type in the first letters of the product whose receipts you are looking for. Afterwards, hit <b>Search</b>. <BR> <BR> <a
+	Also, you may limit the <b>Provider name </b> by typing the first few letters of the provider. Similarly, you can limit your search
+	to a particular product by typing a few letters of its name in the <b>Receive items:</b> box.  Afterwards, hit <b>Search</b>. <BR> <BR> <a
 		href="tutorial/screenshots/contributionSearchHelp1-2.png" class="image"
 		title="contributionSearchHelp1-2.png"
 		target="tutorial/screenshots/contributionSearchHelp1-2.png">
@@ -58,8 +59,7 @@ billed for the receipt. You can also select individual receipts to edit them, or
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 2:</B> The list of receipts that match your search parameters will be shown in chronological order by date of receipt. The receipt includes the products received, 
-	amount in case lots, and weight per case. It also includes the total weight of the items received, and amount billed. Scroll down to see all the results. <BR> <BR><a
+	<B>Step 2:</B> The list of receipts that match your limits will be shown in chronological order by date of receipt.  Scroll down to see all the results. <BR> <BR><a
 		href="tutorial/screenshots/contributionSearchHelp2.png" class="image"
 		title="contributionSearchHelp2.png"
 		target="tutorial/screenshots/contributionSearchHelp2.png">
@@ -67,9 +67,12 @@ billed for the receipt. You can also select individual receipts to edit them, or
 		src="tutorial/screenshots/contributionSearchHelp2.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp2.png"
 		border="1px" align="middle"> </a>
-</p>
 <p>
-	<B>Step 3:</B> Click on the date of any receipt to edit it. <b><a href="help.php?helpPage=bmac-warehouse/contributionEdit.php">Editing a receipt</a></b> <BR> <BR><a
+As shown, the search produces a list of contributions alphabetized by provider.  Each contribution shows the date received, the provider, the 
+total weight, amount billed, and a list of the products received, their case lotsm and weight. 
+
+<p>
+	<B>Step 3:</B> Clicking on the date of any receipt sends you to a page where you can <a href="help.php?helpPage=bmac-warehouse/contributionEdit.php">edit it.</a> <BR> <BR><a
 		href="tutorial/screenshots/contributionSearchHelp3.png" class="image"
 		title="contributionSearchHelp3.png"
 		target="tutorial/screenshots/contributionSearchHelp3.png">
@@ -79,7 +82,7 @@ billed for the receipt. You can also select individual receipts to edit them, or
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	<B>Step 4:</B> Click on <b>Add new receipt</b> to add a new receipt into the database. <b><a href="help.php?helpPage=bmac-warehouse/contributionEdit.php">Adding a new a receipt</a></b> <BR> <BR><a
+	<B>Step 4:</B> Clicking on <a href="help.php?helpPage=bmac-warehouse/contributionEdit.php">Add new receipt</a> sends you to a page where you can create a receipt for a new contribution.  <BR> <BR><a
 		href="tutorial/screenshots/contributionSearchHelp4.png" class="image"
 		title="contributionSearchHelp4.png"
 		target="tutorial/screenshots/contributionSearchHelp4.png">
@@ -87,4 +90,7 @@ billed for the receipt. You can also select individual receipts to edit them, or
 		src="tutorial/screenshots/contributionSearchHelp4.png" width="10%"
 		rel="popover" data-img="tutorial/screenshots/contributionSearchHelp4.png"
 		border="1px" align="middle"> </a>
-</p>
+
+<p>
+	<B>Step 5:</B> Otherwise, you can return to any other activity by
+	selecting it on the navigation bar at the top of the page. 
