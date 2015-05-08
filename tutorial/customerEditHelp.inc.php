@@ -27,8 +27,7 @@
 
 <p>
 	<strong>Editing, Deleting and Adding a New Customer</strong>
-<p>Editing information in the customer database is a simple process. We will explain how to edit an existing customer step by 
-step below.<p>
+<p><b>Editing</b> a customer's information in the database is a simple process. Here are the steps:<p>
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
 	the customer whose information you want to edit. <BR> <BR> <a
 		href="tutorial/screenshots/searchcustomerstep1.png" class="image"
@@ -41,7 +40,7 @@ step below.<p>
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
+		href="?helpPage=bmac-warehouse/customerSearch.php">click here</a>.
 </p>
 
 <p>
@@ -115,8 +114,7 @@ step below.<p>
 	selecting it on the navigation bar.
 	
 
-<p>Deleting a customer in the database is a simple process. We will explain how to delete an existing customer step by 
-step below.<p>	
+<p><b>Deleting a customer</b> from the database is a simple process. Here are the steps:<p>	
 	<strong>Step 1:</strong> First you need to <strong>search</strong> for
 	the customer whose information you want to delete. <BR> <BR> <a
 		href="tutorial/screenshots/searchcustomerstep1.png" class="image"
@@ -129,7 +127,7 @@ step below.<p>
 </p>
 <p>
 	To see more information on searching, <a
-		href="?helpPage=searchPeople.php">click here</a>.
+		href="?helpPage=bmac-warehouse/customerSearch.php">click here</a>.
 </p>
 
 <p>
@@ -146,8 +144,7 @@ step below.<p>
 </p>
 
 <p>
-	<strong>Step 3:</strong> To delete the customer check the box and hit <strong>Delete</strong>
-	at the bottom of the page:<BR> <BR> <a
+	<strong>Step 3:</strong> To delete the customer check the box at the bottom of the page and hit <strong>Delete</strong>:<BR> <BR> <a
 		href="tutorial/screenshots/deletecustomerstep3.png" class="image"
 		title="deletecustomerstep3.png"
 		target="tutorial/screenshots/deletecustomerstep3.png">
@@ -174,8 +171,7 @@ step below.<p>
 	<B>Step 5:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
 
-<p>Adding a new customer in the database is a simple process. We will explain how to add a new customer to the database step by 
-step below.<p>	
+<p><b>Adding a new customer</b> to the database is a simple process. Here are the steps:<p>	
 	
 	
 <p>
@@ -253,4 +249,4 @@ step below.<p>
 <p>
 <B>Step 7:</B> When you finish, you can return to any other function by
 	selecting it on the navigation bar.
-</p>>
+</p>
