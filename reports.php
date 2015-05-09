@@ -107,8 +107,8 @@ $(function() {
 		<td class = "search-description" valign="top"> Funding Source:
 		    <p id="funding-sourceinput"> <select name="funding-source" id = "report-funding-source">
 		    <?php
-		    include_once('database/dbfundingSources.php');
-    		$funding_sources = get_all_funding_sources();
+		    include_once(dirname(__FILE__).'/database/dbFundingSources.php');
+			$funding_sources = get_all_funding_sources();
 	  		echo '<option value="">--any--</option>';
 	  		foreach($funding_sources as $fs=>$alias) {
     			echo('<option value="'.$fs.'"');
