@@ -14,8 +14,8 @@
  */
 	session_start();
 	session_cache_expire(30);
-    include_once('database/dbfundingSources.php');
-    include_once('database/dbContributions.php');
+    include_once(dirname(__FILE__).'/database/dbFundingSources.php');
+	include_once('database/dbContributions.php');
     include_once('domain/Contribution.php'); 
     include_once('database/dbProducts.php');
     include_once('domain/Product.php'); 

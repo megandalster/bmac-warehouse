@@ -29,23 +29,24 @@
 			<div id="content">
 				<?PHP
 				// display the search form
-					include_once('database/dbfundingSources.php');
-    				echo('<p><a href="'.$path.'productEdit.php?id=new">Add new product</a>');
+					include_once(dirname(__FILE__).'/database/dbFundingSources.php');
+					echo('<p><a href="'.$path.'productEdit.php?id=new">Add new product</a>');
 					echo('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="'.$path.'inventory.php">Work on inventory</a>');
 					echo('<form method="GET">');
-						echo('<p><strong>Search for products:</strong>');
+						echo('<p><strong>Search for products</strong>');
 						
 						if( !array_key_exists('s_product_id', $_GET) ) $product_id = ""; else $product_id = $_GET['s_product_id'];
-						echo '&nbsp;&nbsp;Name: ';
-						echo '<input type="text" name="s_product_id" value="' . $product_id . '">';
+						echo '<br><br>Name: <input type="text" name="s_product_id" value="' . $product_id . '">';
 							
 						$funding_sources = get_all_funding_sources();
                         if( !array_key_exists('s_funding_source', $_GET) ) $funding_source = ""; else $funding_source = $_GET['s_funding_source'];
-						echo '<br><br>Funding Source:<select name="s_funding_source">';
-						echo '<option value=""'; 		if($funding_source == "")  	  echo " SELECTED"; echo '>--any--</option>';
+						echo '&nbsp;&nbsp;&nbsp;&nbsp;Funding Source: <select name="s_funding_source">';
+						echo '<option value=""'; 		
+						if($funding_source == "")
+						  	  echo " SELECTED"; echo '>--any--</option>';
 					    foreach($funding_sources as $fs=>$alias) {
     						echo('<option value="'.$fs.'"');
-    						if ($funding_source==$fs || $funding_source==$alias) echo (' SELECTED'); 
+    						if ($funding_source==$fs) echo (' SELECTED'); 
     						echo('>'.$fs.'</option>');
     					}	
 						echo '</select>';
@@ -53,7 +54,7 @@
                        //should create a datepicker java-thingy here for initial date search.
                         
 						if( !array_key_exists('s_status', $_GET) ) $status = ""; else $status = $_GET['s_status'];
-						echo '&nbsp;&nbsp;Status:<select name="s_status">';
+						echo '&nbsp;&nbsp;&nbsp;&nbsp;Status: <select name="s_status">';
 							echo '<option value=""';            if ($status=="")            echo " SELECTED"; echo '>--all--</option>';
                             echo '<option value="active"';      if ($status=="active")      echo " SELECTED"; echo '>active</option>';
 							echo '<option value="discontinued"';    if ($status=="discontinued")    echo " SELECTED"; echo '>discontinued</option>';
