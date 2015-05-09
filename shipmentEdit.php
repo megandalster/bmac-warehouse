@@ -15,6 +15,7 @@
  */
 	session_start();
 	session_cache_expire(30);
+    include_once('database/dbfundingSources.php');
     include_once('database/dbShipments.php');
     include_once('domain/Shipment.php'); 
     include_once('database/dbCustomers.php');

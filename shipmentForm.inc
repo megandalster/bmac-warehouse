@@ -39,13 +39,15 @@ else
 	if ($customer){
 		echo '<p>Address: '.$customer->get_address().', '.$customer->get_city().', '.$customer->get_state().' '.$customer->get_zip();
 	}
+	$funding_sources = get_all_funding_sources();
 	echo('<p>Funds Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="funds_source">');
-    echo('<option value="BMAC"');if ($shipment->get_funds_source()=='BMAC') echo (' SELECTED'); echo('>BMAC</option>');
-	echo '<option value="CSFP"'; if ($shipment->get_funds_source()=='CSFP') echo " SELECTED"; echo '>CSFP</option>';
-    echo('<option value="United Way"');if ($shipment->get_funds_source()=='United Way') echo (' SELECTED'); echo('>United Way</option>');
-	echo '<option value="Donation"'; if ($shipment->get_funds_source()=='Donation') echo " SELECTED"; echo '>Donation</option>';
-	echo('</select>');
+    foreach($funding_sources as $fs=>$alias) {
+    	echo('<option value="'.$fs.'"');
+    	if ($shipment->get_funds_source()==$fs) echo (' SELECTED'); 
+    	echo('>'.$fs.'</option>');
+    }
+    echo('</select>');
 
 	echo('&nbsp;&nbsp;&nbsp;&nbsp;Ship Via<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="ship_via">');

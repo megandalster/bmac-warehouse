@@ -23,8 +23,7 @@ class AllTests extends GroupTest{
         $this->addTestFile(dirname(__FILE__).'/testCustomer.php');
         $this->addTestFile(dirname(__FILE__).'/testdbProducts.php');  
         $this->addTestFile(dirname(__FILE__).'/testdbCustomers.php');
-        
-         
+        $this->addTestFile(dirname(__FILE__).'/testdbFundingSources.php');
         echo ("All tests complete");
  	  }
  }
