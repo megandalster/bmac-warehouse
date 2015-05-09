@@ -106,11 +106,16 @@ $(function() {
 		</td>
 		<td class = "search-description" valign="top"> Funding Source:
 		    <p id="funding-sourceinput"> <select name="funding-source" id = "report-funding-source">
-	  		<option value="">--any--</option>
-	  		<option value="TFAP">TFAP</option>
-	  		<option value="CSFP">CSFP</option>
-	  		<option value="INK">INK</option>
-	  		<option value="donation">Donation</option>
+		    <?php
+		    include_once('database/dbfundingSources.php');
+    		$funding_sources = get_all_funding_sources();
+	  		echo '<option value="">--any--</option>';
+	  		foreach($funding_sources as $fs=>$alias) {
+    			echo('<option value="'.$fs.'"');
+    			echo('>'.$fs.'</option>');
+    		}
+	  		?>
+	  		</select>
 		</td>
 	</tr> 
 	<tr>

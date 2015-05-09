@@ -40,15 +40,16 @@ else {// $_SESSION['access_level']==3
         '<input type="text" name="date" id="date" width=30 value="'.substr($contribution->get_receive_date(),0,8).'">'.
         substr($contribution->get_receive_date(),8);
 	echo '<p>Provider<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" size="40" class="provider-id" name="provider-id" tabindex=1 value="'.$contribution->get_provider_id().'">';
+	
+	$funding_sources = get_all_funding_sources();
 	echo('&nbsp;&nbsp;&nbsp;&nbsp;Payment Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="payment_source">');
-    echo('<option value="Donation"');if ($contribution->get_payment_source()=='Donation' || $contribution->get_payment_source()=='') echo (' SELECTED'); echo('>Donation</option>');
-	echo('<option value="TEFAP"');if ($contribution->get_payment_source()=='TEFAP') echo (' SELECTED'); echo('>TEFAP</option>');
-	echo('<option value="EFAP"');if ($contribution->get_payment_source()=='EFAP') echo (' SELECTED'); echo('>EFAP</option>');
-	echo('<option value="EFAP-FB"');if ($contribution->get_payment_source()=='EFAP-FB') echo (' SELECTED'); echo('>EFAP-FB</option>');
-	echo('<option value="CSFP"');if ($contribution->get_payment_source()=='CSFP') echo (' SELECTED'); echo('>CSFP</option>');
-	echo('<option value="United Way"');if ($contribution->get_payment_source()=='United Way') echo (' SELECTED'); echo('>United Way</option>');
-	echo('</select>');
+    foreach($funding_sources as $fs=>$alias) {
+    	echo('<option value="'.$fs.'"');
+    	if ($contribution->get_payment_source()==$fs) echo (' SELECTED'); 
+    	echo('>'.$fs.'</option>');
+    }
+ 	echo('</select>');
 	
 ?>
 <fieldset>
