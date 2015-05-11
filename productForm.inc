@@ -51,16 +51,16 @@ else {// $_SESSION['access_level']==3
 	<?php
 	echo('<br>&nbsp;Funding Source<span style="font-size:x-small;color:FF0000">*</span>: ');
     echo('<select name="funding_source">');
-    echo('<option value="TFAP"');if ($product->get_funding_source()=='TFAP') echo (' SELECTED'); echo('>TFAP</option>');
-	echo '<option value="CSFP"'; if ($product->get_funding_source()=="CSFP" || $product->get_funding_source()=='2CSFP') echo " SELECTED"; echo '>CSFP or 2CSFP</option>';
-	echo '<option value="INK"'; if (substr($product->get_funding_source(),0,3)=="INK") echo " SELECTED"; echo '>INK</option>';
-	echo '<option value="AFF"'; if ($product->get_funding_source()=="AFF") echo " SELECTED"; echo '>AFF</option>';
-	echo '<option value="FC"'; if ($product->get_funding_source()=="FC") echo " SELECTED"; echo '>FC or F.D.</option>';
-	echo '<option value="SP"'; if ($product->get_funding_source()=="SP") echo " SELECTED"; echo '>SP</option>';
-	//echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
-	echo '<option value="Donation"'; if ($product->get_funding_source()=="Donation" || $product->get_funding_source()=="") echo " SELECTED"; echo '>Donation</option>';
-	echo('</select></p>');
-	$recent_inventory = $product->get_history();
+    $funding_sources = get_all_funding_sources();
+	echo '<option value="none"'; if ($product->get_funding_source()=="") echo " SELECTED"; echo '>--none--</option>';
+	foreach($funding_sources as $fs=>$alias) {
+    	echo('<option value="'.$fs.'"');
+    	if ($product->get_funding_source()==$fs) echo (' SELECTED'); 
+    	echo('>'.$fs.'</option>');
+    }
+    echo('</select></p>');
+	
+    $recent_inventory = $product->get_history();
     if (count($recent_inventory) > 0){
          $ri = explode(':',end($recent_inventory));
          $inv_item = pretty_date($ri[0]).": ".$ri[1]." case lots, ".$ri[2]." total pounds.";
