@@ -90,14 +90,14 @@ else {// $_SESSION['access_level']==3
 	      echo($contribution->get_notes());
 	      echo('</textarea>');
 
-		  echo('<input type="hidden" name="_submit_type" value="submit"><p>');
+		echo('<input type="hidden" name="_submit_type" value="submit"><p>');
 		  if ($id=="new")
-		     echo('Hit <input type="submit" value="submit" name="submit"> to add this new receipt.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit" style="height:150px; width:100px"> to add this new contribution. ');
 		  else
-		     echo('Hit <input type="submit" value="submit" name="submit"> to complete these changes.<br /><br />');
+		     echo('Hit <input type="submit" value="submit" name="submit" style="height:150px; width:100px"> to complete these changes. ');
 		  if ($id != 'new' && $_SESSION['access_level']>=2) {
-			echo ('<input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
-				'<input type="submit" value="delete" name="submit"> to delete this receipt from the database.');
+			echo ('<p><input type="checkbox" name="delete-check" value="delete"> Check this box and then hit ' .
+				'<input type="submit" value="delete" name="submit" style="height:150px; width:100px"> to delete this contribution from the database.');
 	}
 
 ?>

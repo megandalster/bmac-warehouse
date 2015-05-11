@@ -176,7 +176,7 @@ function process_form($post,$shipment)	{
 			}
 		}
 
-		// try to add a new contribution (receipt) to the database
+		// try to add a new shipment to the database
 		else if ($post['old_id']=='new') {
 			    //check if there's already an entry
 				$dup = retrieve_dbShipmentsDate($shipment->get_ship_date());
@@ -191,7 +191,7 @@ function process_form($post,$shipment)	{
 				}
 		}
 
-		// try to replace an existing receipt in the database by removing and adding
+		// try to replace an existing shipment in the database by removing and adding
 		else {
 				$result = delete_dbShipmentsDate($post['old_id']);
                 if (!$result)
