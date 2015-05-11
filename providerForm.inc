@@ -37,7 +37,7 @@ else {// $_SESSION['access_level']==3
 
 <p>	<?php 
 	if ($id=="new") {
-		echo 'Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" tabindex=1 value="'.$provider->get_provider_id().'">';
+		echo 'Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="provider_id" size="50" tabindex=1 value="'.$provider->get_provider_id().'">';
 	}
 	else {
 		echo 'Name: '.$provider->get_provider_id();		

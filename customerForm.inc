@@ -46,7 +46,7 @@ else // $_SESSION['access_level']==3
 
 <p>	<?php 
 	if ($customer_id=="new") {
-		echo 'Customer ID<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="customer_id" tabindex=1 value="'.$customer->get_customer_id().'">';
+		echo 'Customer ID<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="customer_id" size="50" tabindex=1  value="'.$customer->get_customer_id().'">';
 		
 	}
 	else 	{
