@@ -84,8 +84,7 @@ function getall_dbCustomer_ids(){
 function getonlythose_dbCustomers($status, $name) {
 	connect();
 	$query = "SELECT * FROM dbCustomers WHERE customer_id LIKE '%".$name."%'" ;
-	if ($status=="") $query .= " AND status LIKE '%".$status."%'";
-	else $query .= " AND status = '".$status."'";
+	if ($status!="") $query .= " AND status = '".$status."'";
     $query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
 	$theCustomers = array();

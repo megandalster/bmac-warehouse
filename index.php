@@ -15,7 +15,7 @@
 <html>
 	<head>
 		<title>
-			Homerestore
+			BMAC-Warehouse
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -50,10 +50,10 @@
 					 * level 2: Warehouse staff
 					 * level 3: Foodbank Director
 					*/
-                    $ago = strtotime("-30 days",$today);
-                    // echo "30 days ago = ".date('l F j, Y', $ago).".<p>";
-					echo "<p>Last 30 days' shipments.";
-					$shipments = getonlythose_dbShipments("",$ago,"","");
+                    $ago = strtotime("-10 days",$today);
+                    // echo "10 days ago = ".date('y-m-d', $ago).".<p>";
+					echo "<p>Last 10 days' shipments.";
+					$shipments = getonlythose_dbShipments("",date('y-m-d', $ago),"","");
 					echo('<div class="infobox">');
 					echo "<table><b><tr><td>Ship Date</td><td>Customer</td><td>Total Weight</td></tr></b>";
 					foreach ($shipments as $shipment) {
@@ -63,8 +63,8 @@
 							'</td><td align=right>'.$shipment->get_total_weight().'</tr>'; 	
 					}
 					echo "</table></div>";	 
-				    echo "<p>Last 30 days' receipts.";
-					$contributions = getonlythose_dbContributions("",$ago,"","");
+				    echo "<p>Last 10 days' receipts.";
+					$contributions = getonlythose_dbContributions("",date('y-m-d', $ago),"","");
 					echo('<div class="infobox">');
 					echo "<table><b><tr><td>Receive Date</td><td>Contributor</td><td>Total Weight</td></tr></b>";
 					foreach ($contributions as $contribution) {

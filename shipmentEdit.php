@@ -143,9 +143,6 @@ $(function() {
 		// this was a successful form submission; update the database and exit
 		else {
 			process_form($_POST, $shipment);
-			if ($_POST['submit']!="delete")
-				echo ' To view an invoice and shipping label, click <a href="'.$path.
-				     'shipmentInvoice.php?id='.$shipment->get_ship_date().'" target="_BLANK"><b>here</b></a>.';
 			include('shipmentForm.inc');
 		}
 		include('footer.inc');
@@ -200,7 +197,7 @@ function process_form($post,$shipment)	{
 					if (!$result)
                         echo ('<p class="error">Unable to add the shipment for "' .$shipment->get_customer_id(). '" to the database. <br>Please report this error to the Program manager.');
 					else echo("<p>You have successfully added a shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
-								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.");
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a>.");
 				}
 		}
 
@@ -214,7 +211,7 @@ function process_form($post,$shipment)	{
                 	if (!$result)
                    		echo ('<p class="error">Unable to update shipment with timestamp ' .$shipment->get_ship_date(). '. <br>Please report this error to the Foodbank Director.');
 					else echo("<p>You have successfully updated the shipment for " .$shipment->get_customer_id(). " with timestamp <a href='shipmentEdit.php?id=".
-								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a> in the database.");
+								$shipment->get_ship_date(). "'>".$shipment->get_ship_date()."</a>.");
 //					add_log_entry('<a href=\"viewContribution.php?id='.$provider_id.'\">'.'</a>\'s database entry has been updated.');
 				}
 		}
@@ -223,10 +220,11 @@ function process_form($post,$shipment)	{
 function validate_form($post,$shipment){
 	if($post['customer-id']==null || $post['customer-id']=='new'
 			|| $post['customer-id']=='') $errors[] = 'Please enter the name of the customer';
-	if (!valid_date($post['date'])) $errors[] = 'Please enter a valid ship date';
+//	if (!valid_date($post['date'])) $errors[] = 'Please enter a valid ship date';
 	$items = $shipment->get_ship_items();
-	if(count($items)==0) $errors[] = 'Please enter at least one product';
-	else for ($i=0;$i<count($items); $i++) {
+//	if(count($items)==0) $errors[] = 'Please enter at least one product';
+//	else 
+	for ($i=0;$i<count($items); $i++) {
 		$ith_item = $items[$i];
 		if (strrpos($ith_item,":")==strlen($ith_item)-1)  // no total weight was computed
 			$errors[] = "Please enter either a total weight or number of case lots";
