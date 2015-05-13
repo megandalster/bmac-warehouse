@@ -23,8 +23,11 @@ else // $_SESSION['access_level']==3
 	echo('<p><strong>Shipment Input Form</strong><br />');
 if ($id=='new')  
 	echo('Here you can add a new shipment to the database. </p>');
-else 
-    echo('Here you can edit the shipment or delete it from the database.</p><p>');
+else {
+    echo('Here you can edit the shipment or delete it from the database. ');
+    echo 'To view an invoice and shipping label, click <a href="'.$path.
+				     'shipmentInvoice.php?id='.$shipment->get_ship_date().'" target="_BLANK"><b>here</b></a>. </p>';
+}
 ?>
 <form method="POST">
 	<input type="hidden" name="old_id" value=<?PHP echo("\"".$id."\"");?>>

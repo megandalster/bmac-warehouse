@@ -67,7 +67,14 @@ class Customer {
        function get_phone() {
           return $this->phone;
          }
-       function get_email() {
+       function get_nice_phone() {
+    	if (strlen($this->phone)==10)
+    		return substr($this->phone,0,3)."-".substr($this->phone,3,3)."-".substr($this->phone,6);
+    	else if (strlen($this->phone)==7)
+    		return substr($this->phone,0,3)."-".substr($this->phone,3);
+    	else return $this->phone;
+       }
+	   function get_email() {
           return $this->email;
          }
        function get_status() {

@@ -72,21 +72,15 @@
 						if ($provider_id!="") echo ' with name like "'.$provider_id.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
-                            $allEmails = array(); // for printing all emails
+							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>Address</strong></td></tr>';
                             foreach ($result as $provider) {
 								echo "<tr><td><a href=providerEdit.php?id=".rawurlencode($provider->get_provider_id()).">" . 
 									$provider->get_provider_id() . "</td><td>" . 
 									$provider->get_nice_phone() . "</td><td>" . 
-									$provider->get_email() . "</td><td>";
-									$allEmails[] = $provider->get_email();
+									$provider->get_address() ."  ". $provider->get_city() ."  ".$provider->get_state() ."  ".$provider->get_zip() ."</td><td>"; 
 								echo "</td></a></tr>";
 							}
 							echo '</table>';
-							echo "<br/><strong>Email these people:</strong> <br/>";
-	                        foreach($allEmails as $email)
-	                            if ($email!="")
-	                              echo $email . ", ";
 						}	
 					}
 				?>

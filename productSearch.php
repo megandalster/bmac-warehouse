@@ -95,7 +95,9 @@
                             	}
                             	else 
                             		$inv_item = "";
-								echo "<tr><td><a href=productEdit.php?id=".urlencode($product->get_product_id())."&fundingsource=".urlencode($product->get_funding_source()).">" . 
+								echo "<tr><td><a href=productEdit.php?id=".urlencode($product->get_product_id()).
+								         "&fundingsource=".urlencode($product->get_funding_source()).
+								         "&status=".urlencode($product->get_status()).">" . 
 									$product->get_product_id() . "</td><td>" .
 									$product->get_funding_source() . "</td><td>" .  
 									$product->get_status() . "</td><td>" . 

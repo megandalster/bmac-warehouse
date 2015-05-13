@@ -69,31 +69,21 @@
                         
                         $result = getonlythose_dbCustomers($status, $name);  
 
-						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' ';
-                        if ($status!="") echo ' with status like "'.$status.'"';    
+						echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result). ' customers ';
+                        if ($status!="") echo ' with status "'.$status.'"';    
 						if ($name!="") echo ' with name like "'.$name.'"';
 						if (sizeof($result)>0) {
 							echo ' (select one for more info).';
-							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>E-mail</strong></td></tr>';
-                            $allEmails = array(); // for printing all emails
+							echo '<p><table> <tr><td><strong>Name</strong></td><td><strong>Phone</strong></td><td><strong>Address</strong></td></tr>';
                             foreach ($result as $customer) {
 								echo "<tr><td><a href=customerEdit.php?id=".urlencode($customer->get_customer_id()).">" .
 								    $customer->get_customer_id() . "</a></td><td>" .
-									$customer->get_phone() . "</td><td>" . 	
-									$customer->get_email() . "</td><td>"; 
-									$allEmails[] = $customer->get_email();
+									$customer->get_nice_phone() . "</td><td>" . 	
+									$customer->get_address() ."  ". $customer->get_city() ."  ".$customer->get_state() ."  ".$customer->get_zip() ."</td><td>"; 
 								echo "</td></a></tr>";
 							}
-							echo '</table>';
-							echo "<br/><strong>Email these people:</strong> <br/>";
-	                        foreach($allEmails as $email)
-	                            if ($email!="")
-	                              echo $email . ", ";
+							echo '</table>';	
 						}
-						
-                        
-                        
-						
 					}
 				?>
 				<!-- below is the footer that we're using currently-->

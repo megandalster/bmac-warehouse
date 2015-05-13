@@ -22,14 +22,15 @@
 //    include_once('database/dbLog.php');
 	$id = $_GET["id"];
 	$funding_source = $_GET['fundingsource'];
+	$status = $_GET['status'];
 	if ($id=='new') {
 	 	$product = new product("new", null, null, null, null, null, null, null, 
     				null, null, null, null, null);
 	}
 	else {
-		$product = retrieveWithFunding_dbProducts($id, $funding_source);
+		$product = retrieveWithFunding_dbProducts($id, $funding_source, $status);
 		if (!$product) {
-	         echo('<p id="error">Error: there\'s no product with this id and funding source in the database</p>'. $id);
+	         echo('<p id="error">Error: there\'s no product with this id, funding source, and status in the database</p>'. $id);
 		     die();
         }  
 	}
@@ -97,13 +98,14 @@ function process_form($id, $product)	{
 			    //$product_id = $_POST['product_id'];
 			    $unit_weight = $_POST['unit_weight'];
 			    $funding_source = $_POST['funding_source'];
+			    $status = $_POST['status'];
 				$product_code = null;
-
 		}
 		else {
 				$product_id = $product->get_product_id();
 				$product_code = $product->get_product_code();
 				$funding_source = $product->get_funding_source();
+				$status = $product->get_status();
 				$unit_weight = $product->get_unit_weight();
 		}
 		
@@ -121,11 +123,11 @@ function process_form($id, $product)	{
         
 	//step two: try to make the deletion, addition, or change
 		if($_POST['submit']=="delete" && $_POST['delete-check']=='delete'){
-			$result = retrieveWithFunding_dbProducts($product_id, $funding_source);
+			$result = retrieveWithFunding_dbProducts($product_id, $funding_source, $status);
 			if (!$result)
 				echo('<p>Unable to delete. ' .$product_id. ' is not in the database.');
 			else {
-				$result = delete_dbProducts($product_id,$funding_source);
+				$result = delete_dbProducts($product_id,$funding_source,$status);
 				echo("<p>You have successfully removed " .$product_id. " from the database.</p>");		
 			}
 		}
@@ -148,7 +150,7 @@ function process_form($id, $product)	{
 
 		// try to replace an existing product in the database by removing and adding
 		else if($_POST['submit']=='submit') {
-				$result = delete_dbProducts($product_id,$funding_source);
+				$result = delete_dbProducts($product_id,$funding_source,$status);
                 if (!$result)
                    echo ('<p class="error">Unable to update ' .$product_id. '. <br>Please report this error to the Program manager.');
 				else {
