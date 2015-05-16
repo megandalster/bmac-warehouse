@@ -153,22 +153,24 @@ function insert_dbProducts($Product){
 		return false;
 	}
 	connect();
-	/*
 	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
-		echo (mysql_error(). " Unable to insert: duplicate product code=" . $Product->get_product_code(). " product_id=".$Product->get_product_id()."<br>");
-		mysql_close();
-		return false;   // never insert a new item with the same product code
+		delete_dbProducxts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
+		connect();
 	}
-	*/
+	/*
 	$query = "SELECT * FROM dbProducts WHERE product_id = '".$Product->get_product_id() . 
-			 "' AND funding_source = '".$Product->get_funding_source() . "'";	
+			 "' AND funding_source = '".$Product->get_funding_source() . "'". 
+			 "' AND status = '".$Product->get_status() . "'";	
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
-		delete_dbProducts ($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
-		connect();     // when a product with the same name and funding source is there, replace it
-	}   
+		echo (mysql_error(). "\nUnable to insert: duplicate id, funding source, and status = "
+			 . $Product->get_product_id(). ", ".$Product->get_funding_source() . ", ".$Product->get_status()."<br>");
+		mysql_close();
+		return false;   // don't insert a new item with the same id, funding source, and status
+	} 
+	*/  
 	$query = "INSERT INTO dbProducts VALUES ('".
 				$Product->get_product_id()."','" .
 				$Product->get_product_code()."','".
