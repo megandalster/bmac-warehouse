@@ -64,7 +64,7 @@ function getonlythose_dbContributions($provider_id, $receive_date1, $receive_dat
 	connect();
 	$query = "SELECT * FROM dbContributions WHERE provider_id LIKE '%".$provider_id."%'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
-	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
 	$query.= " AND receive_items LIKE '%".$receive_items."%'";
     $query .= " ORDER BY receive_date DESC";
 	$result = mysql_query($query);
@@ -84,7 +84,7 @@ function getonlythose_dbContributions2($provider_id, $receive_date1, $receive_da
 	connect();
 	$query = "SELECT * FROM dbContributions WHERE provider_id = '".$provider_id."'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
-	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
     $query .= " ORDER BY receive_date DESC";
     $result = mysql_query($query);
 	$theCons = array();
@@ -103,7 +103,7 @@ function retrieve_receipts($payment_source, $receive_date1, $receive_date2) {
 	connect();
 	$query = "SELECT * FROM dbContributions WHERE payment_source LIKE '%".$payment_source."%'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
-	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
+	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
 	$result = mysql_query($query);
 	$thequads = array();
     $count = 0;	

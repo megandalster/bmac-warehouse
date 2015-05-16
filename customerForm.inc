@@ -99,7 +99,7 @@ else // $_SESSION['access_level']==3
     echo "</p>";
 	echo('<p>Notes:<br />');
 	      echo('<textarea name="notes" rows="2" cols="60">');
-	      echo($_POST['notes']);
+	      echo($customer->get_notes());
 	      echo('</textarea>');
 
 		  echo('<input type="hidden" name="_submit_check" value="1"><p>');

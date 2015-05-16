@@ -47,9 +47,9 @@ class testdbProducts extends UnitTestCase {
 		$this->assertEqual(retrieve_dbProducts($prod2->get_product_id())->get_current_stock(), "900:41");
 		
 		//Test Delete
-		$this->assertTrue(delete_dbProducts($prod1->get_product_id(),$prod1->get_funding_source()));
-		$this->assertTrue(delete_dbProducts($prod2->get_product_id(),$prod2->get_funding_source()));
-		$this->assertTrue(delete_dbProducts($prod3->get_product_id(),$prod3->get_funding_source()));
+		$this->assertTrue(delete_dbProducts($prod1->get_product_id(),$prod1->get_funding_source(),$prod1->get_status()));
+		$this->assertTrue(delete_dbProducts($prod2->get_product_id(),$prod2->get_funding_source(),$prod2->get_status()));
+		$this->assertTrue(delete_dbProducts($prod3->get_product_id(),$prod3->get_funding_source(),$prod3->get_status()));
 		$this->assertFalse(retrieve_dbProducts($prod2->get_product_id()));
 		
 		echo ("testdbProducts complete \n");

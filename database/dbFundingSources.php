@@ -20,12 +20,12 @@ include_once(dirname(__FILE__).'/dbinfo.php');
  /**
   * Sets up a new dbFundingSources table by dropping and recreating
   * id - name of the funding source
-  * aliases - any aliases for this id, separated by commas
-  */
+  * code - the old database code for each one
+
 function create_dbFundingSources(){
 	connect();
 	mysql_query("DROP TABLE IF EXISTS dbFundingSources");
-	$result=mysql_query("CREATE TABLE dbFundingSources (id TEXT, aliases TEXT)");
+	$result=mysql_query("CREATE TABLE dbFundingSources (id TEXT, code TEXT)");
 	mysql_close();
 	if(!$result) {
 		echo mysql_error();
@@ -33,14 +33,14 @@ function create_dbFundingSources(){
 	}
 	return true;
 }
-
+*/
 /**
- * adds a new funding source and aliases
+ * adds a new funding source and codes
  */
 function add_funding_source($id, $al){
 	$time=time();
 	connect();
-	$query = "INSERT INTO dbFundingSources (id, aliases) VALUES (\"".$id."\",\"".$al."\")";
+	$query = "INSERT INTO dbFundingSources (id, code) VALUES (\"".$id."\",\"".$al."\")";
 	$result=mysql_query($query);
 	if(!$result){
 		echo mysql_error();
@@ -62,7 +62,7 @@ function get_funding_source($id){
 	$log = array();
 	for($i=0;$i<mysql_num_rows($result);++$i) {
 		$result_row=mysql_fetch_assoc($result);
-		$log[$result_row['id']]=$result_row['aliases'];
+		$log[$result_row['id']]=$result_row['code'];
 	}
 	return $log;
 }
@@ -82,7 +82,7 @@ function delete_funding_source($id){
 }
 
 /**
- * returns an associative array of id => aliases pairs
+ * returns an associative array of id => code pairs
  */
 function get_all_funding_sources(){
 	connect();
@@ -96,9 +96,28 @@ function get_all_funding_sources(){
 		$log = array();
 		for($i=0;$i<mysql_num_rows($result);++$i) {
 			$result_row=mysql_fetch_assoc($result);
-			$log[$result_row['id']]=$result_row['aliases'];
+			$log[$result_row['id']]=$result_row['code'];
 		}
 	}
 	return $log;
 }
+
+function get_all_codes(){
+	connect();
+	$query="SELECT * FROM dbFundingSources order by id";
+	$result=mysql_query($query);
+	mysql_close();
+	if(!$result) {
+		die("error getting funding sources");
+	}
+	else{
+		$log = array();
+		for($i=0;$i<mysql_num_rows($result);++$i) {
+			$result_row=mysql_fetch_assoc($result);
+			$log[$result_row['code']]=$result_row['id'];
+		}
+	}
+	return $log;
+}
+
 ?>
