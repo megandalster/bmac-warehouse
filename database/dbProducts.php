@@ -156,7 +156,7 @@ function insert_dbProducts($Product){
 	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
-		delete_dbProducxts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
+		delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
 		connect();
 	}
 	/*
@@ -227,9 +227,9 @@ function update_dbProducts($Product){
 		return false;
 	}
 	if (delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status()))
-	return insert_dbProducts($Product);
+	    return insert_dbProducts($Product);
 	else {
-		echo (mysql_error()."unable to update dbProducts table: ".$Product->get_product_id());
+		echo (mysql_error()." unable to update dbProducts table: ".$product_id . $funding_source . $status);
 		return false;
 	}
 }
@@ -237,11 +237,11 @@ function update_dbProducts($Product){
 function delete_dbProducts($product_id, $funding_source, $status){
 	connect();
 	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . "' AND funding_source = '".$funding_source . "'"
-					. "' AND status = '".$status . "'";
+					. " AND status = '".$status . "'";
 	$result = mysql_query($query);
 	mysql_close();
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbProducts: ".$product_id . $funding_source);
+		echo (mysql_error()." unable to delete from dbProducts: ".$product_id . $funding_source . $status);
 		return false;
 	}
 	return true;
