@@ -9,7 +9,7 @@
  */
 /**
  *	shipmentInvoice.php
- *  displays a shipping label and invoice for printing
+ *  displays a shipping label or invoice for printing
  *	@author Allen Tucker
  *	@version April 30, 2015
  */
@@ -27,36 +27,12 @@
 <html>
 	<head>
 		<title>
-			Editing <?PHP echo('Displaying Shipping Label and Invoice '.$shipment->get_ship_date());?>
+			Editing <?PHP echo('Displaying Shipping Label or Invoice '.$shipment->get_ship_date());?>
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
 <body>
   <div id="container">
-    <div id="shiplabelheader"></div>
-	<div id="shippinglabelcontent">
-	<table>
-	<tr><td style="font-size:24px; font-family: times; font-style: italic;  color:#005190; font-weight:bold;" >Ship To:</td></tr>
-	<tr><td></td><td style="font-size:24px; font-family: times; color:#005190; font-weight:normal;">
-    <?php 	
-	echo $customer->get_customer_id(); echo "<br>";
-	echo $customer->get_address(); echo "<br>";
-	echo $customer->get_city().", ".$customer->get_state()."  ". $customer->get_zip(); echo "<br>";
-	; echo "<br>";
-	?>
-	</td></tr></table><table><tr><td>
-	Invoice No: 
-	</td><td>
-	<?php 
-	echo $shipment->get_ship_date();
-	echo "</td></tr><tr><td>Ship Date: </td><td>".pretty_date(substr($shipment->get_ship_date(),0,8));
-	echo "</td><td>Ship Via: </td><td>".$shipment->get_ship_via();
-	echo "</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Total Weight: </td><td>".$shipment->get_total_weight(). " lbs.";
-	?>
-	</td></tr></table>
-	</div>
-	
-	<br><br>
 	<div id="shipinvoiceheader"></div>
 	<div id="shippinginvoicecontent">
 	<b><br>Invoice No: 
