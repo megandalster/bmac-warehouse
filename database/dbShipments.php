@@ -89,8 +89,31 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 	$theShipments = array();
 
 	while($result_row = mysql_fetch_assoc($result)){
-		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
-		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);	
+		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], 
+		$result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], 
+		$result_row['invoice_no'], $result_row['notes']);	
+		$theShipments[] = $theShipment;
+	}
+	mysql_close();
+	return $theShipments;
+}
+
+// variation that matches the customer id exactly for use with customer report
+function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2) { 
+	connect();
+	$query = "SELECT * FROM dbShipments WHERE customer_id = '".$customer_id."'";
+	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
+	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
+    $query .= " ORDER BY ship_date DESC";
+    $result = mysql_query($query);
+	$theShipments = array();
+		
+	while($result_row = mysql_fetch_assoc($result)){
+		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], 
+		$result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
+		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], 
+		$result_row['invoice_no'], $result_row['notes']);	
 		$theShipments[] = $theShipment;
 	}
 	mysql_close();

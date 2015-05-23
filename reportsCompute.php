@@ -36,7 +36,7 @@ function show_report() {
 			report_inventory($status, $funding_source, $export);
 		}
 	    if (in_array('customers', $_POST['report-types'])) {
-	 		report_customers($status, $export);
+	 		report_customers2($status, $from, $to, $export);
 		}
 		if (in_array('providers', $_POST['report-types'])) {
 			report_providers($status, $from, $to, $export);
@@ -231,6 +231,70 @@ function report_customers($status, $export) {
 		if ($export=="yes") 
 		    export_report ($heading, $cl1, $cl2, $data);
     }
+}
+
+function report_customers2($status, $from, $to, $export) {
+	include_once('database/dbCustomers.php');
+    include_once('domain/Customer.php'); 
+    $heading = "";
+    if ($from!="") {
+        $heading .=  " for shipments sent from ".date("F d, Y",mktime(0,0,0,substr($from,3,2),substr($from,6,2),substr($from,0,2)));
+        if ($to!= "")
+           $heading .= " through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2))); 
+    }
+    else if ($to!="") 
+    	$heading .= " for shipments sent through ".date("F d, Y",mktime(0,0,0,substr($to,3,2),substr($to,6,2),substr($to,0,2)));
+    echo "<b>Customers Report</b> ".$heading;
+    echo ("<br>Report date: ".date("F d, Y")."<br>");
+	$heading = "Customers Report".$heading;
+    
+    $data = getshipmentsby_dbCustomers($status, $from, $to);
+	if (count($data)>0){
+		$cl1 = array("Customer", "Date Shipped", "Total Weight");
+        $cl2 = "";
+        $exportlines = array();
+	
+	    echo("<br><br>");
+	    echo('<div id="target" style="overflow: scroll; width: variable; height: 400px">');
+	    echo("<table>");
+	    echo("<tr><td><b>Customer</b></td>
+	              <td><b>Date Shipped</b></td>
+	              <td><b>Total Weight</b></td></tr>");
+	    foreach($data as $entry) {
+	    	$customer = $entry["customer"];
+	    	$shipments = $entry["shipments"];
+	    	$total_weight = 0;
+	    	
+	    	$first = true;
+	    	foreach($shipments as $contr) {
+	    		if($first) {
+	    			echo("<tr><td>".$customer->get_customer_id()."</td>");
+	    			$first = false;
+	    		} else {
+	    			echo("<tr><td></td>");
+	    		}
+	    		
+	    		$total_weight     += floatval($contr->get_total_weight());
+	    		
+	    		echo("<td>".pretty_date($contr->get_ship_date())
+	    	   ."</td><td>".$contr->get_total_weight()." lbs.</td>");
+	    	   $csvline = array($customer->get_customer_id(), pretty_date($contr->get_ship_date()), 
+	    	   		$contr->get_total_price(), $contr->get_total_weight());
+	    	   $exportlines[] = $csvline;
+	    	   
+	    	}
+	    	if(count($shipments) > 1) {
+		    	echo('<tr><td></td><td></td>
+		    	          <td style="border-top: 2px solid #000000">'.$total_weight.' lbs.</td></tr>');
+	    	}
+	    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
+	    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
+	    }
+	    echo("</table>");
+	    echo("</div>");
+	    if ($export=="yes") 
+		    export_report ($heading, $cl1, $cl2, $exportlines);
+	} 
 }
 
 function report_providers($status, $from, $to, $export) {
