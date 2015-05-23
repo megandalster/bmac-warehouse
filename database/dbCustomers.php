@@ -15,6 +15,8 @@
 
 include_once(dirname(__FILE__).'/../domain/Customer.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
+include_once(dirname(__FILE__).'/../domain/Shipment.php');
+include_once(dirname(__FILE__).'/dbShipments.php');
 
 function create_dbCustomers(){
 	connect();
@@ -96,6 +98,21 @@ function getonlythose_dbCustomers($status, $name) {
 	}
 	mysql_close();
 	return $theCustomers;
+}
+
+function getshipmentsby_dbCustomers($status, $from, $to) {
+	$customers = getonlythose_dbCustomers($status, "");
+	
+	$customers_and_shipments = array();
+	
+	foreach($customers as $a_customer) {
+		$shipments = getonlythose_dbShipments2($a_customer->get_customer_id(), $from, $to);
+		if(!empty($shipments)) {
+			$customers_and_shipments[] = array("customer" => $a_customer, "shipments" => $shipments); 
+		}
+	}
+	
+	return $customers_and_shipments;
 }
 
 function insert_dbCustomers($Customer){
