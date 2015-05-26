@@ -100,11 +100,12 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 }
 
 // variation that matches the customer id exactly for use with customer report
-function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2) { 
+function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2, $funds_source) { 
 	connect();
 	$query = "SELECT * FROM dbShipments WHERE customer_id = '".$customer_id."'";
 	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
 	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
+    if($funds_source) $query.=	" AND funds_source = '".$funds_source."'"; 
     $query .= " ORDER BY ship_date DESC";
     $result = mysql_query($query);
 	$theShipments = array();

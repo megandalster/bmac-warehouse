@@ -36,7 +36,7 @@ function show_report() {
 			report_inventory($status, $funding_source, $export);
 		}
 	    if (in_array('customers', $_POST['report-types'])) {
-	 		report_customers2($status, $from, $to, $export);
+	 		report_customers2($status, $from, $to, $funding_source, $export);
 		}
 		if (in_array('providers', $_POST['report-types'])) {
 			report_providers($status, $from, $to, $export);
@@ -233,7 +233,7 @@ function report_customers($status, $export) {
     }
 }
 
-function report_customers2($status, $from, $to, $export) {
+function report_customers2($status, $from, $to, $funds_source, $export) {
 	include_once('database/dbCustomers.php');
     include_once('domain/Customer.php'); 
     $heading = "";
@@ -248,9 +248,9 @@ function report_customers2($status, $from, $to, $export) {
     echo ("<br>Report date: ".date("F d, Y")."<br>");
 	$heading = "Customers Report".$heading;
     
-    $data = getshipmentsby_dbCustomers($status, $from, $to);
+    $data = getshipmentsby_dbCustomers($status, $from, $to, $funds_source);
 	if (count($data)>0){
-		$cl1 = array("Customer", "Date Shipped", "Total Weight");
+		$cl1 = array("Customer", "Date Shipped", "Funds Source", "Total Weight");
         $cl2 = "";
         $exportlines = array();
 	
@@ -259,6 +259,7 @@ function report_customers2($status, $from, $to, $export) {
 	    echo("<table>");
 	    echo("<tr><td><b>Customer</b></td>
 	              <td><b>Date Shipped</b></td>
+	              <td><b>Funds Source</b></td>
 	              <td><b>Total Weight</b></td></tr>");
 	    foreach($data as $entry) {
 	    	$customer = $entry["customer"];
@@ -277,14 +278,15 @@ function report_customers2($status, $from, $to, $export) {
 	    		$total_weight     += floatval($contr->get_total_weight());
 	    		
 	    		echo("<td>".pretty_date($contr->get_ship_date())
+	    		."</td><td>".$contr->get_funds_source()."</td>"
 	    	   ."</td><td>".$contr->get_total_weight()." lbs.</td>");
 	    	   $csvline = array($customer->get_customer_id(), pretty_date($contr->get_ship_date()), 
-	    	   		$contr->get_total_price(), $contr->get_total_weight());
+	    	   		$contr->get_funds_source(), $contr->get_total_weight());
 	    	   $exportlines[] = $csvline;
 	    	   
 	    	}
 	    	if(count($shipments) > 1) {
-		    	echo('<tr><td></td><td></td>
+		    	echo('<tr><td></td><td></td><td></td>
 		    	          <td style="border-top: 2px solid #000000">'.$total_weight.' lbs.</td></tr>');
 	    	}
 	    	echo("<tr><td></td><td></td><td></td><td></td></tr>");
