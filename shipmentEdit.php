@@ -27,7 +27,7 @@
 	date_default_timezone_set('America/Los_Angeles');
 	$id = $_GET["id"];  // expecting either "new" or "yy-mm-dd:hh:mm"
 	if ($id=='new') {
-		$shipment = new Shipment("new", null, date('y-m-d:h:m'), null, null, null, null, null, null, null, null);
+		$shipment = new Shipment("new", null, date('y-m-d:h:i'), null, null, null, null, null, null, null, null);
 	}
 	else {
 		$shipment = retrieve_dbShipmentsDate($id);
