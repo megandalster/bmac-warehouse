@@ -100,13 +100,13 @@ function getonlythose_dbCustomers($status, $name) {
 	return $theCustomers;
 }
 
-function getshipmentsby_dbCustomers($status, $from, $to) {
+function getshipmentsby_dbCustomers($status, $from, $to, $funds_source) {
 	$customers = getonlythose_dbCustomers($status, "");
 	
 	$customers_and_shipments = array();
 	
 	foreach($customers as $a_customer) {
-		$shipments = getonlythose_dbShipments2($a_customer->get_customer_id(), $from, $to);
+		$shipments = getonlythose_dbShipments2($a_customer->get_customer_id(), $from, $to, $funds_source);
 		if(!empty($shipments)) {
 			$customers_and_shipments[] = array("customer" => $a_customer, "shipments" => $shipments); 
 		}
