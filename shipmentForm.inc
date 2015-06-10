@@ -76,13 +76,16 @@ else {
 	foreach ($itemArray as $item) {
 		$details = explode(":",$item);
 		if (strpos($details[0],";")>0) {
-			$unit_weight = substr($details[0],strpos($details[0],";")+1);
+			$unit_weight = substr($details[0],strrpos($details[0],";")+1); 
+			$fs = substr($details[0],strpos($details[0],";")+1);
+			$fs = substr($fs,0,strpos($fs,";"));
 			$details[0] = substr($details[0],0,strpos($details[0],";"));
 			if ($details[2]=="" && $details[1]!="")
 				$details[2] = $unit_weight*$details[1];
 		} 
 		else $unit_weight = "";
 		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20 value="'. $details[0] . '">';
+		echo '<input type="hidden" name="fs[]" class="fs" value="'.$fs.'">';
 		echo '&nbsp;&nbsp;<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=6 value="'.$unit_weight.'">';
 	    echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-units[]" class="product-units" tabindex=3 size=6 value="'. $details[1] . '">';
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-total-wt[]" class="product-total-wt" tabindex=4 size=6 value="'. $details[2] . '"><br>';
