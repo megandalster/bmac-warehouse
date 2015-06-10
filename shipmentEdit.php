@@ -116,7 +116,7 @@ $(function() {
     <?PHP include('header.php');?>
 	<div id="content">
 <?PHP
-	if($_POST['_form_submit']!=1){
+    if($_POST['_form_submit']!=1){
 	//in this case, the form has not been submitted, so show it
 		include('shipmentForm.inc');
 	}
@@ -125,15 +125,22 @@ $(function() {
 	//in this case, the form has been submitted, so validate it
 		$customer_id = trim(str_replace('\\\'','',htmlentities(trim($_POST['customer-id']))));
 		$funds_source = $_POST['funds_source'];
+		if ($funds_source=="TEFAP" || $funds_source=="CSFP")
+			$fs = $funds_source;
+		else $fs = "";
+		$all_products = getall_dbProduct_ids($fs);
+		$all_ids = array();
+		foreach ($all_products as $a_product)
+			$all_ids[] = substr($a_product,0,strpos($a_product,";"));
 		$ship_date = $_POST['date'].substr($shipment->get_ship_date(),8);
 		$ship_via = $_POST['ship_via'];
-		$ship_items = gather_ship_items($_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
+		$ship_items = gather_ship_items($_POST['fs'], $_POST['product-id'],$_POST['product-unit-wt'],$_POST['product-units'],$_POST['product-total-wt']);
 		$ship_rate = trim(str_replace('\\\'','\'',htmlentities($_POST['ship_rate'])));
 		$billed_amt = trim(str_replace('\\\'','\'',htmlentities($_POST['billed_amt'])));
 		$notes = trim(str_replace('\\\'','\'',htmlentities($_POST['notes'])));
 		$shipment = new Shipment($customer_id, $funds_source, $ship_date, $ship_via, $ship_items[0], 
 			$ship_rate, $ship_items[1], $billed_amt, substr($ship_date,0,8), "", $notes);
-		$errors = validate_form($_POST,$shipment); 	//step one is validation.
+		$errors = validate_form($_POST,$shipment,$all_ids); 	//step one is validation.
         // errors array lists problems on the form submitted
 		if ($errors) {
 		// display the errors and the form to fix
@@ -150,24 +157,28 @@ $(function() {
 		die();
 	}
 
-function gather_ship_items($ids, $unit_wts, $units, $wts) {
+function gather_ship_items($fs, $ids, $unit_wts, $units, $wts) {
 	$ship_items = "";
 	$total_wt = 0; 
-	for ($i=0;$i<count($ids);$i++) 
-	    if ($ids[$i]!="") {
+	for ($i=0;$i<count($ids);$i++) {
+		if ($ids[$i]!="") {
+			if(!strpos($ids[$i],";")) { // reconstruct ids[i] if it has been decustructed
+	    		$ids[$i] = $ids[$i].";".$fs[$i].";".$unit_wts[$i];
+	    	}
 	    	if ($unit_wts[$i]!="") {
-	    		if ($wts[$i]=="" && $units[$i]!="") {
+	    		if ($units[$i]!="") {
 	    			$wts[$i] = $units[$i] * $unit_wts[$i];
 	    		}
 	    		else if ($wts[$i]!="") {
 	    			$units[$i] = intval($wts[$i] / $unit_wts[$i]);
 	    		}
-	    	    $ship_items .= ",".$ids[$i].";".$unit_wts[$i].":".$units[$i].":".$wts[$i];
+	    	    $ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
 	    	}
 		    else 
 		    	$ship_items .= ",".$ids[$i].":".$units[$i].":".$wts[$i];
 		    $total_wt += $wts[$i];
 	    }
+	}
 	return array(substr($ship_items,1),$total_wt);
 }
 	
@@ -217,17 +228,29 @@ function process_form($post,$shipment)	{
 		}
 }
 
-function validate_form($post,$shipment){
+function validate_form($post,$shipment,$all_ids){
 	if($post['customer-id']==null || $post['customer-id']=='new'
 			|| $post['customer-id']=='') $errors[] = 'Please enter the name of the customer';
 //	if (!valid_date($post['date'])) $errors[] = 'Please enter a valid ship date';
 	$items = $shipment->get_ship_items();
-//	if(count($items)==0) $errors[] = 'Please enter at least one product';
-//	else 
+	if(count($items)==0) {
+		if ($post['funds_source']=="TEFAP" || $post['funds_source']=="CSFP")
+			$errors[] = 'Please enter at least one '.$post['funds_source'].' product';
+		else 
+			$errors[] = 'Please enter at least one product';	
+	}
+	else 
 	for ($i=0;$i<count($items); $i++) {
 		$ith_item = $items[$i];
-		if (strrpos($ith_item,":")==strlen($ith_item)-1)  // no total weight was computed
-			$errors[] = "Please enter either a total weight or number of case lots";
+		$ith_details = explode(":",$ith_item);
+		$product_name = substr($ith_details[0],0,strpos($ith_details[0],";"));
+		if (!in_array($product_name,$all_ids)) 
+			if ($post['funds_source']=="TEFAP" || $post['funds_source']=="CSFP")
+				$errors[] = "Please enter a valid product name for ".$product_name.
+							 " and funding source ".$post['funds_source'];
+			else $errors[] = "Please enter a valid product name for ".$product_name;
+		if ($ith_details[1]=="" && $ith_details[2]=="") 
+			$errors[] = "Please enter either a total weight or number of case lots for ".$product_name;
 	}
 	if($post['funds_source']==null) $errors[] = 'Please enter the funds source';
 	if($post['ship_via']==null) $errors[] = 'Please enter the ship via';

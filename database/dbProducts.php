@@ -98,12 +98,16 @@ function getall_dbProducts(){
 	return $theProds;
 }
 
-function getall_dbProduct_ids(){
+function getall_dbProduct_ids($fs){
 	connect();
-	$result = mysql_query("SELECT product_id,unit_weight FROM dbProducts ORDER BY product_id");
+	$query = "SELECT product_id,funding_source,unit_weight FROM dbProducts "; 
+	if ($fs!="")
+		$query .= " WHERE funding_source = '".$fs."'";
+	$query .= " ORDER BY product_id,funding_source";
+	$result = mysql_query($query);
 	$the_ids = array();
 	while($result_row = mysql_fetch_assoc($result)){
-		$the_ids[] = $result_row['product_id'].";".$result_row[unit_weight];
+		$the_ids[] = $result_row['product_id'].";".$result_row['funding_source'].";".$result_row['unit_weight'];
 	}
 	mysql_close();
 	return $the_ids;

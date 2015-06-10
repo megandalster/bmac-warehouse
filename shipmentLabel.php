@@ -36,8 +36,8 @@
     <div id="shiplabelheader"></div>
 	<div id="shippinglabelcontent">
 	<table>
-	<tr><td style="font-size:24px; font-family: times; font-style: italic;  color:#005190; font-weight:bold;" >Ship To:</td></tr>
-	<tr><td></td><td style="font-size:24px; font-family: times; color:#005190; font-weight:normal;">
+	<tr><td style="font-size:44px; font-family: times; font-style: italic;  color:#005190; font-weight:bold;" >Ship To:</td></tr>
+	<tr><td></td><td style="font-size:44px; font-family: times; color:#005190; font-weight:normal;">
     <?php 	
 	echo $customer->get_customer_id(); echo "<br>";
 	echo $customer->get_address(); echo "<br>";
@@ -49,9 +49,10 @@
 	</td><td>
 	<?php 
 	echo $shipment->get_ship_date();
+	echo "</td><td></td><td></td><td>Funds Source:</td><td>".$shipment->get_funds_source();
 	echo "</td></tr><tr><td>Ship Date: </td><td>".pretty_date(substr($shipment->get_ship_date(),0,8));
 	echo "</td><td>Ship Via: </td><td>".$shipment->get_ship_via();
-	echo "</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Total Weight: </td><td>".$shipment->get_total_weight(). " lbs.";
+	echo "</td><td>Total Weight: </td><td>".$shipment->get_total_weight(). " lbs.";
 	?>
 	</td></tr></table>
 	</div>	
