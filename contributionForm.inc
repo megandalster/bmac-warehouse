@@ -67,7 +67,7 @@ else {// $_SESSION['access_level']==3
 	foreach ($itemArray as $item) {
 		$details = explode(":",$item);
 		if (strpos($details[0],";")>0) {
-			$unit_weight = substr($details[0],strpos($details[0],";")+1);
+			$unit_weight = substr($details[0],strrpos($details[0],";")+1);
 			$details[0] = substr($details[0],0,strpos($details[0],";"));
 			if ($details[2]=="" && $details[1]!="")
 				$details[2] = $unit_weight*$details[1];
