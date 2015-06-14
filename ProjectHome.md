@@ -1,0 +1,1 @@
+This project will develop an inventory management module for the BMAC warehouse in Walla Walla, WA  The developers are a group of Whitman College students and an instructory, and the work will be done during spring semester 2015.
