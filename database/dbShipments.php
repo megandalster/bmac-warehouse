@@ -188,7 +188,8 @@ function update_dbShipments($Shipment){
 
 function delete_dbShipmentsDate($ship_date){
 	connect();
-	$result = mysql_query("DELETE FROM dbShipments WHERE ship_date =\"".$ship_date."\"");
+	$query = "DELETE FROM dbShipments WHERE ship_date = '".$ship_date."'";
+	$result = mysql_query($query);
 	mysql_close();
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbShipments: ".$ship_date);

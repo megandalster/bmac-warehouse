@@ -13,13 +13,13 @@
  *	@author David Quennoz
  *	@version 3/3/2015
  */
-if($_SESSION['access_level']<3) {
+if($_SESSION['access_level']==2) {
 	echo("<p id=\"error\">You do not have sufficient permissions to edit providers.</p>");
 	include('footer.inc');
 	echo('</div></div></body></html>');
 	die();
 }
-else {// $_SESSION['access_level']==3
+else {// $_SESSION['access_level']==1 or 3
 	if ($id=='new') {
 	  echo('<p><strong>Provider Input Form</strong><br />');
 	  echo('Here you can add a new provider to the database. </p>');

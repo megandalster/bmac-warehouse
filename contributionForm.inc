@@ -13,13 +13,13 @@
  *	@author Luis Munguia
  *	@version 3/3/2015
  */
-if($_SESSION['access_level']<3) {
+if($_SESSION['access_level']<2) {
 	echo("<p id=\"error\">You do not have sufficient permissions to edit receipts.</p>");
 	include('footer.inc');
 	echo('</div></div></body></html>');
 	die();
 }
-else {// $_SESSION['access_level']==3
+else {// $_SESSION['access_level']==2 or 3
 	echo('<p><strong>Warehouse Receipt Form</strong><br />');
 	if ($id=='new') {
 	  echo('Here you can add a new contribution to the database. </p>');

@@ -18,7 +18,7 @@ class Shipment {
     private $customer_id;	  // id of customer receiving the shipment
 	private $funds_source;  // id of funds source for this shipment
 	private $ship_date;     // date and time recorded yy-mm-dd:hh:mm
-    private $ship_via;       // ÒBMACÓ, ÒCustomerÓ, ÒOtherÓ
+    private $ship_via;       // ï¿½BMACï¿½, ï¿½Customerï¿½, ï¿½Otherï¿½
     private $ship_items;     // array of product_id:units:weight triples
 	private $ship_rate;      // rate per pound for this shipment
     private $total_weight;	    //  total weight shipped
@@ -62,11 +62,17 @@ class Shipment {
 	function get_ship_items() {
 		return $this->ship_items;
 	}
+	function set_ship_items($si) {
+		$this->ship_items = $si;
+	}
 	function get_ship_rate() {
 		return $this->ship_rate;
 	}
 	function get_total_weight() {
 		return $this->total_weight;
+	}
+	function set_total_weight($wt) {
+		$this->total_weight = $wt;
 	}
 	function get_total_price() {
 		return $this->total_price;

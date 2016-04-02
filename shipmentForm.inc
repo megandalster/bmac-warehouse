@@ -13,13 +13,13 @@
  *	@author Dylan Martin
  *	@version 3/13/2015
  */
-if($_SESSION['access_level']<3) {
+if($_SESSION['access_level']<2) {
 	echo("<p id=\"error\">You do not have sufficient permissions to edit providers.</p>");
 	include('footer.inc');
 	echo('</div></div></body></html>');
 	die();
 }
-else // $_SESSION['access_level']==3
+else // $_SESSION['access_level']==2 or 3
 	echo('<p><strong>Shipment Input Form</strong><br />');
 if ($id=='new')  
 	echo('Here you can add a new shipment to the database. </p>');
@@ -71,20 +71,26 @@ else {
 <?php
 	$itemArray = $shipment->get_ship_items();
 	$itemArray[] = "::";
+	$newItemArray = array();
 	$total1 = 0; $total2=0;
 	echo '<p class=ui-widget id=product-rows>';
 	foreach ($itemArray as $item) {
 		$details = explode(":",$item);
-		if (strpos($details[0],";")>0) {
+		$item_id = $details[0];
+		if (strpos($item_id,";")>0) { // not the last (blank) item in the list
 			$unit_weight = substr($details[0],strrpos($details[0],";")+1); 
 			$fs = substr($details[0],strpos($details[0],";")+1);
 			$fs = substr($fs,0,strpos($fs,";"));
-			$details[0] = substr($details[0],0,strpos($details[0],";"));
-			if ($details[2]=="" && $details[1]!="")
+			$item_id = substr($details[0],0,strpos($details[0],";"));
+			if ($details[2]=="" && $details[1]!="") {
 				$details[2] = $unit_weight*$details[1];
+				$newitem = implode(":",$details);       // save new item with total weight computed
+			}
+			else $newitem = $item;
+			$newItemArray[] = $newitem;
 		} 
 		else $unit_weight = "";
-		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20 value="'. $details[0] . '">';
+		echo '<input type="text" name="product-id[]" class="product-id" tabindex=1 size=20 value="'. $item_id . '">';
 		echo '<input type="hidden" name="fs[]" class="fs" value="'.$fs.'">';
 		echo '&nbsp;&nbsp;<input type="text" name="product-unit-wt[]" class="product-unit-wt" tabindex=2 size=6 value="'.$unit_weight.'">';
 	    echo '&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="product-units[]" class="product-units" tabindex=3 size=6 value="'. $details[1] . '">';
@@ -95,7 +101,10 @@ else {
     echo '</p>';
 	echo '<table><tr><td width="0px"></td><td width="190px"><button id="add-more">add more</button></td><td width="80px">Totals:</td><td width="80px">'.
 	    $total1.'</td><td width="80px">',$total2.'</td></tr></table>';
-    echo '</fieldset>';
+	echo '</fieldset>';
+	$shipment->set_ship_items($newItemArray);
+    $shipment->set_total_weight($total2);
+    update_dbShipments($shipment);
     
     echo '<p>Rate: <input type="text" name="ship_rate" size=10 class="ship_rate" value="'. $shipment->get_ship_rate() . '">';
 	echo '&nbsp;&nbsp;&nbsp;&nbsp;Billed Amt: <input type="text" name="billed_amt" size=10 class="billed_amt" value="'. $shipment->get_total_price() . '">';	

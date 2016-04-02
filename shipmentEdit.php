@@ -150,7 +150,8 @@ $(function() {
 		// this was a successful form submission; update the database and exit
 		else {
 			process_form($_POST, $shipment);
-			include('shipmentForm.inc');
+			if ($shipment != null)
+			    include('shipmentForm.inc');
 		}
 		include('footer.inc');
 		echo('</div></div></body></html>');
@@ -185,7 +186,7 @@ function gather_ship_items($fs, $ids, $unit_wts, $units, $wts) {
 /**
 * process_form sanitizes data, concatenates needed data, and enters it all into a database
 */
-function process_form($post,$shipment)	{
+function process_form($post,&$shipment)	{
 	    //try to make the deletion
 		if($post['submit']=='delete' && $post['delete-check']=='delete') {
 			$result = retrieve_dbShipmentsDate($shipment->get_ship_date());
@@ -193,7 +194,11 @@ function process_form($post,$shipment)	{
 				echo('<p>Unable to delete. Shipment with timestamp ' . $shipment->get_ship_date() .' is not in the database.');
 			else {
 				$result = delete_dbShipmentsDate($shipment->get_ship_date());
-				echo("<p>You have successfully removed the shipment with timestamp " .$shipment->get_ship_date(). " from the database.</p>");	
+				if ($result) {
+					echo("<p>You have successfully removed the shipment with timestamp " .$shipment->get_ship_date(). " from the database.</p>");
+					$shipment = null;
+				}
+				else echo "<p> Failed to delete the shipment " .$shipment->get_ship_date(). " from the database.</p>";
 			}
 		}
 
@@ -229,6 +234,9 @@ function process_form($post,$shipment)	{
 }
 
 function validate_form($post,$shipment,$all_ids){
+	$errors = array();
+	if($post['submit']=='delete' && $post['delete-check']=='delete')
+		return $errors;
 	if($post['customer-id']==null || $post['customer-id']=='new'
 			|| $post['customer-id']=='') $errors[] = 'Please enter the name of the customer';
 //	if (!valid_date($post['date'])) $errors[] = 'Please enter a valid ship date';
