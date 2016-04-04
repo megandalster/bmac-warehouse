@@ -26,6 +26,8 @@ else {// $_SESSION['access_level']==2 or 3
     }
     else {
 	   echo('Here you can edit or delete a contribution from the database.</p><p>');
+	   echo 'For a printable receipt, click <a href="'.$path.
+	   'contributionReceipt.php?id='.$contribution->get_receive_date().'" target="_BLANK"><b>here</b></a>.';
     }
 }
 ?>

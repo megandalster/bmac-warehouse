@@ -104,7 +104,8 @@ else {
 	echo '</fieldset>';
 	$shipment->set_ship_items($newItemArray);
     $shipment->set_total_weight($total2);
-    update_dbShipments($shipment);
+    if ($shipment->get_customer_id()!="new")
+		update_dbShipments($shipment);
     
     echo '<p>Rate: <input type="text" name="ship_rate" size=10 class="ship_rate" value="'. $shipment->get_ship_rate() . '">';
 	echo '&nbsp;&nbsp;&nbsp;&nbsp;Billed Amt: <input type="text" name="billed_amt" size=10 class="billed_amt" value="'. $shipment->get_total_price() . '">';	

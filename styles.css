@@ -186,6 +186,18 @@ p.error {color: #FF0000;}
 	overflow:hidden;
 }
 
+#contreceiptheader{
+	height: 100px;
+	border-left:2px solid #264576;
+	border-top:2px solid #264576;
+	border-right:2px solid #264576;
+	padding: 0px;
+	background:url("images/HeaderContributionReceipt.jpg") #f5f5f6;
+	background-repeat:no-repeat;
+	background-position:top left;
+	overflow:hidden;
+}
+
 #shippinglabelcontent{
 	width: 850px; height: 330px;
 	border-left:2px solid #264576;

@@ -56,7 +56,7 @@
 	?>
 	</td></tr></table>
 	</div>	
-	
+<a href="//pdfcrowd.com/url_to_pdf/?pdf_name=label.pdf">PDF Copy</a>		
 	<?php 
 	function pretty_date($yy_mm_dd) {
 		return date('M j, Y', mktime(0,0,0,substr($yy_mm_dd,3,2),substr($yy_mm_dd,6,2),substr($yy_mm_dd,0,2)));
