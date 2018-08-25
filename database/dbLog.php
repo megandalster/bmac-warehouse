@@ -25,11 +25,11 @@ include_once(dirname(__FILE__).'/dbinfo.php');
   * message - text
   */
 function create_dbLog(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbLog");
 	//NOTE: primary key set to id.  id is text in the form: yy-mm-dd
 	$result=mysql_query("CREATE TABLE dbLog (id INT(3) NOT NULL AUTO_INCREMENT,time TEXT, message TEXT, PRIMARY KEY(id))");
-	mysql_close();
+	$con=null;
 	if(!$result) {
 		echo mysql_error();
 		return false;
@@ -42,25 +42,25 @@ function create_dbLog(){
  */
 function add_log_entry($message){
 	$time=time();
-	connect();
+	$con=connect();
 	$query = "INSERT INTO dbLog (time, message) VALUES (\"".$time."\",\"".$message."\")";
 	$result=mysql_query($query);
 	if(!$result){
 		echo mysql_error();
 	}
-	mysql_close();
+	$con=null;
 }
 
 /**
  * deletes a log entry
  */
 function delete_log_entry($id){
-	connect();
+	$con=connect();
 	$query="DELETE FROM dbLog WHERE id=\"".$id."\"";
 	$result=mysql_query($query);
 	if(!$result)
 		echo mysql_error();
-   mysql_close();
+   $con=null;
 }
 
 /**
@@ -68,24 +68,24 @@ function delete_log_entry($id){
  * @param $ids an array of log ids
  */
 function delete_log_entries($ids) {
-	connect();
+	$con=connect();
 	for($i=0;$i<count($ids);++$i) {
 		$query="DELETE FROM dbLog WHERE id=\"".$ids[$i]."\"";
 		$result=mysql_query($query);
 		if(!$result)
 			echo mysql_error();
 	}
-	mysql_close();
+	$con=null;
 }
 /**
  * returns all entries in the log, sorted by timestamp
  * @return returns array of id, time, and text
  */
 function get_full_log(){
-	connect();
+	$con=connect();
 	$query="SELECT * FROM dbLog ORDER BY time DESC";
 	$result=mysql_query($query);
-	mysql_close();
+	$con=null;
 	if(!$result) {
 		die("error getting log");
 	}

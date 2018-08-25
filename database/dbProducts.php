@@ -21,11 +21,11 @@ include_once(dirname(__FILE__).'/../database/dbShipments.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
 function create_dbProducts(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbProducts");
 	$result = mysql_query("CREATE TABLE dbProducts (product_id TEXT NOT NULL, product_code TEXT, funding_source TEXT, unit_weight TEXT, unit_price TEXT, initial_date TEXT, initial_stock TEXT, 
 							minimum_stock TEXT, history TEXT, current_stock TEXT, inventory_date TEXT, status TEXT, notes TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result){
 			echo (mysql_error()."Error creating database dbProducts. \n");
 			return false;
@@ -34,58 +34,58 @@ function create_dbProducts(){
 }
 
 function retrieve_dbProducts($product_id){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbProducts WHERE product_id  = '".$product_id."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theProd;
 }
 
 function retrieveWithFunding_dbProducts($product_id, $funding_source, $status){
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id = '".$product_id;
 	$query .= "' AND funding_source = '".$funding_source . "'";	
 	if ($status!="")
 		$query .=  " AND status = '".$status . "'";
     $result = mysql_query($query);
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theProd;
 }
 
 
 
 function retrieveByCode_dbProducts($product_code){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbProducts WHERE product_code  = '".$product_code."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theProd;
 }
 
 function getall_dbProducts(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT * FROM dbProducts ORDER BY product_id");
 	$theProds = array();
 	while($result_row = mysql_fetch_assoc($result)){
@@ -94,12 +94,12 @@ function getall_dbProducts(){
 							$result_row['notes']);
 		$theProds[] = $theProd;
 	}
-	mysql_close();
+	$con=null;
 	return $theProds;
 }
 
 function getall_dbProduct_ids($fs){
-	connect();
+	$con=connect();
 	$query = "SELECT product_id,funding_source,unit_weight FROM dbProducts "; 
 	if ($fs!="")
 		$query .= " WHERE funding_source = '".$fs."'";
@@ -109,13 +109,13 @@ function getall_dbProduct_ids($fs){
 	while($result_row = mysql_fetch_assoc($result)){
 		$the_ids[] = $result_row['product_id'].";".$result_row['funding_source'].";".$result_row['unit_weight'];
 	}
-	mysql_close();
+	$con=null;
 	return $the_ids;
 }
 
 // retrieve only those Products that match the criteria given in the arguments
 function getonlythose_dbProducts($product_id, $funding_source, $status) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '%".$product_id."%'"; 
 	if ($funding_source!="")
 		$query .=		 " AND funding_source LIKE '%".$funding_source."%'"; 
@@ -129,12 +129,12 @@ function getonlythose_dbProducts($product_id, $funding_source, $status) {
 							$result_row['notes']);
 		$theProds[] = $theProd;
 	}
-	mysql_close();
+	$con=null;
 	return $theProds;
 }
 // retrieve only those active Products whose id's begin with a particular string
 function getproducts_beginningwith($string) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '".$string."%'" . 
 			 "  AND status = 'active'" ;
     $query .= " ORDER BY product_id, funding_source";
@@ -147,7 +147,7 @@ function getproducts_beginningwith($string) {
 							$result_row['notes']);
 		$theProds[] = $theProd;
 	}
-	mysql_close();
+	$con=null;
 	return $theProds;
 }
 
@@ -156,12 +156,12 @@ function insert_dbProducts($Product){
 	if(! $Product instanceof Product){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
 		delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
-		connect();
+		$con=connect();
 	}
 	/*
 	$query = "SELECT * FROM dbProducts WHERE product_id = '".$Product->get_product_id() . 
@@ -171,7 +171,7 @@ function insert_dbProducts($Product){
 	if (mysql_num_rows($result) != 0) {
 		echo (mysql_error(). "\nUnable to insert: duplicate id, funding source, and status = "
 			 . $Product->get_product_id(). ", ".$Product->get_funding_source() . ", ".$Product->get_status()."<br>");
-		mysql_close();
+		$con=null;
 		return false;   // don't insert a new item with the same id, funding source, and status
 	} 
 	*/  
@@ -192,10 +192,10 @@ function insert_dbProducts($Product){
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbProducts: " . $Product->get_product_id(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 	
 }
@@ -239,11 +239,11 @@ function update_dbProducts($Product){
 }
 
 function delete_dbProducts($product_id, $funding_source, $status){
-	connect();
+	$con=connect();
 	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . "' AND funding_source = '".$funding_source . "'"
 					. " AND status = '".$status . "'";
 	$result = mysql_query($query);
-	mysql_close();
+	$con=null;
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbProducts: ".$product_id . $funding_source . $status);
 		return false;

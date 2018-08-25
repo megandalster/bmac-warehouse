@@ -19,11 +19,11 @@ include_once(dirname(__FILE__).'/../domain/Shipment.php');
 include_once(dirname(__FILE__).'/dbShipments.php');
 
 function create_dbCustomers(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbCustomers");
 	$result = mysql_query("CREATE TABLE dbCustomers (customer_id TEXT NOT NULL, code text, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, contact TEXT, 
 							phone VARCHAR(12) NOT NULL, email TEXT, status TEXT, notes TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result){
 			echo (mysql_error()."Error creating database dbCustomers. \n");
 			return false;
@@ -32,34 +32,34 @@ function create_dbCustomers(){
 }
 
 function retrieve_dbCustomers($customer_id){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbCustomers WHERE customer_id  = '".$customer_id."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theVol = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theVol;
 }
 function retrieveByCode_dbCustomers($code){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbCustomers WHERE code  = '".$code."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theVol = new Customer($result_row['customer_id'], $result_row['code'], $result_row['address'], $result_row['city'], $result_row['state'], $result_row['zip'], $result_row['county'],
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theVol;
 }
 
 function getall_dbCustomers(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT * FROM dbCustomers ORDER BY city");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
@@ -67,24 +67,24 @@ function getall_dbCustomers(){
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theVols[] = $theVol;
 	}
-	mysql_close();
+	$con=null;
 	return $theVols;
 }
 
 function getall_dbCustomer_ids(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT customer_id FROM dbCustomers ORDER BY customer_id");
 	$the_ids = array();
 	while($result_row = mysql_fetch_assoc($result)){
 		$the_ids[] = $result_row['customer_id'];
 	}
-	mysql_close();
+	$con=null;
 	return $the_ids;
 }
 
 // retrieve only those Customers that match the criteria given in the arguments
 function getonlythose_dbCustomers($status, $name) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbCustomers WHERE customer_id LIKE '%".$name."%'" ;
 	if ($status!="") $query .= " AND status = '".$status."'";
     $query .= " ORDER BY customer_id";
@@ -96,7 +96,7 @@ function getonlythose_dbCustomers($status, $name) {
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theCustomers[] = $theCustomer;
 	}
-	mysql_close();
+	$con=null;
 	return $theCustomers;
 }
 
@@ -119,12 +119,12 @@ function insert_dbCustomers($Customer){
 	if(! $Customer instanceof Customer){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbCustomers WHERE customer_id = '" . $Customer->get_customer_id() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
 		delete_dbCustomers ($Customer->get_customer_id());
-		connect();
+		$con=connect();
 	}
 	$query = "INSERT INTO dbCustomers VALUES ('".
 				$Customer->get_customer_id()."','" .
@@ -143,10 +143,10 @@ function insert_dbCustomers($Customer){
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbCustomers: " . $Customer->get_customer_id(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 	
 }
@@ -165,9 +165,9 @@ function update_dbCustomers($Customer){
 }
 
 function delete_dbCustomers($customer_id){
-	connect();
+	$con=connect();
 	$result = mysql_query("DELETE FROM dbCustomers WHERE customer_id =\"".$customer_id."\"");
-	mysql_close();
+	$con=null;
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbCustomers: ".$customer_id);
 		return false;
@@ -177,7 +177,7 @@ function delete_dbCustomers($customer_id){
 
 // retrieve only those Customers that match the given status
 function getonlythosestatus_dbCustomers($status) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbCustomers WHERE status LIKE '%".$status."%'" ;
 	$query .= " ORDER BY customer_id";
 	$result = mysql_query($query);
@@ -188,7 +188,7 @@ function getonlythosestatus_dbCustomers($status) {
 							$result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theCustomers[] = $theCustomer;
 	}
-	mysql_close();
+	$con=null;
 	return $theCustomers;
 }
 

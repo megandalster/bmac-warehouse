@@ -21,11 +21,11 @@ include_once(dirname(__FILE__).'/../domain/Contribution.php');
 include_once(dirname(__FILE__).'/dbContributions.php');
 
 function create_dbProviders(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbProviders");
 	$result = mysql_query("CREATE TABLE dbProviders (provider_id TEXT NOT NULL, code TEXT, type TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, 
 							contact TEXT, phone VARCHAR(12) NOT NULL, email TEXT, status TEXT, notes TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result){
 			echo (mysql_error()."Error creating database dbProviders. \n");
 			return false;
@@ -34,34 +34,34 @@ function create_dbProviders(){
 }
 
 function retrieve_dbProviders($provider_id){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbProviders WHERE provider_id  = '".$provider_id."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theProvider;
 }
 function retrieveByCode_dbProviders($code){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbProviders WHERE code  = '".$code."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theProvider;
 }
 
 function getall_dbProviders(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT * FROM dbProviders ORDER BY provider_id");
 	$theProviders = array();
 	while($result_row = mysql_fetch_assoc($result)){
@@ -69,25 +69,25 @@ function getall_dbProviders(){
 							   $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theProviders[] = $aProvider;
 	}
-	mysql_close();
+	$con=null;
 	return $theProviders;
 }
 
 function getall_dbProvider_ids(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT provider_id FROM dbProviders ORDER BY provider_id");
 	$the_ids = array();
 	while($result_row = mysql_fetch_assoc($result)){
 		$the_ids[] = $result_row['provider_id'];
 	}
-	mysql_close();
+	$con=null;
 	return $the_ids;
 }
 
 
 // retrieve only those Providers that match the criteria given in the arguments
 function getonlythose_dbProviders($provider_id, $type, $status) {
-	connect();
+	$con=connect();
 	
 	$query = "SELECT * FROM dbProviders WHERE provider_id LIKE '%".$provider_id."%'" . 
 			 " AND type LIKE '%".$type."%'" . 
@@ -103,7 +103,7 @@ function getonlythose_dbProviders($provider_id, $type, $status) {
 							      $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theProviders[] = $aProvider;
 	}
-	mysql_close();
+	$con=null;
 	return $theProviders;
 }
 
@@ -126,12 +126,12 @@ function insert_dbProviders($Provider){
 	if(! $Provider instanceof Provider){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbProviders WHERE provider_id = '" . $Provider->get_provider_id() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
 		delete_dbProviders($Provider->get_provider_id());
-		connect();
+		$con=connect();
 	}
 	$query = "INSERT INTO dbProviders VALUES ('".
 				$Provider->get_provider_id()."','" .
@@ -151,17 +151,17 @@ function insert_dbProviders($Provider){
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbProviders: " . $Provider->get_provider_id(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 }
 
 function delete_dbProviders($provider_id){
-	connect();
+	$con=connect();
 	$result = mysql_query("DELETE FROM dbProviders WHERE provider_id =\"".$provider_id."\"");
-	mysql_close();
+	$con=null;
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbProviders: ".$provider_id);
 		return false;

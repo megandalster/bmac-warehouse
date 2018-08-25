@@ -23,10 +23,10 @@ include_once(dirname(__FILE__).'/dbinfo.php');
   * code - the old database code for each one
 
 function create_dbFundingSources(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbFundingSources");
 	$result=mysql_query("CREATE TABLE dbFundingSources (id TEXT, code TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result) {
 		echo mysql_error();
 		return false;
@@ -39,20 +39,20 @@ function create_dbFundingSources(){
  */
 function add_funding_source($id, $al){
 	$time=time();
-	connect();
+	$con=connect();
 	$query = "INSERT INTO dbFundingSources (id, code) VALUES (\"".$id."\",\"".$al."\")";
 	$result=mysql_query($query);
 	if(!$result){
 		echo mysql_error();
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 }
 
 function get_funding_source($id){
 	$time=time();
-	connect();
+	$con=connect();
 	$query = "select * dbFundingSources where id=\"".$id."\"";
 	$result=mysql_query($query);
 	if(!$result){
@@ -71,7 +71,7 @@ function get_funding_source($id){
  * deletes a funding source
  */
 function delete_funding_source($id){
-	connect();
+	$con=connect();
 	$query="DELETE FROM dbFundingSources WHERE id=\"".$id."\"";
 	$result=mysql_query($query);
 	if(!$result) {
@@ -85,10 +85,10 @@ function delete_funding_source($id){
  * returns an associative array of id => code pairs
  */
 function get_all_funding_sources(){
-	connect();
+	$con=connect();
 	$query="SELECT * FROM dbFundingSources order by id";
 	$result=mysql_query($query);
-	mysql_close();
+	$con=null;
 	if(!$result) {
 		die("error getting funding sources");
 	}
@@ -103,10 +103,10 @@ function get_all_funding_sources(){
 }
 
 function get_all_codes(){
-	connect();
+	$con=connect();
 	$query="SELECT * FROM dbFundingSources order by id";
 	$result=mysql_query($query);
-	mysql_close();
+	$con=null;
 	if(!$result) {
 		die("error getting funding sources");
 	}

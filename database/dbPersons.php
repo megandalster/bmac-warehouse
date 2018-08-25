@@ -18,11 +18,11 @@ include_once(dirname(__FILE__).'/../domain/Person.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
 function create_dbPersons(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbPersons");
 	$result = mysql_query("CREATE TABLE dbPersons (id TEXT NOT NULL, last_name TEXT, first_name TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, 
 							phone1 VARCHAR(12) NOT NULL, phone2 VARCHAR(12), email TEXT, type TEXT, status TEXT, notes TEXT, password TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result){
 			echo (mysql_error()."Error creating database dbPersons. \n");
 			return false;
@@ -31,22 +31,22 @@ function create_dbPersons(){
 }
 
 function retrieve_dbPersons($id){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbPersons WHERE id  = '".$id."'");
 	if(mysql_num_rows($result) !== 1){
-			mysql_close();
+			$con=null;
 			return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theVol = new Person($result_row['last_name'], $result_row['first_name'], $result_row['address'], $result_row['city'], $result_row['state'],
 							$result_row['zip'], $result_row['phone1'], $result_row['phone2'], $result_row['email'], $result_row['type'], $result_row['status'],
 							$result_row['notes'], $result_row['password']);
-	mysql_close();
+	$con=null;
 	return $theVol;
 }
 
 function getall_dbPersons(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT * FROM dbPersons ORDER BY last_name");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
@@ -55,13 +55,13 @@ function getall_dbPersons(){
 							$result_row['notes'], $result_row['password']);
 		$theVols[] = $theVol;
 	}
-	mysql_close();
+	$con=null;
 	return $theVols;
 }
 
 // retrieve only those Persons that match the criteria given in the arguments
 function getonlythose_dbPersons($type, $status, $name) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbPersons WHERE type LIKE '%".$type."%'" . 
 			 " AND status LIKE '%".$status."%'" . 
 			 " AND (first_name LIKE '%".$name."%' OR last_name LIKE '%".$name."%')" ;
@@ -75,7 +75,7 @@ function getonlythose_dbPersons($type, $status, $name) {
 							$result_row['notes'], $result_row['password']);
 		$thePersons[] = $thePerson;
 	}
-	mysql_close();
+	$con=null;
 	return $thePersons;
 }
 
@@ -83,12 +83,12 @@ function insert_dbPersons($Person){
 	if(! $Person instanceof Person){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbPersons WHERE id = '" . $Person->get_id() . "'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) != 0) {
 		delete_dbPersons ($Person->get_id());
-		connect();
+		$con=connect();
 	}
 	$query = "INSERT INTO dbPersons VALUES ('".
 				$Person->get_id()."','" .
@@ -109,10 +109,10 @@ function insert_dbPersons($Person){
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbPersons: " . $Person->get_id(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 	
 }
@@ -131,9 +131,9 @@ function update_dbPersons($Person){
 }
 
 function delete_dbPersons($id){
-	connect();
+	$con=connect();
 	$result = mysql_query("DELETE FROM dbPersons WHERE id =\"".$id."\"");
-	mysql_close();
+	$con=null;
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbPersons: ".$id);
 		return false;

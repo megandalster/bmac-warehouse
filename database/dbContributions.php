@@ -18,105 +18,114 @@
 include_once(dirname(__FILE__).'/../domain/Contribution.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
-function create_dbContributions(){
-	connect();
-	mysql_query("DROP TABLE IF EXISTS dbContributions");
-	$result = mysql_query("CREATE TABLE dbContributions (provider_id TEXT NOT NULL, receive_date TEXT, 
-	                       receive_items TEXT, payment_source TEXT, billed_amt TEXT, notes TEXT)");
-	mysql_close();
-	if(!$result){
-			echo (mysql_error()."Error creating database dbContributions. \n");
-			return false;
-	}
-	return true;
-}
 function retrieve_dbContributions($receive_date){
-	connect();
-	$result=mysql_query("SELECT * FROM dbContributions WHERE receive_date = '".$receive_date."'");
-	if(mysql_num_rows($result)!== 1){
-		mysql_close();
+	$con=connect();
+	$query="SELECT * FROM dbContributions WHERE receive_date = '".$receive_date."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve contribution on date ".$receive_date. " ". $p->getMessage());
+	}
+	if($result->rowCount()!== 1){
+		$con=null;
 		return false;
-		}
-		$result_row = mysql_fetch_assoc($result);
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
-		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
-		mysql_close();
-		return $theCon;
+	}
+	$query_row = $result->fetch(PDO::FETCH_ASSOC);
+	$theCon = new Contribution($query_row['provider_id'], $query_row['receive_date'], $query_row['receive_items'], 
+		                           $query_row['payment_source'], $query_row['billed_amt'], $query_row['notes']);
+	$con=null;
+	return $theCon;
 }
 
 
 function getall_dbContributions(){
-	connect();
-	$result = mysql_query("SELECT * FROM dbContributions ORDER BY provider_id");
+	$con=connect();
+	$query = "SELECT * FROM dbContributions ORDER BY provider_id";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve contributions ".$p->getMessage());
+	}
 	$theCons = array();
-	while($result_row = mysql_fetch_assoc($result)){
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
-		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
+	while($query_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$theCon = new Contribution($query_row['provider_id'], $query_row['receive_date'], $query_row['receive_items'], 
+		                           $query_row['payment_source'], $query_row['billed_amt'], $query_row['notes']);
 		$theCons[] = $theCon;
 	}
-	mysql_close();
+	$con=null;
 	return $theCons;
 }
 
 
 // retrieve only those Contributions that match the criteria given in the arguments
 function getonlythose_dbContributions($provider_id, $receive_date1, $receive_date2, $receive_items) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbContributions WHERE provider_id LIKE '%".$provider_id."%'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
 	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
 	$query.= " AND receive_items LIKE '%".$receive_items."%'";
     $query .= " ORDER BY receive_date DESC";
-	$result = mysql_query($query);
-	$theCons = array();
-		
-	while($result_row = mysql_fetch_assoc($result)){
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
-		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve contributions ".$p->getMessage());
+    }
+	$theCons = array();		
+	while($query_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$theCon = new Contribution($query_row['provider_id'], $query_row['receive_date'], $query_row['receive_items'], 
+		                           $query_row['payment_source'], $query_row['billed_amt'], $query_row['notes']);
 		$theCons[] = $theCon;
 	}
-	mysql_close();
+	$con=null;
 	return $theCons;
 }
 
 // variation that matches the provider id exactly for use with provider report
 function getonlythose_dbContributions2($provider_id, $receive_date1, $receive_date2) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbContributions WHERE provider_id = '".$provider_id."'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
 	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
     $query .= " ORDER BY receive_date DESC";
-    $result = mysql_query($query);
-	$theCons = array();
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve contributions ".$p->getMessage());
+    }
+    $theCons = array();
 		
-	while($result_row = mysql_fetch_assoc($result)){
-		$theCon = new Contribution($result_row['provider_id'], $result_row['receive_date'], $result_row['receive_items'], 
-		                           $result_row['payment_source'], $result_row['billed_amt'], $result_row['notes']);
+    while($query_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$theCon = new Contribution($query_row['provider_id'], $query_row['receive_date'], $query_row['receive_items'], 
+		                           $query_row['payment_source'], $query_row['billed_amt'], $query_row['notes']);
 		$theCons[] = $theCon;
 	}
-	mysql_close();
+	$con=null;
 	return $theCons;
 }
 
 // retrieve receipts that match criteria and sort by product_id and date
 function retrieve_receipts($payment_source, $receive_date1, $receive_date2) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbContributions WHERE payment_source LIKE '%".$payment_source."%'";
 	if($receive_date1) $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
 	if($receive_date2) $query.=	" AND receive_date <= '".$receive_date2.":99:99"."'"; 
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve contributions ".$p->getMessage());
+	}
 	$thequads = array();
     $count = 0;	
-	while(($result_row = mysql_fetch_assoc($result)) /*&& $count<100*/){
-		$items = explode(",",$result_row['receive_items']);
+    while(($query_row = $result->fetch(PDO::FETCH_ASSOC)) /*&& $count<100*/){
+		$items = explode(",",$query_row['receive_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
-			$thequad = $it[0].":".substr($result_row['receive_date'],0,8).":".$result_row['provider_id'].":".$it[2];
+			$thequad = $it[0].":".substr($query_row['receive_date'],0,8).":".$query_row['provider_id'].":".$it[2];
 			$thequads[] = $thequad;
 		}
 	    $count++;
 	}
-	mysql_close();
+	$con=null;
 	sort($thequads);
 	return $thequads;
 }
@@ -124,16 +133,20 @@ function retrieve_receipts($payment_source, $receive_date1, $receive_date2) {
 // count receipts for a given product and payment source within the date range
 // return the pair "no_receipts:total_wt" as a character string
 function count_receipts($product_id, $payment_source, $receive_date1, $receive_date2) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbContributions WHERE payment_source LIKE '%".$payment_source."%'";
     $query.= " AND receive_items LIKE '%".$product_id."%' ";
 	if($receive_date1!="") $query.= " AND receive_date >= '".$receive_date1.":00:00"."'";
 	if($receive_date2!="") $query.=	" AND receive_date <= '".$receive_date2.":23:59"."'"; 
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve contributions ".$p->getMessage());
+	}
 	$total_weight = 0;
 	$item_count = 0;
-	while(($result_row = mysql_fetch_assoc($result))){
-		$items = explode(",",$result_row['receive_items']);
+	while($query_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$items = explode(",",$query_row['receive_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
 			if ($it[0]==$product_id) {
@@ -142,7 +155,7 @@ function count_receipts($product_id, $payment_source, $receive_date1, $receive_d
 			}
 		}
 	}
-	mysql_close();
+	$con=null;
 	return $item_count.":".$total_weight;
 }
 
@@ -151,7 +164,7 @@ function insert_dbContributions($Contribution){
 	if(! $Contribution instanceof Contribution){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "INSERT INTO dbContributions VALUES ('".
 				$Contribution->get_provider_id()."','" .
 				$Contribution->get_receive_date()."','".
@@ -160,13 +173,17 @@ function insert_dbContributions($Contribution){
 				$Contribution->get_billed_amt()."','".
 				$Contribution->get_notes().
 	            "');";
-	$result = mysql_query($query);
-	if (!$result) {
+	   try {
+	       $result = $con->query($query);
+	   } catch (PDOException $p) {
+	       die("Could not retrieve contributions ".$p->getMessage());
+	   }
+		if (!$query) {
 		echo (mysql_error(). " Unable to insert into dbContributions: " . $Contribution->get_receive_date(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 	
 }
@@ -186,10 +203,10 @@ function update_dbContributions($Contribution){
 
 
 function delete_dbContributions($receive_date){
-	connect();
-	$result = mysql_query("DELETE FROM dbContributions WHERE receive_date =\"".$receive_date."\"");
-	mysql_close();
-	if (!$result) {
+	$con=connect();
+	$query = "DELETE FROM dbContributions WHERE receive_date =\"".$receive_date."\"";
+	$con=null;
+	if (!$query) {
 		echo (mysql_error()." unable to delete from dbContributions: ".$receive_date);
 		return false;
 	}

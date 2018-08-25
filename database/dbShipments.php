@@ -17,13 +17,13 @@ include_once(dirname(__FILE__).'/../domain/Shipment.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
 function create_dbShipments(){
-	connect();
+	$con=connect();
 	mysql_query("DROP TABLE IF EXISTS dbShipments");
 	$result = mysql_query("CREATE TABLE dbShipments (customer_id TEXT NOT NULL, funds_source TEXT, 
 							ship_date TEXT, ship_via TEXT, ship_items TEXT, ship_rate TEXT, 
 							total_weight TEXT, total_price TEXT, invoice_date TEXT, invoice_no TEXT, 
 							notes TEXT)");
-	mysql_close();
+	$con=null;
 	if(!$result){
 		echo (mysql_error()."Error creating database dbShipments. \n");
 		return false;
@@ -32,38 +32,38 @@ function create_dbShipments(){
 }
 
 function retrieve_dbShipments($customer_id){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbShipments WHERE customer_id  = '".$customer_id."'");
 	if(mysql_num_rows($result) !== 1){
-		mysql_close();
+		$con=null;
 		return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theShipment;
 	
 }
 
 function retrieve_dbShipmentsDate($ship_date){
-	connect();
+	$con=connect();
 	$result=mysql_query("SELECT * FROM dbShipments WHERE ship_date  = '".$ship_date."'");
 	if(mysql_num_rows($result) !== 1){
-		mysql_close();
+		$con=null;
 		return false;
 	}
 	$result_row = mysql_fetch_assoc($result);
 	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
-	mysql_close();
+	$con=null;
 	return $theShipment;
 	
 }
 
 
 function getall_dbShipments(){
-	connect();
+	$con=connect();
 	$result = mysql_query("SELECT * FROM dbShipments ORDER BY funds_source");
 	$theVols = array();
 	while($result_row = mysql_fetch_assoc($result)){
@@ -71,13 +71,13 @@ function getall_dbShipments(){
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);	
 		$theVols[] = $theVol;
 	}
-	mysql_close();
+	$con=null;
 	return $theVols;
 }
 
 
 function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_items) {
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbShipments WHERE customer_id LIKE '%".$customer_id."%'";
 	if($ship_date1!="") 
 		$query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
@@ -95,13 +95,13 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 		$result_row['invoice_no'], $result_row['notes']);	
 		$theShipments[] = $theShipment;
 	}
-	mysql_close();
+	$con=null;
 	return $theShipments;
 }
 
 // variation that matches the customer id exactly for use with customer report
 function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2, $funds_source) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbShipments WHERE customer_id = '".$customer_id."'";
 	if($ship_date1) $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
 	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
@@ -117,13 +117,13 @@ function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2, $fund
 		$result_row['invoice_no'], $result_row['notes']);	
 		$theShipments[] = $theShipment;
 	}
-	mysql_close();
+	$con=null;
 	return $theShipments;
 }
 
 // retrieve shipments that match criteria and sort by customer_id and date
 function retrieve_shipments($funds_source, $ship_date1, $ship_date2) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$funds_source."%'";
 	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
 	if($ship_date2!="") $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
@@ -139,7 +139,7 @@ function retrieve_shipments($funds_source, $ship_date1, $ship_date2) {
 		}
 	    $count++;
 	}
-	mysql_close();
+	$con=null;
 	sort($thequads);
 	return $thequads;
 }
@@ -148,7 +148,7 @@ function insert_dbShipments($Shipment){
 	if(! $Shipment instanceof Shipment){
 		return false;
 	}
-	connect();
+	$con=connect();
 	$query = "INSERT INTO dbShipments VALUES ('".
 				$Shipment->get_customer_id()."','" .
 				$Shipment->get_funds_source()."','".
@@ -165,10 +165,10 @@ function insert_dbShipments($Shipment){
 	$result = mysql_query($query);
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbShipments: " . $Shipment->get_customer_id(). "\n");
-		mysql_close();
+		$con=null;
 		return false;
 	}
-	mysql_close();
+	$con=null;
 	return true;
 
 }
@@ -187,10 +187,10 @@ function update_dbShipments($Shipment){
 }
 
 function delete_dbShipmentsDate($ship_date){
-	connect();
+	$con=connect();
 	$query = "DELETE FROM dbShipments WHERE ship_date = '".$ship_date."'";
 	$result = mysql_query($query);
-	mysql_close();
+	$con=null;
 	if (!$result) {
 		echo (mysql_error()." unable to delete from dbShipments: ".$ship_date);
 		return false;
@@ -201,7 +201,7 @@ function delete_dbShipmentsDate($ship_date){
 // count shipments for a given product and payment source within the date range
 // return the pair "no_shipments:total_wt" as a character string
 function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2) { 
-	connect();
+	$con=connect();
 	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$payment_source."%'";
   	$query.= " AND ship_items LIKE '%".$product_id."%' ";
 	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
@@ -219,7 +219,7 @@ function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2)
 			}
 		}
 	}
-	mysql_close();
+	$con=null;
 	return $item_count.":".$total_weight;
 }
 

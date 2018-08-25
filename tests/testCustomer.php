@@ -6,8 +6,9 @@
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
  */
+use PHPUnit\Framework\TestCase;
 include_once(dirname(__FILE__).'/../domain/Customer.php');
-class testCustomer extends UnitTestCase {
+class CustomerTest extends TestCase {
 
      function testCustomerModule() {
         $customer = new Customer("customerid", 1, "address", "city","state", "zip", "county", "contact", "phone","email", "status", "notes");

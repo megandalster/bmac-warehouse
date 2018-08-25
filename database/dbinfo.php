@@ -13,11 +13,14 @@ function connect() {
 	$database = "bmacwarehousedb";
 	$user = "bmacwarehousedb";
 	$password = "math204";
-
-	$connected = mysql_connect($host,$user,$password);
-	if (!$connected) return mysql_error();
-	$selected = mysql_select_db($database, $connected);
-	if (!$selected) return mysql_error();
-	else return true;
+	try {
+	   $con = new PDO('mysql:host=localhost;dbname=bmacwarehousedb', 
+	       'bmacwarehousedb', 'math204');
+	   return $con;
+	}
+    catch (PDOException $e) {
+        echo 'Unable to connect to the database : ' . $e;
+        return $e;
+    }
 }
 ?>
