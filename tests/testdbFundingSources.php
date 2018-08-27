@@ -6,9 +6,9 @@
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
  */
-
+use PHPUnit\Framework\TestCase;
 include_once(dirname(__FILE__).'/../database/dbFundingSources.php');
-class testdbFundingSources extends UnitTestCase {
+class dbFundingSourcesTest extends TestCase {
     function testdbFundingSourcesModule() {
                   
         // testing getter functions
@@ -18,7 +18,6 @@ class testdbFundingSources extends UnitTestCase {
         foreach ($fs as $source=>$aliases) {
         	echo $source.":".$aliases."\n";
         }         
-        echo ("testdbFundingSources complete\n");
     }
 }
 

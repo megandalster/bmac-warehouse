@@ -16,52 +16,41 @@
  */
 
 include_once(dirname(__FILE__).'/dbinfo.php');
-
- /**
-  * Sets up a new dbFundingSources table by dropping and recreating
-  * id - name of the funding source
-  * code - the old database code for each one
-
-function create_dbFundingSources(){
-	$con=connect();
-	mysql_query("DROP TABLE IF EXISTS dbFundingSources");
-	$result=mysql_query("CREATE TABLE dbFundingSources (id TEXT, code TEXT)");
-	$con=null;
-	if(!$result) {
-		echo mysql_error();
-		return false;
-	}
-	return true;
-}
-*/
 /**
  * adds a new funding source and codes
  */
 function add_funding_source($id, $al){
-	$time=time();
 	$con=connect();
 	$query = "INSERT INTO dbFundingSources (id, code) VALUES (\"".$id."\",\"".$al."\")";
-	$result=mysql_query($query);
-	if(!$result){
-		echo mysql_error();
-		return false;
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not add to dbFundingSources ".$p->getMessage());
+	}
+	if (!$result) {
+	    echo ("Unable to add funding source \n");
+	    $con=null;
+	    return false;
 	}
 	$con=null;
 	return true;
 }
 
 function get_funding_source($id){
-	$time=time();
 	$con=connect();
 	$query = "select * dbFundingSources where id=\"".$id."\"";
-	$result=mysql_query($query);
-	if(!$result){
-		echo mysql_error();
-		return false;
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbFundingSources ".$p->getMessage());
+	}
+	if (!$result) {
+	    echo ("Unable to retrieve funding source: " .$id. "\n");
+	    $con=null;
+	    return false;
 	}
 	$log = array();
-	for($i=0;$i<mysql_num_rows($result);++$i) {
-		$result_row=mysql_fetch_assoc($result);
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$log[$result_row['id']]=$result_row['code'];
 	}
 	return $log;
@@ -73,10 +62,14 @@ function get_funding_source($id){
 function delete_funding_source($id){
 	$con=connect();
 	$query="DELETE FROM dbFundingSources WHERE id=\"".$id."\"";
-	$result=mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not delete from dbFundingSources ".$p->getMessage());
+	}
 	if(!$result) {
-		echo mysql_error();
-		return false;
+	    echo ("Unable to delete funding source: ".$id);
+	    return false;
 	}
     return true;
 }
@@ -87,17 +80,18 @@ function delete_funding_source($id){
 function get_all_funding_sources(){
 	$con=connect();
 	$query="SELECT * FROM dbFundingSources order by id";
-	$result=mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbFundingSources ".$p->getMessage());
+	}
 	$con=null;
 	if(!$result) {
 		die("error getting funding sources");
 	}
-	else{
-		$log = array();
-		for($i=0;$i<mysql_num_rows($result);++$i) {
-			$result_row=mysql_fetch_assoc($result);
-			$log[$result_row['id']]=$result_row['code'];
-		}
+	$log = array();
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$log[$result_row['id']]=$result_row['code'];
 	}
 	return $log;
 }
@@ -105,17 +99,18 @@ function get_all_funding_sources(){
 function get_all_codes(){
 	$con=connect();
 	$query="SELECT * FROM dbFundingSources order by id";
-	$result=mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbFundingSources ".$p->getMessage());
+	}
 	$con=null;
 	if(!$result) {
-		die("error getting funding sources");
+		die("error retrieving funding sources");
 	}
-	else{
-		$log = array();
-		for($i=0;$i<mysql_num_rows($result);++$i) {
-			$result_row=mysql_fetch_assoc($result);
-			$log[$result_row['code']]=$result_row['id'];
-		}
+	$log = array();
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
+		$log[$result_row['code']]=$result_row['id'];
 	}
 	return $log;
 }

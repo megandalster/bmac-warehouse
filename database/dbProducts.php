@@ -20,27 +20,19 @@ include_once(dirname(__FILE__).'/../database/dbContributions.php');
 include_once(dirname(__FILE__).'/../database/dbShipments.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
-function create_dbProducts(){
-	$con=connect();
-	mysql_query("DROP TABLE IF EXISTS dbProducts");
-	$result = mysql_query("CREATE TABLE dbProducts (product_id TEXT NOT NULL, product_code TEXT, funding_source TEXT, unit_weight TEXT, unit_price TEXT, initial_date TEXT, initial_stock TEXT, 
-							minimum_stock TEXT, history TEXT, current_stock TEXT, inventory_date TEXT, status TEXT, notes TEXT)");
-	$con=null;
-	if(!$result){
-			echo (mysql_error()."Error creating database dbProducts. \n");
-			return false;
-	}
-	return true;
-}
-
 function retrieve_dbProducts($product_id){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbProducts WHERE product_id  = '".$product_id."'");
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	$query="SELECT * FROM dbProducts WHERE product_id  = '".$product_id."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProducts ".$product_id. " ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
@@ -54,12 +46,16 @@ function retrieveWithFunding_dbProducts($product_id, $funding_source, $status){
 	$query .= "' AND funding_source = '".$funding_source . "'";	
 	if ($status!="")
 		$query .=  " AND status = '".$status . "'";
-    $result = mysql_query($query);
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	try {
+		$result = $con->query($query);
+	} catch (PDOException $p) {
+		die("Could not retrieve from dbProducts ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+		$con=null;
+		return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
@@ -71,12 +67,17 @@ function retrieveWithFunding_dbProducts($product_id, $funding_source, $status){
 
 function retrieveByCode_dbProducts($product_code){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbProducts WHERE product_code  = '".$product_code."'");
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	$query="SELECT * FROM dbProducts WHERE product_code  = '".$product_code."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProducts ".$product_code. " ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'], 
 							$result_row['notes']);
@@ -86,9 +87,14 @@ function retrieveByCode_dbProducts($product_code){
 
 function getall_dbProducts(){
 	$con=connect();
-	$result = mysql_query("SELECT * FROM dbProducts ORDER BY product_id");
+	$query = "SELECT * FROM dbProducts ORDER BY product_id";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProducts ".$p->getMessage());
+	}
 	$theProds = array();
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
 							$result_row['notes']);
@@ -104,9 +110,13 @@ function getall_dbProduct_ids($fs){
 	if ($fs!="")
 		$query .= " WHERE funding_source = '".$fs."'";
 	$query .= " ORDER BY product_id,funding_source";
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProducts ".$p->getMessage());
+	}
 	$the_ids = array();
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$the_ids[] = $result_row['product_id'].";".$result_row['funding_source'].";".$result_row['unit_weight'];
 	}
 	$con=null;
@@ -120,13 +130,16 @@ function getonlythose_dbProducts($product_id, $funding_source, $status) {
 	if ($funding_source!="")
 		$query .=		 " AND funding_source LIKE '%".$funding_source."%'"; 
     $query .= "  AND status LIKE '%".$status."%' ORDER BY status, product_id";
-	$result = mysql_query($query);
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve from dbProducts ".$p->getMessage());
+    }
 	$theProds = array();
-		
-		while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
-							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
-							$result_row['notes']);
+                          $result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
+		                  $result_row['notes']);
 		$theProds[] = $theProd;
 	}
 	$con=null;
@@ -138,10 +151,14 @@ function getproducts_beginningwith($string) {
 	$query = "SELECT * FROM dbProducts WHERE product_id LIKE '".$string."%'" . 
 			 "  AND status = 'active'" ;
     $query .= " ORDER BY product_id, funding_source";
-	$result = mysql_query($query);
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve from dbProducts ".$p->getMessage());
+    }
 	$theProds = array();
 		
-		while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theProd = new Product($result_row['product_id'],$result_row['product_code'], $result_row['funding_source'], $result_row['unit_weight'], $result_row['unit_price'], $result_row['initial_date'],
 							$result_row['initial_stock'], $result_row['minimum_stock'], $result_row['history'], $result_row['current_stock'], $result_row['inventory_date'], $result_row['status'],
 							$result_row['notes']);
@@ -158,23 +175,15 @@ function insert_dbProducts($Product){
 	}
 	$con=connect();
 	$query = "SELECT * FROM dbProducts WHERE product_code = '" . $Product->get_product_code() . "'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) > 0) {
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProducts ".$p->getMessage());
+	}
+	if ($result->rowCount() > 0) {
 		delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
 		$con=connect();
-	}
-	/*
-	$query = "SELECT * FROM dbProducts WHERE product_id = '".$Product->get_product_id() . 
-			 "' AND funding_source = '".$Product->get_funding_source() . "'". 
-			 "' AND status = '".$Product->get_status() . "'";	
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) != 0) {
-		echo (mysql_error(). "\nUnable to insert: duplicate id, funding source, and status = "
-			 . $Product->get_product_id(). ", ".$Product->get_funding_source() . ", ".$Product->get_status()."<br>");
-		$con=null;
-		return false;   // don't insert a new item with the same id, funding source, and status
 	} 
-	*/  
 	$query = "INSERT INTO dbProducts VALUES ('".
 				$Product->get_product_id()."','" .
 				$Product->get_product_code()."','".
@@ -189,9 +198,13 @@ function insert_dbProducts($Product){
 				$Product->get_inventory_date()."','".
 				$Product->get_status()."','".
 				$Product->get_notes()."');";
-	$result = mysql_query($query);
+	try {
+		$result = $con->query($query);
+	} catch (PDOException $p) {
+		die("Could not insert into dbProducts ". $p->getMessage());
+	}
 	if (!$result) {
-		echo (mysql_error(). " Unable to insert into dbProducts: " . $Product->get_product_id(). "\n");
+		echo (" Unable to insert into dbProducts: " . $Product->get_product_id(). "\n");
 		$con=null;
 		return false;
 	}
@@ -233,7 +246,7 @@ function update_dbProducts($Product){
 	if (delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status()))
 	    return insert_dbProducts($Product);
 	else {
-		echo (mysql_error()." unable to update dbProducts table: ".$product_id . $funding_source . $status);
+		echo ("Unable to update dbProducts: ".$Product->get_product_id());
 		return false;
 	}
 }
@@ -242,10 +255,14 @@ function delete_dbProducts($product_id, $funding_source, $status){
 	$con=connect();
 	$query = "DELETE FROM dbProducts WHERE product_id = '".$product_id . "' AND funding_source = '".$funding_source . "'"
 					. " AND status = '".$status . "'";
-	$result = mysql_query($query);
+	try {
+		$result = $con->query($query);
+	} catch (PDOException $p) {
+		die("Could not delete product ".$p->getMessage());
+	}
 	$con=null;
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbProducts: ".$product_id . $funding_source . $status);
+		echo ("Unable to delete from dbProducts: ".$product_id . $funding_source . $status);
 		return false;
 	}
 	return true;

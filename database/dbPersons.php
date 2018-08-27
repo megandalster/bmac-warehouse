@@ -17,27 +17,19 @@
 include_once(dirname(__FILE__).'/../domain/Person.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
-function create_dbPersons(){
-	$con=connect();
-	mysql_query("DROP TABLE IF EXISTS dbPersons");
-	$result = mysql_query("CREATE TABLE dbPersons (id TEXT NOT NULL, last_name TEXT, first_name TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, 
-							phone1 VARCHAR(12) NOT NULL, phone2 VARCHAR(12), email TEXT, type TEXT, status TEXT, notes TEXT, password TEXT)");
-	$con=null;
-	if(!$result){
-			echo (mysql_error()."Error creating database dbPersons. \n");
-			return false;
-	}
-	return true;
-}
-
 function retrieve_dbPersons($id){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbPersons WHERE id  = '".$id."'");
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	$query="SELECT * FROM dbPersons WHERE id  = '".$id."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve person with id ".$id. " ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theVol = new Person($result_row['last_name'], $result_row['first_name'], $result_row['address'], $result_row['city'], $result_row['state'],
 							$result_row['zip'], $result_row['phone1'], $result_row['phone2'], $result_row['email'], $result_row['type'], $result_row['status'],
 							$result_row['notes'], $result_row['password']);
@@ -47,9 +39,14 @@ function retrieve_dbPersons($id){
 
 function getall_dbPersons(){
 	$con=connect();
-	$result = mysql_query("SELECT * FROM dbPersons ORDER BY last_name");
+	$query = "SELECT * FROM dbPersons ORDER BY last_name";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbPersons ".$p->getMessage());
+	}
 	$theVols = array();
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theVol = new Person($result_row['last_name'], $result_row['first_name'], $result_row['address'], $result_row['city'], $result_row['state'],
 							$result_row['zip'], $result_row['phone1'], $result_row['phone2'], $result_row['email'], $result_row['type'], $result_row['status'],
 							$result_row['notes'], $result_row['password']);
@@ -66,10 +63,14 @@ function getonlythose_dbPersons($type, $status, $name) {
 			 " AND status LIKE '%".$status."%'" . 
 			 " AND (first_name LIKE '%".$name."%' OR last_name LIKE '%".$name."%')" ;
     $query .= " ORDER BY last_name";
-	$result = mysql_query($query);
-	$thePersonss = array();
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve from dbPersons ".$p->getMessage());
+    }
+    $thePersons = array();
 		
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$thePerson = new Person($result_row['last_name'], $result_row['first_name'], $result_row['address'], $result_row['city'], $result_row['state'],
 							$result_row['zip'], $result_row['phone1'], $result_row['phone2'], $result_row['email'], $result_row['type'], $result_row['status'],
 							$result_row['notes'], $result_row['password']);
@@ -85,10 +86,14 @@ function insert_dbPersons($Person){
 	}
 	$con=connect();
 	$query = "SELECT * FROM dbPersons WHERE id = '" . $Person->get_id() . "'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) != 0) {
-		delete_dbPersons ($Person->get_id());
-		$con=connect();
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve dbPersons ". $p->getMessage());
+	}
+	if($result->rowCount()!== 0){
+	    delete_dbPersons ($Person->get_id());
+	    $con=connect();
 	}
 	$query = "INSERT INTO dbPersons VALUES ('".
 				$Person->get_id()."','" .
@@ -106,11 +111,15 @@ function insert_dbPersons($Person){
 				$Person->get_notes()."','".
 				$Person->get_password().
 	            "');";
-	$result = mysql_query($query);
+	try {
+		$result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not insert contribution ".$p->getMessage());
+	}
 	if (!$result) {
-		echo (mysql_error(). " Unable to insert into dbPersons: " . $Person->get_id(). "\n");
-		$con=null;
-		return false;
+        echo ("Unable to insert into dbPersons: " . $Person->get_id(). "\n");
+        $con=null;
+        return false;
 	}
 	$con=null;
 	return true;
@@ -132,10 +141,15 @@ function update_dbPersons($Person){
 
 function delete_dbPersons($id){
 	$con=connect();
-	$result = mysql_query("DELETE FROM dbPersons WHERE id =\"".$id."\"");
+	$query = "DELETE FROM dbPersons WHERE id =\"".$id."\"";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not delete person ".$p->getMessage());
+	}
 	$con=null;
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbPersons: ".$id);
+		echo (" unable to delete from dbPersons: ".$id);
 		return false;
 	}
 	return true;
