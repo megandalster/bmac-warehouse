@@ -16,29 +16,19 @@
 include_once(dirname(__FILE__).'/../domain/Shipment.php');
 include_once(dirname(__FILE__).'/dbinfo.php');
 
-function create_dbShipments(){
-	$con=connect();
-	mysql_query("DROP TABLE IF EXISTS dbShipments");
-	$result = mysql_query("CREATE TABLE dbShipments (customer_id TEXT NOT NULL, funds_source TEXT, 
-							ship_date TEXT, ship_via TEXT, ship_items TEXT, ship_rate TEXT, 
-							total_weight TEXT, total_price TEXT, invoice_date TEXT, invoice_no TEXT, 
-							notes TEXT)");
-	$con=null;
-	if(!$result){
-		echo (mysql_error()."Error creating database dbShipments. \n");
-		return false;
-	}
-	return true;
-}
-
 function retrieve_dbShipments($customer_id){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbShipments WHERE customer_id  = '".$customer_id."'");
-	if(mysql_num_rows($result) !== 1){
-		$con=null;
-		return false;
+	$query="SELECT * FROM dbShipments WHERE customer_id  = '".$customer_id."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ".$customer_id. " ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
 	$con=null;
@@ -48,12 +38,17 @@ function retrieve_dbShipments($customer_id){
 
 function retrieve_dbShipmentsDate($ship_date){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbShipments WHERE ship_date  = '".$ship_date."'");
-	if(mysql_num_rows($result) !== 1){
-		$con=null;
-		return false;
+	$query="SELECT * FROM dbShipments WHERE ship_date  = '".$ship_date."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 							$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);
 	$con=null;
@@ -64,9 +59,14 @@ function retrieve_dbShipmentsDate($ship_date){
 
 function getall_dbShipments(){
 	$con=connect();
-	$result = mysql_query("SELECT * FROM dbShipments ORDER BY funds_source");
+	$query="SELECT * FROM dbShipments ORDER BY funds_source";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ".$p->getMessage());
+	}
 	$theVols = array();
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theVol = new Shipment($result_row['customer_id'], $result_row['funds_source'], $result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], $result_row['invoice_no'], $result_row['notes']);	
 		$theVols[] = $theVol;
@@ -85,10 +85,14 @@ function getonlythose_dbShipments($customer_id, $ship_date1, $ship_date2, $ship_
 		$query.= " AND ship_date <= '".$ship_date2.":99:99"."'"; 
 	$query .= " AND ship_items LIKE '%".$ship_items."%'" ;
 	$query .= " ORDER BY ship_date DESC";
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ".$p->getMessage());
+	}
 	$theShipments = array();
 
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], 
 		$result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], 
@@ -107,10 +111,14 @@ function getonlythose_dbShipments2($customer_id, $ship_date1, $ship_date2, $fund
 	if($ship_date2) $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
     if($funds_source) $query.=	" AND funds_source = '".$funds_source."'"; 
     $query .= " ORDER BY ship_date DESC";
-    $result = mysql_query($query);
-	$theShipments = array();
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve from dbShipments ".$p->getMessage());
+    }
+    $theShipments = array();
 		
-	while($result_row = mysql_fetch_assoc($result)){
+    while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$theShipment = new Shipment($result_row['customer_id'], $result_row['funds_source'], 
 		$result_row['ship_date'], $result_row['ship_via'], $result_row['ship_items'], $result_row['ship_rate'],
 		$result_row['total_weight'], $result_row['total_price'], $result_row['invoice_date'], 
@@ -127,10 +135,14 @@ function retrieve_shipments($funds_source, $ship_date1, $ship_date2) {
 	$query = "SELECT * FROM dbShipments WHERE funds_source LIKE '%".$funds_source."%'";
 	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
 	if($ship_date2!="") $query.=	" AND ship_date <= '".$ship_date2.":99:99"."'"; 
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ".$funds_source. " ". $p->getMessage());
+	}
 	$thequads = array();
     $count = 0;	
-	while(($result_row = mysql_fetch_assoc($result)) /*&& $count<100*/){
+    while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$items = explode(",",$result_row['ship_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt
@@ -162,7 +174,11 @@ function insert_dbShipments($Shipment){
 				$Shipment->get_invoice_no()."','".
 				$Shipment->get_notes().
 	            "');";
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not insert into dbShipments ".$p->getMessage());
+	}
 	if (!$result) {
 		echo (mysql_error(). " Unable to insert into dbShipments: " . $Shipment->get_customer_id(). "\n");
 		$con=null;
@@ -189,10 +205,14 @@ function update_dbShipments($Shipment){
 function delete_dbShipmentsDate($ship_date){
 	$con=connect();
 	$query = "DELETE FROM dbShipments WHERE ship_date = '".$ship_date."'";
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not delete shipment ".$p->getMessage());
+	}
 	$con=null;
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbShipments: ".$ship_date);
+		echo (" unable to delete from dbShipments: ".$ship_date);
 		return false;
 	}
 	return true;
@@ -206,10 +226,14 @@ function count_shipments($product_id, $payment_source, $ship_date1, $ship_date2)
   	$query.= " AND ship_items LIKE '%".$product_id."%' ";
 	if($ship_date1!="") $query.= " AND ship_date >= '".$ship_date1.":00:00"."'";
 	if($ship_date2!="") $query.= " AND ship_date <= '".$ship_date2.":99:99"."'"; 
-	$result = mysql_query($query);
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbShipments ".$p->getMessage());
+	}
 	$total_weight = 0;
 	$item_count = 0;
-	while(($result_row = mysql_fetch_assoc($result))){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$items = explode(",",$result_row['ship_items']);
 		foreach ($items as $item) {
 			$it = explode(":",$item); // $it[0] = product_id, $it[2] = total_wt

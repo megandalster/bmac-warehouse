@@ -20,27 +20,19 @@ include_once(dirname(__FILE__).'/dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Contribution.php');
 include_once(dirname(__FILE__).'/dbContributions.php');
 
-function create_dbProviders(){
-	$con=connect();
-	mysql_query("DROP TABLE IF EXISTS dbProviders");
-	$result = mysql_query("CREATE TABLE dbProviders (provider_id TEXT NOT NULL, code TEXT, type TEXT, address TEXT, city TEXT, state TEXT, zip TEXT, county TEXT, 
-							contact TEXT, phone VARCHAR(12) NOT NULL, email TEXT, status TEXT, notes TEXT)");
-	$con=null;
-	if(!$result){
-			echo (mysql_error()."Error creating database dbProviders. \n");
-			return false;
-	}
-	return true;
-}
-
 function retrieve_dbProviders($provider_id){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbProviders WHERE provider_id  = '".$provider_id."'");
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	$query="SELECT * FROM dbProviders WHERE provider_id  = '".$provider_id."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProviders ".$provider_id. " ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 	$con=null;
@@ -48,12 +40,17 @@ function retrieve_dbProviders($provider_id){
 }
 function retrieveByCode_dbProviders($code){
 	$con=connect();
-	$result=mysql_query("SELECT * FROM dbProviders WHERE code  = '".$code."'");
-	if(mysql_num_rows($result) !== 1){
-			$con=null;
-			return false;
+	$query="SELECT * FROM dbProviders WHERE code  = '".$code."'";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProviders ". $p->getMessage());
 	}
-	$result_row = mysql_fetch_assoc($result);
+	if($result->rowCount()!== 1){
+	    $con=null;
+	    return false;
+	}
+	$result_row = $result->fetch(PDO::FETCH_ASSOC);
 	$theProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 						        $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 	$con=null;
@@ -62,9 +59,14 @@ function retrieveByCode_dbProviders($code){
 
 function getall_dbProviders(){
 	$con=connect();
-	$result = mysql_query("SELECT * FROM dbProviders ORDER BY provider_id");
+	$query="SELECT * FROM dbProviders ORDER BY provider_id";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProviders ".$p->getMessage());
+	}
 	$theProviders = array();
-	while($result_row = mysql_fetch_assoc($result)){
+	while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$aProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 							   $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theProviders[] = $aProvider;
@@ -75,7 +77,12 @@ function getall_dbProviders(){
 
 function getall_dbProvider_ids(){
 	$con=connect();
-	$result = mysql_query("SELECT provider_id FROM dbProviders ORDER BY provider_id");
+	$query="SELECT provider_id FROM dbProviders ORDER BY provider_id";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not retrieve from dbProviders ".$p->getMessage());
+	}
 	$the_ids = array();
 	while($result_row = mysql_fetch_assoc($result)){
 		$the_ids[] = $result_row['provider_id'];
@@ -84,21 +91,22 @@ function getall_dbProvider_ids(){
 	return $the_ids;
 }
 
-
 // retrieve only those Providers that match the criteria given in the arguments
 function getonlythose_dbProviders($provider_id, $type, $status) {
 	$con=connect();
-	
 	$query = "SELECT * FROM dbProviders WHERE provider_id LIKE '%".$provider_id."%'" . 
 			 " AND type LIKE '%".$type."%'" . 
 			 " AND provider_id LIKE '%".$provider_id."%'"; 		 
 	if ($status=="") $query .= " AND status LIKE '%".$status."%'";
 	else $query .= " AND status = '".$status."'";
     $query .= " ORDER BY provider_id";
-	$result = mysql_query($query);
-	$theProviders = array();
-		
-	while($result_row = mysql_fetch_assoc($result)){
+    try {
+        $result = $con->query($query);
+    } catch (PDOException $p) {
+        die("Could not retrieve from dbProviders ".$p->getMessage());
+    }
+    $theProviders = array();
+    while($result_row = $result->fetch(PDO::FETCH_ASSOC)){
 		$aProvider = new Provider($result_row['provider_id'], $result_row['code'], $result_row['type'], $result_row['address'], $result_row['city'], $result_row['state'],
 							      $result_row['zip'], $result_row['county'], $result_row['contact'], $result_row['phone'], $result_row['email'], $result_row['status'], $result_row['notes']);
 		$theProviders[] = $aProvider;
@@ -128,8 +136,12 @@ function insert_dbProviders($Provider){
 	}
 	$con=connect();
 	$query = "SELECT * FROM dbProviders WHERE provider_id = '" . $Provider->get_provider_id() . "'";
-	$result = mysql_query($query);
-	if (mysql_num_rows($result) != 0) {
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not insert into dbProviders ".$p->getMessage());
+	}
+	if ($result->rowCount() > 0) {
 		delete_dbProviders($Provider->get_provider_id());
 		$con=connect();
 	}
@@ -148,11 +160,15 @@ function insert_dbProviders($Provider){
 				$Provider->get_status()."','".
 				$Provider->get_notes().
 	            "');";
-	$result = mysql_query($query);
+	try {
+	   $result = $con->query($query);
+	} catch (PDOException $p) {
+	   die("Could not insert into dbProviders ". $p->getMessage());
+	}
 	if (!$result) {
-		echo (mysql_error(). " Unable to insert into dbProviders: " . $Provider->get_provider_id(). "\n");
-		$con=null;
-		return false;
+	   echo (mysql_error(). " Unable to insert into dbProviders: " . $Provider->get_provider_id(). "\n");
+	   $con=null;
+	   return false;
 	}
 	$con=null;
 	return true;
@@ -160,10 +176,15 @@ function insert_dbProviders($Provider){
 
 function delete_dbProviders($provider_id){
 	$con=connect();
-	$result = mysql_query("DELETE FROM dbProviders WHERE provider_id =\"".$provider_id."\"");
+	$query="DELETE FROM dbProviders WHERE provider_id =\"".$provider_id."\"";
+	try {
+	    $result = $con->query($query);
+	} catch (PDOException $p) {
+	    die("Could not delete provider ".$p->getMessage());
+	}
 	$con=null;
 	if (!$result) {
-		echo (mysql_error()." unable to delete from dbProviders: ".$provider_id);
+		echo (" unable to delete from dbProviders: ".$provider_id);
 		return false;
 	}
 	return true;
@@ -177,7 +198,7 @@ function update_dbProviders($Provider){
 	if (delete_dbProviders($Provider->get_provider_id()))
 	return insert_dbProviders($Provider);
 	else {
-		echo (mysql_error()."unable to update dbProvider table: ".$Provider->get_provider_id());
+		echo ("unable to update dbProvider table: ".$Provider->get_provider_id());
 		return false;
 	}
 }

@@ -7,16 +7,13 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  * 
  */
-
+use PHPUnit\Framework\TestCase;
 include_once(dirname(__FILE__).'/../domain/Provider.php');
-class testProvider extends UnitTestCase {
-    function testProviderModule() {
-             
+class ProviderTest extends TestCase {
+    function testProvider() {    
     	//fake provider to test
         $provider = new Provider("FEMA", 1, "food", "1 Lincoln Rd.", "Walla Walla", "WA", "99362", "Columbia", "Seamus",
         						 "1234567899", "hey@aol.com", "active", "shay-mus");
-
-        
         // testing getter functions
         $this->assertTrue($provider->get_provider_id() == "FEMA");
         $this->assertTrue($provider->get_type() == "food");
@@ -30,9 +27,6 @@ class testProvider extends UnitTestCase {
         $this->assertTrue($provider->get_email() == "hey@aol.com");
         $this->assertTrue($provider->get_status() == "active");
         $this->assertTrue($provider->get_notes() == "shay-mus");
-        
-                  
-        echo ("testProvider complete\n");
     }
 }
 

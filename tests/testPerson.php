@@ -6,10 +6,10 @@
  * terms of the GNU Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/).
  */
-
+use PHPUnit\Framework\TestCase;
 include_once(dirname(__FILE__).'/../domain/Person.php');
-class testPerson extends UnitTestCase {
-    function testPersonModule() {
+class PersonTest extends TestCase {
+    function testPerson() {
              
     	//fake person to test
         $person = new Person("Smith", "John", "1 Scarborough Head Rd","Walula", "WA", "99123", "8431112345", "", 
@@ -26,8 +26,6 @@ class testPerson extends UnitTestCase {
         $this->assertTrue($person->get_phone2() == "");
         $this->assertTrue($person->get_email() == "jsmith@aol.com");
         $this->assertTrue($person->is_type("staff"));
-                  
-        echo ("testPerson complete\n");
     }
 }
 

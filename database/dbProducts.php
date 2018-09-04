@@ -178,7 +178,7 @@ function insert_dbProducts($Product){
 	try {
 	    $result = $con->query($query);
 	} catch (PDOException $p) {
-	    die("Could not retrieve from dbProducts ".$p->getMessage());
+	    die("Could not insert into dbProducts ".$p->getMessage());
 	}
 	if ($result->rowCount() > 0) {
 		delete_dbProducts($Product->get_product_id(),$Product->get_funding_source(),$Product->get_status());
