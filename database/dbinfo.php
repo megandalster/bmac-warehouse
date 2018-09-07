@@ -14,7 +14,7 @@ function connect() {
 	$user = "bmacwarehousedb";
 	$password = "math204";
 	try {
-	   $con = new PDO('mysql:host=localhost:8889;dbname=bmacwarehousedb', 
+	   $con = new PDO('mysql:host=localhost;dbname=bmacwarehousedb', 
 	       'bmacwarehousedb', 'math204');
 	   return $con;
 	}
