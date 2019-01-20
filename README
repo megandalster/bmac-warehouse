@@ -1,0 +1,15 @@
+BMAC-Warehouse is a web-based application that provides food inventory and delivery support
+for BMAC, a food distribution non-profit in Walla Walla, Washington.
+
+Installation: BMAC-Warehouse runs on an Apache/MySQL/PHP server.  To install a demo version, visit the
+project Wiki at https://github.com/megandalster/bmac-warehouse/wiki/installation-and-reuse/.  The live version runs on
+the BMAC web site at https://warehouse.bmacww.org/
+
+For more details on using BMAC-Warehouse as a project for a CO-FOSS course, visit this site:
+ https://github.com/megandalster/bmac-warehouse/wiki/project-resources/.
+
+Credits: BMAC-Warehouse was developed in 2015 by Moustafa El Badry, Noah Jensen, Dylan Martin, Luis 
+Munguia Orta, David Quennoz, and Allen Tucker.  Since then, it has been significantly upgraded 
+and is currently maintained by NPFI (https://npfi.org).
+
+License: GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
