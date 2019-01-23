@@ -23,9 +23,9 @@
 			<div id="content">
 				<p><strong>Background</strong><br /><br />
 				  
-	      		<i>BMAC-Warehouse</i> is a web-based warehouse inventory management system developed by <a href="http://whitman.edu" target="_blank">Whitman College</a> students and an instructor 
-	      		for the <a href="http://bmacww.org" target="_blank">Blue Mountain Action Council in Walla Walla, WA</a>. It is
-				based on software developed for other non-profits by other student teams during the period 2008-2013.    
+	      		<i>BMAC-Warehouse</i> is web-based warehouse inventory management software developed by <a href="http://whitman.edu" target="_blank">Whitman College</a> students, an instructor, and 
+	      		the Foodbank Director the <a href="http://bmacww.org" target="_blank">Blue Mountain Action Council in Walla Walla, WA</a>. It is
+				derived from software developed for other non-profits by other student teams during the period 2008-2013.
  
 				<p>This project is supported by the <a href="http://npfi.org" target="_blank">
 				Non-Profit FOSS Institute (NPFI)</a>, which "aims to build communities that develop and support customized 
@@ -36,13 +36,12 @@
 				
  				<p><b>System Access and Reuse</b><br /><br />
 				Because <i>BMAC-Warehouse</i> must protect the privacy of individual food donors and customers, access to the system by non-BMAC staff members is
-				prohibited.  If you are a BMAC staff member and have forgotten your Username or Password, please contact the <a href="mailto:jeffm@bmacww.org">Foodbank Director</a>.
+				prohibited.  If you are a BMAC staff member and have forgotten your Username or Password, please contact the Foodbank Director.
                 </p>
-				<p> <i>BMAC-Warehouse</i> is free and open source software (see <a href="http://code.google.com/p/bmac-warehouse/" target="_blank">http://code.google.com/p/bmac-warehouse/</a>).  
-				From this site, its source code can be freely downloaded and adapted
-				 to fit the warehouse inventory management needs of other non-profits.  
-				 For more information about the capabilities or adaptability of <i>BMAC-Warehouse</i></i> to other settings, please 
-				 contact <a href="mailto:allen@bowdoin.edu">Allen Tucker</a>.
+				<p> <i>BMAC-Warehouse</i> is free and open source software. Its source code can be freely downloaded and adapted to support the food warehosue needs of other nonprofit organizations
+				(see <a href="https://github.com/megandalster/bmac-warehouse/wiki" TARGET="_BLANK">https://github.com/megandalster/bmac-warehouse/wiki</a>).  
+				 For more information about <i>BMAC-Warehouse</i></i>, please 
+				 visit the website <a href="https://npfi.org/the-bmac-warehouse-project" TARGET="_BLANK">https://npfi.org/the-bmac-warehouse-project</a>.
 				</p>
 				
 			</div>
