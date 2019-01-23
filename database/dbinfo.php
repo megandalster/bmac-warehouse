@@ -12,10 +12,10 @@ function connect() {
 	$host = "localhost";
 	$database = "bmacwarehousedb";
 	$user = "bmacwarehousedb";
-	$password = "math204";
+	$password = "bmacwarehousedb";
 	try {
 	   $con = new PDO('mysql:host=localhost;dbname=bmacwarehousedb', 
-	       'bmacwarehousedb', 'math204');
+	       'bmacwarehousedb', 'bmacwarehousedb');
 	   return $con;
 	}
     catch (PDOException $e) {
